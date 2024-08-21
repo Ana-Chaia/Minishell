@@ -4,7 +4,8 @@ CC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = 	./src/main.c \
+SRC = 	./src/main.c  \
+		./src/token.c \
 		
 OBJ_DIR = obj
 
@@ -21,14 +22,14 @@ all: intro $(NAME)
 
 intro:
 	@printf "%b" "$(OK_COLOR)"
-	@echo "                 #             #           #              ##     ##   "
+	@echo "                #             #           #              ##     ##    "
 	@echo "                                          #               #      #    "
 	@echo "       ## #    ##    # ##    ##     ###   # ##    ###     #      #    "
 	@echo "       # # #    #    ##  #    #    #      ##  #  #   #    #      #    "
 	@echo "       # # #    #    #   #    #     ###   #   #  #####    #      #    "
 	@echo "       # # #    #    #   #    #        #  #   #  #        #      #    "
 	@echo "       #   #   ###   #   #   ###   ####   #   #   ###    ###    ###   "
-	
+
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
