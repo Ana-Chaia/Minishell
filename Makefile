@@ -21,14 +21,14 @@ all: intro $(NAME)
 
 intro:
 	@printf "%b" "$(OK_COLOR)"
-	@echo "        _   _  _____  _      _      "
-	@echo "       | | | ||  ___|| |    | |     "
-	@echo "       | |_| || |__  | |    | |     "
-	@echo "       |  _  ||  __| | |    | |     "
-	@echo "       | | | || |___ | |____| |____ "
-	@echo "       \_| |_/\____/ \_____/\_____/ "
-	@echo                  
-
+	@echo "                 #             #           #              ##     ##   "
+	@echo "                                          #               #      #    "
+	@echo "       ## #    ##    # ##    ##     ###   # ##    ###     #      #    "
+	@echo "       # # #    #    ##  #    #    #      ##  #  #   #    #      #    "
+	@echo "       # # #    #    #   #    #     ###   #   #  #####    #      #    "
+	@echo "       # # #    #    #   #    #        #  #   #  #        #      #    "
+	@echo "       #   #   ###   #   #   ###   ####   #   #   ###    ###    ###   "
+	
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
@@ -37,7 +37,7 @@ $(OBJ_DIR)/%.o: ./src/%.c
 	@$(CC) $(FLAGS) -c $< -o $@ -g3 $(HEADERS)
 	
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) -g3 $(OBJ) $(HEADERS) $(LIBFT) -o $(NAME)
+	@$(CC) -g3 $(OBJ) $(HEADERS) $(LIBFT) -o $(NAME) -lreadline
 	@echo "Compilation complete!"
 
 clean:
