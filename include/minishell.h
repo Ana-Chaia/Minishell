@@ -4,6 +4,7 @@
 
 # include "../libft/libft.h"
 # include "struct.h"
+# include "tokenize.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>

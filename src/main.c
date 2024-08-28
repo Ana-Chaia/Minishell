@@ -21,8 +21,8 @@ int	main(void)
 		add_history(mini->input);
 		if (mini->input == NULL)
 			clear_and_free(mini);
-
-		// cmd = take_token(mini->input);
+		validate_input(mini->input);
+		cmd = take_token(mini->input);
 		// execve("/usr/bin/ls", args, NULL);
 	}
 	free(mini->input);
