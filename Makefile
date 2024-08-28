@@ -4,8 +4,9 @@ CC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = 	./src/main.c  \
-		./src/token.c \
+SRC = 	./src/main.c \
+		./src/tokenize/token.c \
+		./src/tokenize/validate.c \
 		
 OBJ_DIR = obj
 
@@ -34,7 +35,7 @@ $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 $(OBJ_DIR)/%.o: ./src/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $< -o $@ -g3 $(HEADERS)
 	
 $(NAME): $(OBJ) $(LIBFT)
