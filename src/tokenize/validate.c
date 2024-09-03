@@ -57,7 +57,6 @@ int	parenthesis_closed(char *str)
 	i = 0;
 	paren = 0;
 	thesis = 0;
-
 	while (str[i])
 	{
 		if (str[i] == '"')
@@ -83,7 +82,6 @@ int	parenthesis_closed(char *str)
 	return (0);
 }
 
-
 int	not_oblig_backslash(char *str)
 {
 	int	i;
@@ -91,7 +89,6 @@ int	not_oblig_backslash(char *str)
 
 	i = 0;
 	bkslsh = 0;
-
 	while (str[i])
 	{
 		if (str[i] == '"')

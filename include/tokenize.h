@@ -13,4 +13,10 @@ int		single_quotes_closed(char *str);
 int		parenthesis_closed(char *str);
 int		not_oblig_backslash(char *str);
 
+void	token_type(char *input, t_token **list);
+t_token	*create_node(char *input, int type);
+int	create_list(t_token **token_list, t_token *token_node, int idx, int flag);
+int	token_word(t_token **token_list, int idx, char *input);
+int	is_space(char c);
+
 #endif

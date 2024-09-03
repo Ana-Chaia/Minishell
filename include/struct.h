@@ -14,7 +14,7 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	char	*input;
-	t_token	*token;
+	t_token	*tokenlist;
 
 }	t_minishell;
 

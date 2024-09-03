@@ -22,7 +22,7 @@ int	main(void)
 		if (mini->input == NULL)
 			clear_and_free(mini);
 		validate_input(mini);
-		// take_token(mini->input);
+		token_type(mini->input, &mini->tokenlist);
 		// execve("/usr/bin/ls", args, NULL);
 	}
 	free(mini->input);
@@ -32,7 +32,7 @@ int	main(void)
 void	init_struct(t_minishell *mini)
 {
 	mini->input = NULL;
-	mini->token = NULL;
+	mini->tokenlist = NULL;
 }
 
 void	clear_and_free(t_minishell *mini)

@@ -41,7 +41,10 @@ void	token_type(char *input, t_token **list)
 		else if (input[i] == '>' && input[i + 1] == '>')
 			i = create_list (list, create_node (input, APPEND), i, 2);
 		else
-			i = token_word();
+		{
+			i = token_word(list, i, input);
+			printf("i: %d\n", i);
+		}
 	}
 }
 
@@ -77,15 +80,27 @@ int	create_list(t_token **token_list, t_token *token_node, int idx, int flag)
 	return (idx + flag);
 }
 
-
-int	for_word(t_token **token_list, t_token *token_node, int idx)
+int	token_word(t_token **token_list, int idx, char *input)
 {
-	if (is_space)
+	size_t	start;
+	size_t	end;
+	int		i;
+
+	i = 0;
+	if (is_space(input[idx]))
+		return (idx + 1);
+	start = (size_t)idx;
+	idx++;
+	while (input[idx] && !is_space(input[idx]) && input[idx] != '|'
+		&& input[idx] != '\'' && input[idx] != '"' && input[idx] != '<'
+		&& input[idx] != '>' && input[idx] != '(' && input[idx] != ')')
+		idx++;
+	end = (size_t)idx;
+	create_list(token_list, (create_node (input, WORD)), start, (end - start));
+	return (end);
 }
 
-
-
-int	is_space (char c)
+int	is_space(char c)
 {
 	if ((c == ' ') || (c == '\t') || (c == '\v') || (c == '\n') || (c == '\r'))
 		return (1);
