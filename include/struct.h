@@ -18,4 +18,16 @@ typedef struct s_minishell
 
 }	t_minishell;
 
+enum e_type
+{
+	PIPE,
+	S_QUOTES,
+	D_QUOTES,
+	RED_IN,
+	RED_OUT,
+	HEREDOC,	
+	APPEND,
+	WORD,
+};
+
 #endif

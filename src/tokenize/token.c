@@ -21,62 +21,31 @@
 
 void	token_type(char *input, t_token **list)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '"')
-			i = token_d_quotes();
+		if (input[i] == '|' && input[i + 1] != '|')
+			i = create_list (list, create_node (input, PIPE), i, 1);
 		else if (input[i] == '\'')
-			i = token_s_quotes();
-		else if (input[i] == '|' && input[i + 1] != '|')
-			i = token_pipe(i, input, list);
+			i = create_list (list, create_node (input, S_QUOTES), i, 1);
+		else if (input[i] == '"')
+			i = create_list (list, create_node (input, D_QUOTES), i, 1);
 		else if (input[i] == '<' )
-			i = token_;
+			i = create_list (list, create_node (input, RED_IN), i, 1);
 		else if (input[i] == '>')
-			i = ;
-		else if (input[i] == '')
-			i = ;
-		else if (input[i] == '')
-			i = ;
-		else if (input[i] == '')
-			i = ;
-							
+			i = create_list (list, create_node (input, RED_OUT), i, 1);
+		else if (input[i] == '<' && input[i + 1] == '<')
+			i = create_list (list, create_node (input, HEREDOC), i, 2);
+		else if (input[i] == '>' && input[i + 1] == '>')
+			i = create_list (list, create_node (input, APPEND), i, 2);
+		else
+			i = token_word();
 	}
-
-}
-	// '
-	// "
-	// <
-	// >
-	// <<
-	// >>
-	// |
-	// 	word
-
-// o $ vai entrar em word???
-// }
-
-int	token_pipe(int idx, char *input, t_token **list)
-{
-	int i
-	t_token	*node
-
-	node = (t_token *) ft_calloc(1, sizeof(t_token));
-	node->type = PIPE;
-	node->content = input[idx];
-	create_node (list, node);
-
-
-	i = 0;
-	while
-	{
-	}
-	return (idx + i)
 }
 
-t_token	*create_token_node (char* input, int type)
+t_token	*create_node(char *input, int type)
 {
 	t_token	*new;
 
@@ -91,7 +60,7 @@ t_token	*create_token_node (char* input, int type)
 	return (new);
 }
 
-void	create_token_list(t_token **token_list, t_token *token_node)
+int	create_list(t_token **token_list, t_token *token_node, int idx, int flag)
 {
 	t_token	*curr;
 
@@ -105,16 +74,21 @@ void	create_token_list(t_token **token_list, t_token *token_node)
 		curr->next = token_node;
 		token_node->prev = curr;
 	}
+	return (idx + flag);
 }
 
-int	token pipe(int idx, t_token **list)
-{
-	int i
 
-	i = 1;
-	while
-	{
-		pipe_node = (t_)
-	}
-	return (idx + i)
+int	for_word(t_token **token_list, t_token *token_node, int idx)
+{
+	if (is_space)
+}
+
+
+
+int	is_space (char c)
+{
+	if ((c == ' ') || (c == '\t') || (c == '\v') || (c == '\n') || (c == '\r'))
+		return (1);
+	else
+		return (0);
 }
