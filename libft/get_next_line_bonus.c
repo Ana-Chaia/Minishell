@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:05:37 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/02/05 11:57:21 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:13:04 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,31 @@ char	*ft_strdup(const char *s)
 	return (result);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*new;
-	size_t	len_s;
-	size_t	i;
+// char	*ft_substr(char const *s, unsigned int start, size_t len)
+// {
+// 	char	*new;
+// 	size_t	len_s;
+// 	size_t	i;
 
-	len_s = 0;
-	if (!s)
-		return (NULL);
-	while (s[len_s] != '\0')
-		len_s++;
-	if (len_s < start)
-		return (ft_strdup(""));
-	if (len >= len_s)
-		new = (char *)malloc (len_s - start + 1);
-	else
-		new = (char *)malloc (len + 1);
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (len-- > 0 && s[start] != '\0')
-		new[i++] = s[start++];
-	new[i] = '\0';
-	return (new);
-}
+// 	len_s = 0;
+// 	if (!s)
+// 		return (NULL);
+// 	while (s[len_s] != '\0')
+// 		len_s++;
+// 	if (len_s < start)
+// 		return (ft_strdup(""));
+// 	if (len >= len_s)
+// 		new = (char *)malloc (len_s - start + 1);
+// 	else
+// 		new = (char *)malloc (len + 1);
+// 	if (!new)
+// 		return (NULL);
+// 	i = 0;
+// 	while (len-- > 0 && s[start] != '\0')
+// 		new[i++] = s[start++];
+// 	new[i] = '\0';
+// 	return (new);
+// }
 
 char	*ft_countncut(char *line, char **rest)
 {

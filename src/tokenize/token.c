@@ -1,24 +1,6 @@
 
 #include "../include/minishell.h"
 
-// void	get_token(char *input)
-// {
-// 	char		**cmd;
-// 	t_token		*token;
-// 	int			i;
-
-// 	i = 0;
-// 	while (input)
-// 	{
-// 		;
-		
-// 		token->content = cmd[i];
-// 		// token = token->next
-// 	}
-
-// }
-
-
 void	token_type(char *input, t_token **list)
 {
 	int		i;
@@ -27,43 +9,47 @@ void	token_type(char *input, t_token **list)
 	while (input[i])
 	{
 		if (input[i] == '|' && input[i + 1] != '|')
-			i = create_list (list, create_node (input, PIPE), i, 1);
+			i = make_lst (list, create_node (&input[i], PIPE, 0, 1), i, 1);
 		else if (input[i] == '\'')
-			i = create_list (list, create_node (input, S_QUOTES), i, 1);
+			i = make_lst (list, create_node (&input[i], S_QUOTES, 0, 1), i, 1);
 		else if (input[i] == '"')
-			i = create_list (list, create_node (input, D_QUOTES), i, 1);
-		else if (input[i] == '<' )
-			i = create_list (list, create_node (input, RED_IN), i, 1);
-		else if (input[i] == '>')
-			i = create_list (list, create_node (input, RED_OUT), i, 1);
+			i = make_lst (list, create_node (&input[i], D_QUOTES, 0, 1), i, 1);
+		else if (input[i] == '<' && input[i + 1] != '<')
+			i = make_lst (list, create_node (&input[i], RED_IN, 0, 1), i, 1);
+		else if (input[i] == '>' && input[i + 1] != '>')
+			i = make_lst (list, create_node (&input[i], RED_OUT, 0, 1), i, 1);
 		else if (input[i] == '<' && input[i + 1] == '<')
-			i = create_list (list, create_node (input, HEREDOC), i, 2);
+			i = make_lst (list, create_node (&input[i], HEREDOC, 0, 2), i, 2);
 		else if (input[i] == '>' && input[i + 1] == '>')
-			i = create_list (list, create_node (input, APPEND), i, 2);
+			i = make_lst (list, create_node (&input[i], APPEND, 0, 2), i, 2);
 		else
-		{
 			i = token_word(list, i, input);
-			printf("i: %d\n", i);
-		}
 	}
+
 }
 
-t_token	*create_node(char *input, int type)
+t_token	*create_node(char *input, int type, int idx, int flag)
 {
 	t_token	*new;
+	char	*substr;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	new->content = ft_strdup(input);
+	printf("1.idx: %d\n", idx);
+	printf("1.flag: %d\n", flag);
+	printf("1.input: %s\n", input);
+	substr = ft_substr(input, idx, flag);
+	new->content = substr;
+	printf("1.1.content: %s\n", new->content);
 	new->type = type;
 	new->next = NULL;
 	new->prev = NULL;
-	free(input);
+	free(substr);
 	return (new);
 }
 
-int	create_list(t_token **token_list, t_token *token_node, int idx, int flag)
+int	make_lst(t_token **token_list, t_token *token_node, int idx, int flag)
 {
 	t_token	*curr;
 
@@ -93,10 +79,11 @@ int	token_word(t_token **token_list, int idx, char *input)
 	idx++;
 	while (input[idx] && !is_space(input[idx]) && input[idx] != '|'
 		&& input[idx] != '\'' && input[idx] != '"' && input[idx] != '<'
-		&& input[idx] != '>' && input[idx] != '(' && input[idx] != ')')
+		&& input[idx] != '>')
 		idx++;
 	end = (size_t)idx;
-	create_list(token_list, (create_node (input, WORD)), start, (end - start));
+	make_lst(token_list, (create_node (input, WORD, start, end - start)),
+		start, (end - start));
 	return (end);
 }
 
