@@ -40,7 +40,7 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	printf("1.flag: %d\n", flag);
 	printf("1.input: %s\n", input);
 	substr = ft_substr(input, idx, flag);
-	new->content = substr;
+	new->content = ft_strdup(substr);
 	printf("1.1.content: %s\n", new->content);
 	new->type = type;
 	new->next = NULL;
@@ -53,8 +53,12 @@ int	make_lst(t_token **token_list, t_token *token_node, int idx, int flag)
 {
 	t_token	*curr;
 
+	curr = NULL;
 	if (*token_list == NULL)
+	{
 		*token_list = token_node;
+		token_node->position = 1;
+	}
 	else
 	{
 		curr = *token_list;
@@ -62,6 +66,7 @@ int	make_lst(t_token **token_list, t_token *token_node, int idx, int flag)
 			curr = curr->next;
 		curr->next = token_node;
 		token_node->prev = curr;
+		token_node->position = curr->position + 1;
 	}
 	return (idx + flag);
 }

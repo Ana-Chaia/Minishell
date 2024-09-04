@@ -4,6 +4,7 @@
 
 typedef struct s_token
 {
+	int				position;
 	int				type;
 	char			*content;
 	struct s_token	*next;

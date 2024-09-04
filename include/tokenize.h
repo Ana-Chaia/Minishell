@@ -19,4 +19,7 @@ int		make_lst(t_token **token_list, t_token *token_node, int idx, int flag);
 int		token_word(t_token **token_list, int idx, char *input);
 int		is_space(char c);
 
+int		list_size(t_token *list);
+void	list_printer(t_token *list);
+
 #endif

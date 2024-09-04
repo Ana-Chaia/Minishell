@@ -23,6 +23,7 @@ int	main(void)
 			clear_and_free(mini);
 		validate_input(mini);
 		token_type(mini->input, &mini->tokenlist);
+		list_printer(mini->tokenlist);
 		// execve("/usr/bin/ls", args, NULL);
 	}
 	free(mini->input);
@@ -34,6 +35,13 @@ void	init_struct(t_minishell *mini)
 	mini->input = NULL;
 	mini->tokenlist = NULL;
 }
+// 	*tokenlist = NULL;
+// 	(*tokenlist)->position = 0;
+// 	(*tokenlist)->content = NULL;
+// 	(*tokenlist)->type = 0;
+// 	(*tokenlist)->prev = NULL;
+// 	(*tokenlist)->next = NULL;
+// }
 
 void	clear_and_free(t_minishell *mini)
 {
