@@ -11,9 +11,9 @@ void	token_type(char *input, t_token **list)
 		if (input[i] == '|' && input[i + 1] != '|')
 			i = make_lst (list, create_node (&input[i], PIPE, 0, 1), i, 1);
 		else if (input[i] == '\'')
-			i = make_lst (list, create_node (&input[i], S_QUOTES, 0, 1), i, 1);
+			i = token_s_quotes(list, i, input);
 		else if (input[i] == '"')
-			i = make_lst (list, create_node (&input[i], D_QUOTES, 0, 1), i, 1);
+			i = token_d_quotes(list, i, input);
 		else if (input[i] == '<' && input[i + 1] != '<')
 			i = make_lst (list, create_node (&input[i], RED_IN, 0, 1), i, 1);
 		else if (input[i] == '>' && input[i + 1] != '>')
@@ -71,6 +71,40 @@ int	make_lst(t_token **token_list, t_token *token_node, int idx, int flag)
 	return (idx + flag);
 }
 
+int	token_d_quotes(t_token **token_list, int idx, char *input)
+{
+	size_t	start;
+	size_t	end;
+	int		i;
+
+	i = 0;
+	start = (size_t)idx;
+	idx++;
+	while (input[idx] && input[idx] != '"')
+		idx++;
+	end = (size_t)idx + 1;
+	make_lst(token_list, (create_node (input, D_QUOTES, start, end - start)),
+		start, (end - start));
+	return (end);
+}
+
+int	token_s_quotes(t_token **token_list, int idx, char *input)
+{
+	size_t	start;
+	size_t	end;
+	int		i;
+
+	i = 0;
+	start = (size_t)idx;
+	idx++;
+	while (input[idx] && input[idx] != '\'')
+		idx++;
+	end = (size_t)idx + 1;
+	make_lst(token_list, (create_node (input, S_QUOTES, start, end - start)),
+		start, (end - start));
+	return (end);
+}
+
 int	token_word(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
@@ -91,6 +125,7 @@ int	token_word(t_token **token_list, int idx, char *input)
 		start, (end - start));
 	return (end);
 }
+
 
 int	is_space(char c)
 {

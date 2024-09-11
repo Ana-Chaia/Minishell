@@ -14,5 +14,6 @@
 void	init_struct(t_minishell *mini);
 void	clear_and_free(t_minishell *mini);
 void	take_token(char *input);
+void	free_tokenlist(t_token *tokenlist);
 
 #endif

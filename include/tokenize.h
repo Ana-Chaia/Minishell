@@ -22,4 +22,8 @@ int		is_space(char c);
 int		list_size(t_token *list);
 void	list_printer(t_token *list);
 
+
+int	token_d_quotes(t_token **token_list, int idx, char *input);
+int	token_s_quotes(t_token **token_list, int idx, char *input);
+int parenthesis_exists(char *str);
 #endif

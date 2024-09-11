@@ -13,9 +13,9 @@ int	main(void)
 		printf("Malloc fail.\n");
 		return (1);
 	}
-	init_struct(mini);
 	while (1)
 	{
+		init_struct(mini);
 		mini->input = readline("shellzito: ");
 		printf("%s\n", mini->input);
 		add_history(mini->input);
@@ -25,6 +25,7 @@ int	main(void)
 		token_type(mini->input, &mini->tokenlist);
 		list_printer(mini->tokenlist);
 		// execve("/usr/bin/ls", args, NULL);
+		free_tokenlist(mini->tokenlist);
 	}
 	free(mini->input);
 	return (0);
@@ -53,3 +54,18 @@ void	clear_and_free(t_minishell *mini)
 	return ;
 }
 
+void	free_tokenlist(t_token *tokenlist)
+{
+	t_token	*curr;
+	t_token	*next;
+
+	curr = tokenlist;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr->content);
+		free(curr);
+		curr = next;
+	}
+	tokenlist = NULL;
+}
