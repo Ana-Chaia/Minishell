@@ -24,8 +24,9 @@ int	main(void)
 		validate_input(mini);
 		token_type(mini->input, &mini->tokenlist);
 		list_printer(mini->tokenlist);
+		check_syntax(&(mini->tokenlist));
 		// execve("/usr/bin/ls", args, NULL);
-		free_tokenlist(mini->tokenlist);
+		//free_tokenlist(mini->tokenlist);
 	}
 	free(mini->input);
 	return (0);

@@ -7,6 +7,7 @@ FLAGS = -Wall -Wextra -Werror
 SRC = 	./src/main.c \
 		./src/tokenize/token.c \
 		./src/tokenize/validate.c \
+		./src/tokenize/syntax.c\
 		./src/utils/printer.c \
 		
 OBJ_DIR = obj

@@ -29,4 +29,9 @@ int parenthesis_exists(char *str);
 int	quotes_closed(char *str);
 void	invalid_input(char c);
 
+
+int	check_syntax(t_token **token_list);
+int pipe_syntax(t_token *token_node);
+int	chevron_syntax(t_token *token_node);
+
 #endif
