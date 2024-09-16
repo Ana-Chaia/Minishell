@@ -8,6 +8,7 @@ SRC = 	./src/main.c \
 		./src/tokenize/token.c \
 		./src/tokenize/validate.c \
 		./src/tokenize/syntax.c\
+		./src/redirect/
 		./src/utils/printer.c \
 		
 OBJ_DIR = obj

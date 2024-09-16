@@ -25,6 +25,7 @@ int	main(void)
 		token_type(mini->input, &mini->tokenlist);
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
+		search_heredoc (&(mini->tokenlist));
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
 	}
