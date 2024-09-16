@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:50:04 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/09/16 09:47:37 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:40:54 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int pipe_syntax(t_token *token_node)
 {
 	if (token_node->type == PIPE)
 	{
+		if (ft_strncmp (token_node->prev->content, "|", 1) == 0)
+		{
+			ft_printf("shellzito: no bonus || \n");
+			return (1);
+		}	
 		if (!token_node->prev || !token_node->next
 			|| token_node->prev->type != WORD)
 		{
@@ -70,7 +75,6 @@ int	chevron_syntax(t_token *token_node)
 			ft_printf("shellzito: syntax error near unexpected token `newline'\n");
 			return (1);
 		}
-		return (0);
 	}
 	return (0);
 }
