@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:28:44 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/09/12 10:29:28 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/09/13 09:30:05 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	validate_input(t_minishell *mini)
 {
 	if ((quotes_closed(mini->input) != 42))
 		ft_printf("%s\n", "DEU RUIM!!");
-
 }
 
 int	quotes_closed(char *str)
