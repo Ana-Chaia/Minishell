@@ -12,6 +12,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+#include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
+#include <errno.h>   // Para errno
+#include <string.h>  // Para strerror
+
 void	init_struct(t_minishell *mini);
 void	clear_and_free(t_minishell *mini);
 void	take_token(char *input);
