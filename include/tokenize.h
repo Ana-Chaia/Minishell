@@ -23,15 +23,15 @@ int		list_size(t_token *list);
 void	list_printer(t_token *list);
 
 
-int	token_d_quotes(t_token **token_list, int idx, char *input);
-int	token_s_quotes(t_token **token_list, int idx, char *input);
-int parenthesis_exists(char *str);
-int	quotes_closed(char *str);
+int		token_d_quotes(t_token **token_list, int idx, char *input);
+int		token_s_quotes(t_token **token_list, int idx, char *input);
+int		parenthesis_exists(char *str);
+int		quotes_closed(char *str);
 void	invalid_input(char c);
 
 
-int	check_syntax(t_token **token_list);
-int pipe_syntax(t_token *token_node);
-int	chevron_syntax(t_token *token_node);
+int		check_syntax(t_token **token_list);
+int		pipe_syntax(t_token *token_node);
+int		chevron_syntax(t_token *token_node);
 
 #endif

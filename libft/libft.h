@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:06:32 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/02/05 13:21:12 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:12:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f) (void *), void (*del)(void *));
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t n_elem, size_t size_bytes);
 char	*ft_strchr(const char *str, int chr);
-char	*ft_strjoin(char const *s1, char const *s2);
+// char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
 size_t	ft_strlen(const char *str);
 char	*ft_countncut(char *line, char **rest);

@@ -7,10 +7,10 @@ FLAGS = -Wall -Wextra -Werror
 SRC = 	./src/main.c \
 		./src/tokenize/token.c \
 		./src/tokenize/validate.c \
-		./src/tokenize/syntax.c\
-		./src/redirect/
+		./src/tokenize/syntax.c \
+		./src/redirect/heredoc.c\
 		./src/utils/printer.c \
-		
+
 OBJ_DIR = obj
 
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)

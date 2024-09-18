@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:29:41 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/02/05 11:57:29 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:11:28 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,31 +59,31 @@ char	*ft_strchr(const char *str, int chr)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*new;
-	size_t	len;
-	size_t	i;
-	size_t	j;
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	char	*new;
+// 	size_t	len;
+// 	size_t	i;
+// 	size_t	j;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if (len == 0)
-		return (NULL);
-	new = (char *)malloc (len + 1 * sizeof(char));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (s1 != NULL && s1[i] != '\0')
-	{
-		new[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2 != NULL && s2 [j] != '\0')
-		new[i++] = s2[j++];
-	new[i] = '\0';
-	return (new);
-}
+// 	len = ft_strlen(s1) + ft_strlen(s2);
+// 	if (len == 0)
+// 		return (NULL);
+// 	new = (char *)malloc (len + 1 * sizeof(char));
+// 	if (!new)
+// 		return (NULL);
+// 	i = 0;
+// 	while (s1 != NULL && s1[i] != '\0')
+// 	{
+// 		new[i] = s1[i];
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while (s2 != NULL && s2 [j] != '\0')
+// 		new[i++] = s2[j++];
+// 	new[i] = '\0';
+// 	return (new);
+// }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 {
