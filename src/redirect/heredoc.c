@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/09/18 20:22:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:58:21 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	search_heredoc(t_token **token_list)
 	while (curr)
 	{
 		if (curr->type == HEREDOC)
+		{
 			is_heredoc (curr);
+			break ;
+		}
 		curr = curr->next;
 	}
 }

@@ -36,12 +36,8 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	printf("1.idx: %d\n", idx);
-	printf("1.flag: %d\n", flag);
-	printf("1.input: %s\n", input);
 	substr = ft_substr(input, idx, flag);
 	new->content = ft_strdup(substr);
-	printf("1.1.content: %s\n", new->content);
 	new->type = type;
 	new->next = NULL;
 	new->prev = NULL;
