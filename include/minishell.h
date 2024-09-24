@@ -6,6 +6,7 @@
 # include "struct.h"
 # include "tokenize.h"
 # include "redirect.h"
+# include "ast.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
