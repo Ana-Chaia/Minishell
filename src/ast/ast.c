@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:05:16 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/09/26 15:52:51 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:47:15 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_ast	token_to_ast(t_token *tokenlist)
 
 }
 
-t_ast	*ast_builder(t_ast *ast_node, t_token *curr, int, int)
+t_ast	*ast_builder(t_ast *ast_node, t_token *curr, int, int type)
 {
 	t_ast	*joint;
 
