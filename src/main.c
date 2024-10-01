@@ -26,6 +26,7 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
+		ast_builder(NULL, mini->tokenlist);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
 	}

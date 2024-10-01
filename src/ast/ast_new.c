@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_new.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
+/*   Updated: 2024/10/01 12:07:43 by anacaro5         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-t_ast	token_to_ast(t_token *tokenlist)
+t_token	*token_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
 	t_ast	*joint;
@@ -11,81 +23,52 @@ t_ast	token_to_ast(t_token *tokenlist)
 		curr = curr->next;
 	while (curr != NULL)
 	{
-		if (curr->type == PIPE || curr->prev == NULL)
+		if ((curr->type == PIPE || is_redirect(curr) == 1 || curr->prev == NULL) && curr->status == 0)
 		{
-			ast_builder(joint, curr);
-			return;
+			//curr->status = 42;
+			return (curr);
 		}
-		//if (curr->prev == NULL)
-		{
-
-		}
-
-
 		curr = curr->prev;
 	}
-
+	return (NULL);
 }
 
-t_ast	*ast_builder(t_ast *ast_node, t_token *curr, int, int type)
+t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 {
 	t_ast	*joint;
+	t_token	*curr;
 
-	joint = ast_node;
-	if (joint == NULL)
-		ast_builder(ast_new_node(curr), curr->next);
+	if (tokenlist == NULL)
+		return (ast_node);
+	curr = token_to_ast(tokenlist);
+	if (curr == NULL)
+		return (ast_node);
+	if (ast_node == NULL)
+		joint = ast_new_node(curr);
+	else
+		joint = ast_node;
 	if (curr->type == PIPE)
 	{
-		if (joint->left != NULL)
-			ast_builder (joint->left, curr);
+		if (joint->left == NULL)
+			joint->left = ast_builder(joint->left, curr);
+		if (tokenlist->next->type == WORD)
+			joint->right = ast_builder(joint->right, curr);
 		else
-		{
-			if (curr->next->type == WORD)
-				joint_command (joint->left, curr);
-			else if (is_redirect(curr->next) == 1)
-				joint_redirect (joint->left, curr);
-			
-// 			joint->left->right = ast_builder(joint->left->right, curr->next);
-// 		}
-// 	}
-// 	else
-		
-// 		joint->right = ast_builder (joint->right, curr);
-// }
-
-t_ast	*joint_command(t_ast *ast_node, t_token *curr)
-{
-	t_ast	*joint;
-
-	joint = ast_node;
-	if (joint == NULL)
-		joint_command(ast_new_node(curr), curr->next));
-	if (is_redirect(joint->type) == 1)
-		joint->left = joint_redirect (joint->left, curr);
+			joint->right = ast_builder(joint->left, curr);
+	}
+	else if (is_redirect(curr) == 1)
+	{
+		if (curr->next->type == WORD)
+			joint->right = ast_builder(joint->right, curr);
+		else
+			joint->left = ast_builder(joint->left, curr);
+	}
 	else
-		// joint->right = ast_builder (joint->right, curr);
-
-	
-	retorna ast node
-} 
-
-t_ast	*joint_redirect(t_ast *ast_node, t_token *curr)
-{
-	t_ast	*joint;
-
-	joint = ast_node;
-	if (joint == NULL)
-		joint_command(ast_new_node(curr), curr->next));
-	if (is_redirect(joint->type) == 1)
-		joint->left = joint_command (joint->left, curr);
-	else
-		joint->right = ast_builder (joint->right, curr);
-
-	
-	retorna ast node
+	{
+		joint->left = ast_builder(joint->left, curr);
+	}
+	return (joint);
 }
-
-
 
 t_ast	*ast_new_node(t_token *token_node)
 {
@@ -98,6 +81,8 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node->content = token_node->content;
 	ast_node->left = NULL;
 	ast_node->right = NULL;
+	ast_node->parent = NULL;
+	ast_node->child = NULL;
 	return (ast_node);
 }
 
@@ -109,3 +94,35 @@ int	is_redirect(t_token	*curr)
 		return (1);
 	return (0);
 }
+
+// t_ast	*joint_command(t_ast *ast_node, t_token *curr)
+// {
+// 	t_ast	*joint;
+
+// 	joint = ast_node;
+// 	if (joint == NULL)
+// 		joint_command(ast_new_node(curr), curr->next));
+// 	if (is_redirect(joint->type) == 1)
+// 		joint->left = joint_redirect (joint->left, curr);
+// 	else
+// 		// joint->right = ast_builder (joint->right, curr);
+
+	
+// 	retorna ast node
+// } 
+
+// t_ast	*joint_redirect(t_ast *ast_node, t_token *curr)
+// {
+// 	t_ast	*joint;
+
+// 	joint = ast_node;
+// 	if (joint == NULL)
+// 		joint_command(ast_new_node(curr), curr->next));
+// 	if (is_redirect(joint->type) == 1)
+// 		joint->left = joint_command (joint->left, curr);
+// 	else
+// 		joint->right = ast_builder (joint->right, curr);
+
+	
+// 	retorna ast node
+// }
