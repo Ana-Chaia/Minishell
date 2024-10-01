@@ -39,7 +39,7 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	substr = ft_substr(input, idx, flag);
 	new->content = ft_strdup(substr);
 	new->type = type;
-	new->status = 0;
+	//new->status = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	free(substr);
