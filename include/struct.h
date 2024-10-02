@@ -6,12 +6,10 @@ typedef struct s_token
 {
 	int				position;
 	int				type;
-	int				status;
+	int				blob;
 	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;
-
-
 }	t_token;
 
 typedef struct s_minishell

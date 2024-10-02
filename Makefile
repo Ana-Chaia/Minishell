@@ -10,7 +10,7 @@ SRC = 	./src/main.c \
 		./src/tokenize/syntax.c \
 		./src/redirect/heredoc.c\
 		./src/utils/printer.c \
-		./src/ast/ast_new.c \
+		./src/ast/ast.c \
 
 OBJ_DIR = obj
 

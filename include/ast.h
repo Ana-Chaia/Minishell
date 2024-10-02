@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:59:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/01 10:54:58 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:45:27 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 	struct s_ast	*parent;
-	struct s_ast	*child;
+	// struct s_ast	*child;
 }				t_ast;
 
 
