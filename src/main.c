@@ -29,6 +29,7 @@ int	main(void)
 		ast_builder(NULL, mini->tokenlist);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
+		
 	}
 	free(mini->input);
 	return (0);

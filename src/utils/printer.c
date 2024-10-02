@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:16:09 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/09/04 11:42:36 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:12:06 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,51 @@ void	list_printer(t_token *list)
 	fprintf(stderr, "|----------|---------------|------|----------|----------|\n\n");
 	fflush(stderr);
 }
+
+
+
+// void	ft_tree_printer(t_ast *root)
+// {
+// 	t_token	*current_command;
+// 	t_token	*next_command;
+
+// 	if (root == NULL)
+// 		return ;
+// 	if (root->type != 0)
+// 	{
+// 		fprintf(stderr, "|___________________________________________________|\n");
+// 		fprintf(stderr, "|			R.O.O.T.		    |\n");
+// 		fprintf(stderr, "|...........///				\\\\\\.........|\n");
+// 		fprintf(stderr, "|%27s\n", root->content);
+// 	}
+// 	else
+// 		fprintf(stderr, "|%27s\n", root->content);
+// 	current_command = root;
+// 	while (current_command)
+// 	{
+// 		fprintf(stderr, "|%25s\n", current_command->content);
+// 		next_command = current_command->next;
+// 		free(current_command);
+// 		current_command = next_command;
+// 	}
+// 	if (root->left)
+// 	{
+// 		fprintf(stderr, "\033[0;32m\n");
+// 		fprintf(stderr, "|__________________________________________________|\n");
+// 		fprintf(stderr, "|-----L.E.F.T.-------------------------------------|\n");
+// 		ft_tree_printer(root->left);
+// 		free(root->left);
+// 		root->left = NULL;
+// 	}
+// 	if (root->right)
+// 	{
+// 		fprintf(stderr, "\033[0;33m\n");
+// 		fprintf(stderr, "|__________________________________________________|\n");
+// 		fprintf(stderr, "|-----------------------------------R.I.G.H.T.-----|\n");
+// 		ft_tree_printer(root->right);
+// 		free(root->right);
+// 		root->right = NULL;
+// 	}
+// 	fflush(stderr);
+// 	free(root);
+// }

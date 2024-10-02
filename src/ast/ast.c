@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/02 15:46:57 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:12:41 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 			redir = redir_to_ast(curr->next);
 			if (redir != curr->next)
 				joint->right = ast_builder(joint->right, redir);
-			else if (curr->next->next && curr->next->next->type == WORD)
-			joint->right = ast_builder(joint->right, curr->next->next);
+			else if (curr->next && curr->next->type == WORD && redir == curr->next)
+				joint->right = ast_builder(joint->right, curr->next->next);
 			
 		// else
 		// 	joint->right = ast_builder(joint->left, curr);
@@ -164,6 +164,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 		{
 			joint->left = ast_builder(joint->left, curr->next);
 		}
+		// ft_tree_printer(joint);
 	}
 	return (joint);
 }
