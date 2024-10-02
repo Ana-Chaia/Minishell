@@ -6,13 +6,13 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/02 09:37:33 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:46:57 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token	*token_to_ast(t_token *tokenlist)
+t_token	*pipe_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
 	t_ast	*joint;
@@ -23,8 +23,7 @@ t_token	*token_to_ast(t_token *tokenlist)
 		curr = curr->next;
 	while (curr != NULL)
 	{
-		// if (curr->type == PIPE || is_redirect(curr) == 1 || curr->prev == NULL)
-		if ((curr->type == PIPE || is_redirect(curr) == 1 || curr->prev == NULL) && curr->blob == 0)
+		if ((curr->type == PIPE || curr->prev == NULL) && curr->blob == 0)
 		{
 			curr->blob = 42;
 			printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
@@ -35,6 +34,30 @@ t_token	*token_to_ast(t_token *tokenlist)
 	}
 	return (tokenlist);
 }
+
+t_token	*redir_to_ast(t_token *tokenlist)
+{
+	t_token	*curr;
+	t_ast	*joint;
+
+	curr = tokenlist;
+	joint = NULL;
+	// while (curr->next)
+	// 	curr = curr->next;
+	while (curr != NULL && curr->next != PIPE)
+	{
+		if (is_redirect(curr) == 1 && curr->blob == 0)
+		{
+			curr->blob = 42;
+			printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
+			return (curr);
+		}
+		printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
+		curr = curr->next;
+	}
+	return (tokenlist);
+}
+
 
 // t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 // {
@@ -101,10 +124,11 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 {
 	t_ast	*joint;
 	t_token	*curr;
+	t_token	*redir;
 
 	if (tokenlist == NULL)
 		return (ast_node);
-	curr = token_to_ast(tokenlist);
+	curr = pipe_to_ast(tokenlist);
 	if (curr == NULL)
 		return (ast_node);
 	if (ast_node == NULL)
@@ -114,30 +138,35 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	if (curr->type == PIPE)
 	{
 		if (joint->left == NULL)
+			// joint->left = ast_builder(joint->left, tokenlist)
 			joint->left = ast_builder(joint, curr);
-		if (curr->next && curr->next->type == WORD)
-			joint->right = ast_builder(joint->right, curr);
+		if (curr->next)
+		{
+			redir = redir_to_ast(curr->next);
+			if (redir != curr->next)
+				joint->right = ast_builder(joint->right, redir);
+			else if (curr->next->next && curr->next->next->type == WORD)
+			joint->right = ast_builder(joint->right, curr->next->next);
+			
+		// else
+		// 	joint->right = ast_builder(joint->left, curr);
+		// como sai daqui??  qndo é pipe e ja colocou tudo
+		// colocou em uma variável e avançou o current para sair do pipe
+		}
+		else if (is_redirect(curr) == 1)
+		{
+			if (curr->next && curr->next->type == WORD)
+				joint->right = ast_builder(joint->right, curr->next);
+			else
+				joint->left = ast_builder(joint->left, curr);
+		}
 		else
-			joint->right = ast_builder(joint->left, curr);
-	}
-	else if (is_redirect(curr) == 1)
-	{
-		if (curr->next->type == WORD)
-			joint->right = ast_builder(joint->right, curr);
-		else
-			joint->left = ast_builder(joint->left, curr);
-	}
-	else
-	{
-		joint->left = ast_builder(joint->left, curr);
+		{
+			joint->left = ast_builder(joint->left, curr->next);
+		}
 	}
 	return (joint);
 }
-
-
-
-
-
 
 
 
@@ -171,4 +200,45 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 
 	
 // 	retorna ast node
+// }
+
+// t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
+// {
+// 	t_ast	*joint;
+// 	t_token	*curr;
+
+// 	if (tokenlist == NULL)
+// 		return (ast_node);
+// 	curr = pipe_to_ast(tokenlist);
+// 	if (curr == NULL)
+// 		return (ast_node);
+// 	if (ast_node == NULL)
+// 		joint = ast_new_node(curr);
+// 	else
+// 		joint = ast_node;
+// 	if (curr->type == PIPE)
+// 	{
+// 		if (joint->left == NULL)
+// 			// joint->left = ast_builder(joint->left, tokenlist)
+// 			joint->left = ast_builder(joint, curr);
+// 		if (redir_to_ast(curr) != curr)
+// 			joint->right = ast_builder(joint->right, redir_to_ast(curr));
+// 		if (redir_to_ast(curr) == curr && curr->next && curr->next->type == WORD)
+// 			joint->right = ast_builder(joint->right, curr->next);
+// 		// else
+// 		// 	joint->right = ast_builder(joint->left, curr);
+// 		// como sai daqui??  qndo é pipe e ja colocou tudo
+// 	}
+// 	else if (is_redirect(curr) == 1)
+// 	{
+// 		if (curr->next->type == WORD)
+// 			joint->right = ast_builder(joint->right, curr);
+// 		else
+// 			joint->left = ast_builder(joint->left, curr);
+// 	}
+// 	else
+// 	{
+// 		joint->left = ast_builder(joint->left, curr);
+// 	}
+// 	return (joint);
 // }

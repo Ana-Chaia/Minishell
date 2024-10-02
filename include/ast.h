@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:59:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/01 15:45:27 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:44:33 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct s_ast
 }				t_ast;
 
 
-t_token	*token_to_ast(t_token *tokenlist);
+t_token	*pipe_to_ast(t_token *tokenlist);
+t_token	*redir_to_ast(t_token *tokenlist);
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist);
 t_ast	*ast_new_node(t_token *token_node);
 int		is_redirect(t_token	*curr);
-
 
 #endif
