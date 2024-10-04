@@ -5,6 +5,7 @@ int	main(void)
 {
 	// char		**cmd;
 	t_minishell	*mini;
+	t_ast* 	tree;
 
 	// mini = NULL;
 	mini = (t_minishell *)malloc(sizeof(t_minishell));
@@ -26,7 +27,8 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
-		ast_builder(NULL, mini->tokenlist);
+		tree = ast_builder(NULL, mini->tokenlist);
+		ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
 		

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:16:09 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/02 17:12:06 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:04:18 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	list_printer(t_token *list)
 // 	}
 // 	else
 // 		fprintf(stderr, "|%27s\n", root->content);
-// 	current_command = root;
+// 	current_command = root->content;
 // 	while (current_command)
 // 	{
 // 		fprintf(stderr, "|%25s\n", current_command->content);
