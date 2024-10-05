@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/05 15:47:14 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:27:19 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	if (tokenlist == NULL)
 		return (ast_node);
 	curr = pipe_to_ast(tokenlist);
+	if (curr != PIPE)
+	{
+		curr = redir_to_ast(curr); 
+	}
 	//printf("Retorno da pipe_to_ast: %p\n", curr);
 	if (curr == NULL)
 		{return (ast_node);}
@@ -167,7 +171,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 		
 		else if (is_redirect(curr) == 1)
 		{
-			if (curr->next && curr->next->type == WORD)
+			if (curr->next && curr->next->type == WORD)  //trocar para filename???
 				joint->right = ast_builder(joint->right, curr->next);
 			if (curr->prev && curr->prev->type != PIPE)
 			{

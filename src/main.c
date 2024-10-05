@@ -46,8 +46,8 @@ int	main(void)
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
 		tree = ast_builder(NULL, mini->tokenlist);
-		printf("----------primeiro joint: %s\n", tree->content);
-		printf("----------1 joint esquerda : %s\n", tree->left->content);
+		//printf("----------primeiro joint: %s\n", tree->content);
+		//printf("----------1 joint esquerda : %s\n", tree->left->content);
 		//printf("----------1 joint direita: %s\n", tree->right->content);
 		//printf("----------direita do 1 joint à esquerda: %s\n", tree->left->right->content);
 		//printf("----------esquerda do 1 joint à esquerda: %s\n", tree->left->left->content);
