@@ -1,6 +1,23 @@
 
 #include "../include/minishell.h"
 
+
+void    print_tree(t_ast *root, int nivel)
+{
+    int    i;
+
+    if (root)
+    {
+        print_tree(root->right, nivel + 1);
+        printf("\n\n");
+        for(i = 0; i < nivel; i++)
+            printf("\t");
+        printf("%s - %d", root->content, root->type);
+        print_tree(root->left, nivel + 1);
+    }
+}
+
+
 int	main(void)
 {
 	// char		**cmd;
@@ -28,7 +45,15 @@ int	main(void)
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
 		tree = ast_builder(NULL, mini->tokenlist);
-		ft_tree_printer(tree);
+		printf("----------primeiro joint: %s\n", tree->content);
+		printf("----------1 joint esquerda : %s\n", tree->left->content);
+		printf("----------1 joint direita: %s\n", tree->right->content);
+		//printf("----------direita do 1 joint à esquerda: %s\n", tree->left->right->content);
+		//printf("----------esquerda do 1 joint à esquerda: %s\n", tree->left->left->content);
+		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);
+		//printf("----------esquerda do 1 joint à direita: %s\n", tree->right->left->content);
+		print_tree(tree, 1);
+		//ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
 		
