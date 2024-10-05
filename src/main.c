@@ -14,6 +14,7 @@ void    print_tree(t_ast *root, int nivel)
             printf("\t");
         printf("%s - %d", root->content, root->type);
         print_tree(root->left, nivel + 1);
+		printf("\n\n");
     }
 }
 
@@ -47,7 +48,7 @@ int	main(void)
 		tree = ast_builder(NULL, mini->tokenlist);
 		printf("----------primeiro joint: %s\n", tree->content);
 		printf("----------1 joint esquerda : %s\n", tree->left->content);
-		printf("----------1 joint direita: %s\n", tree->right->content);
+		//printf("----------1 joint direita: %s\n", tree->right->content);
 		//printf("----------direita do 1 joint à esquerda: %s\n", tree->left->right->content);
 		//printf("----------esquerda do 1 joint à esquerda: %s\n", tree->left->left->content);
 		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);

@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/05 13:50:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:47:14 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*redir_to_ast(t_token *tokenlist)
 	{
 		if (is_redirect(curr) == 1 && curr->blob == 0)
 		{
-			curr->blob = 42;
+			//curr->blob = 42;
 			printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 			return (curr);
 		}
@@ -155,8 +155,8 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 				redir = redir_to_ast(curr->next);
 				if (redir != curr->next)
 					joint->right = ast_builder(joint->right, redir);
-				else if (curr->next && curr->next->type == WORD && redir == curr->next)
-					joint->right = ast_builder(joint->right, curr->next->next);
+				if (curr->next && curr->next->type == WORD)
+					joint->right = ast_builder(joint->right, curr->next);
 		// else
 		// 	joint->right = ast_builder(joint->left, curr);
 		// como sai daqui??  qndo é pipe e ja colocou tudo
