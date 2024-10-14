@@ -22,6 +22,6 @@ void	clear_and_free(t_minishell *mini);
 void	take_token(char *input);
 void	free_tokenlist(t_token *tokenlist);
 // apagar printer
-void	ft_tree_printer(t_ast *root);
+//void	ft_tree_printer(t_ast *root);
 
 #endif
