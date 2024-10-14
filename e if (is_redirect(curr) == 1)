@@ -1,0 +1,209 @@
+[33mcommit 58e058d0744b77bf3328dffcdc6f7ef7e1a1b2c4[m[33m ([m[1;36mHEAD -> [m[1;32m9-create_ast[m[33m, [m[1;31morigin/9-create_ast[m[33m)[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Fri Oct 4 18:06:18 2024 -0300
+
+    ast improvement
+
+[33mcommit 9570bc1499e68d6134b4af82645d58bbf2ad36cf[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Oct 2 17:16:15 2024 -0300
+
+    ast_builder improve
+
+[33mcommit 8c1db3d2cdfc70add70a93706ec6173d778efbe7[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Oct 2 15:55:55 2024 -0300
+
+    improved ast_builder
+
+[33mcommit 1e257b45ffa1865ba03b8e55a764f67b975d45c4[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Oct 2 10:52:28 2024 -0300
+
+    save status bad ast
+
+[33mcommit 93fbde9e3ca7628bbadbc4717c00077f835c3690[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Oct 1 12:14:40 2024 -0300
+
+    ast_builder test fase + printer.c problem
+
+[33mcommit 3419c989562ccc190081343463eb523222a33f58[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Oct 1 12:08:31 2024 -0300
+
+    ast_builder test fase + printer.c problem
+
+[33mcommit a33a96135827372adcedfac79f6b6252ac5807e5[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Mon Sep 30 15:30:09 2024 -0300
+
+    trying ast_new
+
+[33mcommit 8713fa86983ad7c7136a2c302b9eeec0181c481c[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Thu Sep 26 16:29:17 2024 -0300
+
+    thinking ast_builder
+
+[33mcommit ed0c09f15a6226dcfe66a5c35e398b6c5cc38da9[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Sep 24 14:10:38 2024 -0300
+
+    add ast folder to makefile
+
+[33mcommit 352c167f735e480cdc0af4c5fd9b09509231fc54[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Sep 24 14:04:15 2024 -0300
+
+    add ast.c, ast.h
+
+[33mcommit 3df9f52b18f7055518c6887d2ce70798ffbd0a69[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/10-heredoc[m[33m, [m[1;32mmain[m[33m, [m[1;32m10-heredoc[m[33m)[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Fri Sep 20 10:57:40 2024 -0300
+
+    multiple heredoc break, add ft_putstr_fd, pipe validation corretion
+
+[33mcommit ec02ff8b4b592d7e14a7ba9560d99cc9df354fce[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Sep 18 20:26:04 2024 -0300
+
+    heredoc: open file, read input, fill file
+
+[33mcommit a606048332a1c5c6a61fb298bd91a0529848ae31[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Sep 18 17:31:24 2024 -0300
+
+    create name heredoc
+
+[33mcommit 7ecca49b7a10abd23c33e480fd2ef9237e352639[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Mon Sep 16 16:43:59 2024 -0300
+
+    init heredoc
+
+[33mcommit 2ce873a3ac2235ae3dbcb76dc21bce52fe32d49e[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Mon Sep 16 11:11:28 2024 -0300
+
+    syntax completed
+
+[33mcommit fafdf173128e75a1f7f0413a51efe7094ee08ee0[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Mon Sep 16 09:57:07 2024 -0300
+
+    handle >>> and <<< at chevron_syntax
+
+[33mcommit 42f24eca75738319435eb4402f75328b7992454a[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Fri Sep 13 12:28:39 2024 -0300
+
+    pipe syntax ok + chevron syntax start
+
+[33mcommit 4dc7ecbc7ea1d6e082cc33790321230a6888db5b[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Thu Sep 12 10:32:14 2024 -0300
+
+    validation input correction
+
+[33mcommit 34134d088ad7f0ba771eb14a19c8949a3977c8fa[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Sep 11 11:59:03 2024 -0300
+
+    add free tokenlist + correct () validation
+
+[33mcommit 0d9f7c957d39e9ee52f0919cac510044801fb554[m[33m ([m[1;31morigin/1-create_grammar[m[33m)[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Sep 4 11:44:22 2024 -0300
+
+    add token list printer
+
+[33mcommit d5be5401b4e74657377343ff6e2b69ac4f7ab52c[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Sep 3 19:02:25 2024 -0300
+
+    token creation passing tests okay
+
+[33mcommit 024d466c94454ed6f213246998ed0204d21ee5aa[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Tue Sep 3 15:31:23 2024 -0300
+
+    token_type tests
+
+[33mcommit 5d41f96732d56dcb66a678f24400e122b6137906[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Tue Sep 3 12:44:51 2024 -0300
+
+    improvements token type
+
+[33mcommit ac8dc78d596419bea91e7827010c1e591a7db4eb[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Mon Sep 2 12:01:56 2024 -0300
+
+    add create_token_list & create_token_node
+
+[33mcommit aba4226c5fe3cfe037343b6c1845558dcc36fd3a[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 28 12:07:37 2024 -0300
+
+    add validation single quotes, double quotes, parenthesis, tested okay
+
+[33mcommit 52be4efbadfd4b5974746745a37eb3113806b745[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 28 10:46:37 2024 -0300
+
+    validation_init
+
+[33mcommit 2153c0fb34fb7ec4ee1bcd3979c22e8275e61467[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 21 17:41:56 2024 -0300
+
+    readlineOK
+
+[33mcommit c223b61be3968837c4426201e8bed3fa3993d228[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 21 12:22:50 2024 -0300
+
+    InicioDoFim
+
+[33mcommit ce5c02cee841e1904f6107415c2751ad9f685792[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Thu Aug 8 16:55:26 2024 -0300
+
+    Makefile and .supp
+
+[33mcommit 2220673bc00ef141e24cc8c2a49e55b1444c0f7a[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Aug 7 17:15:45 2024 -0300
+
+    libft
+
+[33mcommit d663f3c729f4eea2007c82f75eb7572d69c86bd6[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Aug 7 17:11:34 2024 -0300
+
+    remove libft .git
+
+[33mcommit afdca6fdcfe8725aa056649624a8805023519c44[m
+Author: Ana Chaia <anacarolinarsr@gmail.com>
+Date:   Wed Aug 7 17:04:51 2024 -0300
+
+    add libft
+
+[33mcommit 61e4531af7dc01f0243295a4d9fad076cf32126f[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 7 15:40:00 2024 -0300
+
+    remove libft
+
+[33mcommit 62a8eeb88f06bbe5fd7ecf39477896dbbf7d9ec4[m
+Author: jbolanho <juliabolanho@gmail.com>
+Date:   Wed Aug 7 15:24:37 2024 -0300
+
+    libft
+
+[33mcommit 0ec402b457dd66bb4b6f02a2c32d985093264da1[m
+Author: Ana Chaia <142057901+Ana-Chaia@users.noreply.github.com>
+Date:   Wed Aug 7 14:30:12 2024 -0300
+
+    Initial commit

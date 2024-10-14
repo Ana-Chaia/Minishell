@@ -8,6 +8,7 @@ SRC = 	./src/main.c \
 		./src/tokenize/token.c \
 		./src/tokenize/validate.c \
 		./src/tokenize/syntax.c \
+		./src/tokenize/together.c\
 		./src/redirect/heredoc.c\
 		./src/utils/printer.c \
 		./src/ast/ast.c \

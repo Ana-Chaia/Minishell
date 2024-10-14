@@ -29,6 +29,9 @@ enum e_type
 	HEREDOC,	
 	APPEND,
 	WORD,
+	FILENAME,
+	CMD,
+	ENDKEY,
 };
 
 #endif
