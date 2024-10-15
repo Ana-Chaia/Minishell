@@ -24,7 +24,7 @@ int	main(void)
 	// char		**cmd;
 	t_minishell	*mini;
 	t_ast*		tree;
-	t_token		united;
+	t_token		*united;
 
 	// mini = NULL;
 	mini = (t_minishell *)malloc(sizeof(t_minishell));
@@ -46,7 +46,8 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
-		united = all_together(mini->tokenlist);
+		united = all_together(&(mini->tokenlist));
+		list_printer(mini->tokenlist);
 		tree = ast_builder(NULL, mini->tokenlist);
 		//printf("----------primeiro joint: %s\n", tree->content);
 		//printf("----------1 joint esquerda : %s\n", tree->left->content);
