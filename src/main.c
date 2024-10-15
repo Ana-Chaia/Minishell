@@ -47,6 +47,7 @@ int	main(void)
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
 		united = all_together(&(mini->tokenlist));
+		clear_list(&(mini->tokenlist));
 		list_printer(mini->tokenlist);
 		tree = ast_builder(NULL, mini->tokenlist);
 		//printf("----------primeiro joint: %s\n", tree->content);

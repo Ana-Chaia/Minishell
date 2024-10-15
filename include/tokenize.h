@@ -36,5 +36,6 @@ int		chevron_syntax(t_token *token_node);
 
 void	change_type(t_token *united);
 t_token	*all_together(t_token **token_list);
+t_token *clear_list(t_token **token_list);
 
 #endif
