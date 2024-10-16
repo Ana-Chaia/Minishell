@@ -12,7 +12,7 @@ void    print_tree(t_ast *root, int nivel)
         printf("\n\n");
         for(i = 0; i < nivel; i++)
             printf("\t");
-        printf("%s - %d", root->content, root->type);
+        printf("%s - %p", root->content, root->type);
         print_tree(root->left, nivel + 1);
 		printf("\n\n");
     }

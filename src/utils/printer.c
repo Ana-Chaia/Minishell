@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:16:09 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/05 15:25:34 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:28:56 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ void	list_printer(t_token *list)
 	list_len = list_size(list);
 	fprintf(stderr, "List size: %d\n", list_len);
 	fprintf(stderr, "List content:\n");
-	fprintf(stderr, "|----------|---------------|------|----------|----------|\n");
-	fprintf(stderr, "| position |    content    | type |   prev   |   next   |\n");
-	fprintf(stderr, "|----------|---------------|------|----------|----------|\n");
+	fprintf(stderr, "|----------|---------------|------|----------|--------|----------|\n");
+	fprintf(stderr, "| position |    content    | type |   prev   |   curr |   next   |\n");
+	fprintf(stderr, "|----------|---------------|------|----------|--------|----------|\n");
 	while (curr)
 	{
-		fprintf(stderr, "| %8d | %13s | %4d | %2p   | %2p   |\n", curr->position, curr->content, curr->type, curr->prev, curr->next);
+		fprintf(stderr, "| %8d | %13s | %4d | %2p   | %2p | %2p   |\n", curr->position, curr->content, curr->type, curr->prev, curr, curr->next);
 		curr = curr->next;
 	}
-	fprintf(stderr, "|----------|---------------|------|----------|----------|\n\n");
+	fprintf(stderr, "|----------|---------------|------|----------|--------|---------|\n\n");
 	fflush(stderr);
 }
 // # define SPACES 4
