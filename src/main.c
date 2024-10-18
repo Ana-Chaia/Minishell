@@ -37,6 +37,7 @@ int	main(void)
 	{
 		init_struct(mini);
 		mini->input = readline("shellzito: ");
+
 		printf("%s\n", mini->input);
 		add_history(mini->input);
 		if (mini->input == NULL)

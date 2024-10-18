@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:59:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/16 10:51:26 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:05:49 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*redir_to_ast(t_token *tokenlist);
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist);
 t_ast	*ast_new_node(t_token *token_node);
 int		is_redirect(t_token	*curr);
-
+t_token *find_last_one (t_token *tokenlist);
 
 
 

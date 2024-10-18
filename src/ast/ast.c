@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/16 12:06:10 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:15:28 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ t_token	*pipe_to_ast(t_token *tokenlist)
 			// printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 			return (curr);
 		}
-		//else if (curr->prev != NULL && curr->prev->type == PIPE && curr->blob == 0 && curr->prev->blob == 42)
-			//return (curr);
+		// else if (curr->prev != NULL && curr->prev->type == PIPE && curr->prev->blob == 42)
+		// 	if (curr->blob == 0)
+		// 		return (curr);
 		// printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 		curr = curr->prev;
 	}
@@ -49,7 +50,14 @@ t_token	*redir_to_ast(t_token *tokenlist)
 	while (curr->next != NULL)
 	{
 		if (curr->next->type == PIPE)
+		{
+			if (curr->type == CMD)
+			{
+				curr = find_last_one (curr);
+				return (curr);
+			}
 			return (tokenlist);
+		}
 		if (is_redirect(curr) == 1 && curr->blob == 0)
 		{
 			//curr->blob = 42;
@@ -58,6 +66,37 @@ t_token	*redir_to_ast(t_token *tokenlist)
 		}
 		printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 		curr = curr->next;
+	}
+	curr = find_last_one (tokenlist);
+	return (tokenlist);
+}
+
+t_token *find_last_one (t_token *tokenlist)
+{
+	int		last_one;
+	t_token	*curr;
+
+	last_one = 0;
+	curr = tokenlist;
+	if (curr->next->type != PIPE)
+	{
+		while (curr->next != NULL || (curr->next != NULL && curr->next->type != PIPE))
+			curr = curr->next;
+	}
+	while (curr->prev != NULL || (curr->prev != NULL && curr->prev->type != PIPE))
+	{
+		if (curr->blob == 0)
+			last_one++;
+		curr = curr->prev;
+	}
+	if (last_one == 1)
+	{
+		while (curr->next != NULL || (curr->next != NULL && curr->next->type != PIPE))
+		{
+			if (curr->blob == 0)
+				return (curr);
+			curr = curr->next;
+		}
 	}
 	return (tokenlist);
 }
@@ -108,7 +147,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	//printf("Tipo da pipe_to_ast: %s\n", curr->content);
 	//if (curr->blob == 0)
 	{
-		if (ast_node == NULL)
+		if (ast_node == NULL && curr->blob != 42)
 		{
 			curr->blob = 42;
 			joint = ast_new_node(curr);
@@ -143,6 +182,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 			{
 				joint->right = ast_new_node(curr->next);
 				curr->next->blob = 42;
+				printf("----------novo joint_filename: %s\n", joint->content);
 				//joint->right = ast_builder(joint->right, curr->next);
 			}
 			if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda   ***não coloca o primeiro cmd depois de um | usado;
@@ -153,6 +193,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 			// 		joint->left = ast_builder(joint->left, redir);
 				joint->left = ast_builder(joint->left, curr->prev);
 			}
+			// if (curr->prev && curr->prev->type == CMD)  
 		}
 		else if (curr->prev == NULL && curr->blob == 0)
 		{
