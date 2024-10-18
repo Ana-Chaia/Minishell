@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:59:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/17 19:05:49 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:52:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_ast
 	char			*content;
 	struct s_ast	*left;
 	struct s_ast	*right;
-	struct s_ast	*parent;
+	//struct s_ast	*parent;
 	// struct s_ast	*child;
 }				t_ast;
 

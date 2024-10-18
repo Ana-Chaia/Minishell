@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/17 21:15:28 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:14:13 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,18 @@ t_token	*redir_to_ast(t_token *tokenlist)
 
 	curr = tokenlist;
 	joint = NULL;
-	// while (curr->next)
-	// 	curr = curr->next;
 	while (curr->next != NULL)
 	{
 		if (curr->next->type == PIPE)
 		{
-			if (curr->type == CMD)
+			if (curr->type == CMD)  /// ERA  CMD
 			{
 				curr = find_last_one (curr);
+				return (curr);
+			}
+			if (curr->type == FILENAME && curr->blob == 42)  /// ERA  CMD
+			{
+				curr = find_last_one (tokenlist);
 				return (curr);
 			}
 			return (tokenlist);
@@ -61,14 +64,14 @@ t_token	*redir_to_ast(t_token *tokenlist)
 		if (is_redirect(curr) == 1 && curr->blob == 0)
 		{
 			//curr->blob = 42;
-			printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
+		//	printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 			return (curr);
 		}
-		printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
+		//printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 		curr = curr->next;
 	}
 	curr = find_last_one (tokenlist);
-	return (tokenlist);
+	return (curr);
 }
 
 t_token *find_last_one (t_token *tokenlist)
@@ -78,16 +81,22 @@ t_token *find_last_one (t_token *tokenlist)
 
 	last_one = 0;
 	curr = tokenlist;
-	if (curr->next->type != PIPE)
+	if (curr->next != NULL && curr->next->type != PIPE)
 	{
-		while (curr->next != NULL || (curr->next != NULL && curr->next->type != PIPE))
+		while (curr->next != NULL)
+		{	
 			curr = curr->next;
+			if (curr != NULL && curr->type != PIPE)
+				break ;
+		}
 	}
-	while (curr->prev != NULL || (curr->prev != NULL && curr->prev->type != PIPE))
+	while (curr->prev != NULL)
 	{
 		if (curr->blob == 0)
 			last_one++;
 		curr = curr->prev;
+		if (curr != NULL && curr->type == PIPE)
+			break ;
 	}
 	if (last_one == 1)
 	{
@@ -113,7 +122,7 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node->content = token_node->content;
 	ast_node->left = NULL;
 	ast_node->right = NULL;
-	ast_node->parent = NULL;
+//	ast_node->parent = NULL;
 	// ast_node->child = NULL;
 	return (ast_node);
 }
@@ -132,77 +141,54 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	t_token	*curr;
 	t_token	*redir;
 
+
 	joint = NULL;
 	if (tokenlist == NULL)
 		return (ast_node);
 	curr = pipe_to_ast(tokenlist);  // pega o último(primeiro) pipe E o primeiro CMD
 	if (curr->type != PIPE)
-	{
 		curr = redir_to_ast(curr); // se curr não é PIPE, pega o primeiro redir
-	}
-	//printf("Retorno da pipe_to_ast: %p\n", curr);
 	if (curr == NULL)
-		{return (ast_node);}
-	//printf("Tipo da pipe_to_ast: %d\n", curr->type);
-	//printf("Tipo da pipe_to_ast: %s\n", curr->content);
-	//if (curr->blob == 0)
+		return (ast_node);
+	if (ast_node == NULL && curr->blob != 42)
 	{
-		if (ast_node == NULL && curr->blob != 42)
-		{
-			curr->blob = 42;
-			joint = ast_new_node(curr);
-			printf("----------novo joint: %s\n", joint->content);
-		}
-		else
-			joint = ast_node;
-		if (curr->type == PIPE)
-		{
-			if (joint->left == NULL)
-				// joint->left = ast_builder(joint->left, tokenlist)
-				joint->left = ast_builder(joint->left, curr);
-			if (curr->next)
-			{
-				redir = redir_to_ast(curr->next);
-				if (redir != curr->next)
-					joint->right = ast_builder(joint->right, redir);
-					//joint->right = ast_new_node(redir);
-				if (curr->next && curr->next->type == CMD)
-					joint->right = ast_builder(joint->right, curr->next);
-		// else
-		// 	joint->right = ast_builder(joint->left, curr);
-		// como sai daqui??  qndo é pipe e ja colocou tudo
-		// colocou em uma variável e avançou o current para sair do pipe
-			}
-		}
-		//criar hipõtese de redir fora do pipe
-		
-		else if (is_redirect(curr) == 1)
-		{
-			if (curr->next && curr->next->type == FILENAME)  //faz o filename na direita
-			{
-				joint->right = ast_new_node(curr->next);
-				curr->next->blob = 42;
-				printf("----------novo joint_filename: %s\n", joint->content);
-				//joint->right = ast_builder(joint->right, curr->next);
-			}
-			if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda   ***não coloca o primeiro cmd depois de um | usado;
-			{
-			// tem mais redir?
-			// redir = redir_to_ast(curr);
-			// if (redir != curr)
-			// 		joint->left = ast_builder(joint->left, redir);
-				joint->left = ast_builder(joint->left, curr->prev);
-			}
-			// if (curr->prev && curr->prev->type == CMD)  
-		}
-		else if (curr->prev == NULL && curr->blob == 0)
-		{
-			curr->blob = 42;
-			redir = redir_to_ast(curr);                  // faz o primeiro redir na esquerda
-			if (redir != curr)
-				joint->left = ast_builder(joint->left, redir);
+		curr->blob = 42;
+		joint = ast_new_node(curr);
+		printf("----------novo joint: %s\n", joint->content);
+	}
+	else
+		joint = ast_node;
+	if (curr->type == PIPE)
+	{
+		if (joint->left == NULL)
 			joint->left = ast_builder(joint->left, curr);
+		if (curr->next)
+		{
+			redir = redir_to_ast(curr->next);
+			if (redir != curr->next)
+				joint->right = ast_builder(joint->right, redir);
+			if (curr->next && curr->next->type == CMD)
+				joint->right = ast_builder(joint->right, curr->next);
 		}
+	}
+	else if (is_redirect(curr) == 1)
+	{
+		if (curr->next && curr->next->type == FILENAME)  //faz o filename na direita
+		{
+			joint->right = ast_new_node(curr->next);
+			curr->next->blob = 42;
+			printf("----------novo joint_filename: %s\n", joint->right->content);
+		}
+		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda   ***não coloca o primeiro cmd depois de um | usado;
+			joint->left = ast_builder(joint->left, curr->prev);
+	}
+	else if (curr->prev == NULL && curr->blob == 0)
+	{
+		curr->blob = 42;
+		redir = redir_to_ast(curr);                  // faz o primeiro redir na esquerda
+		if (redir != curr)
+			joint->left = ast_builder(joint->left, redir);
+		joint->left = ast_builder(joint->left, curr);
 	}
 	return (joint);
 }
