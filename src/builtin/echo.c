@@ -2,13 +2,13 @@
 
 int	call_builtins(char *token)
 {
-	int	 	builtin;
+	int		builtin;
 	char	**cmd;
 
 	builtin = -1;
 	cmd = ft_split(token, ' ');
-	if(!cmd || !cmd[0])
-		return (builtin);	
+	if (!cmd || !cmd[0])
+		return (builtin);
 	if (!ft_strcmp(cmd[0], "echo"))
 		builtin = echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
@@ -44,17 +44,17 @@ int	echo(char **cmd)
 {
 	int	new_line;
 	int	space;
-	int i;
+	int	i;
 
 	i = 1;
 	space = 0;
 	new_line = 1;
-	while(check_minus_nnnns(cmd[i]))
+	while (check_minus_nnnns(cmd[i]))
 	{
 		i++;
 		new_line = 0;
 	}
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (space)
 			ft_putchar_fd (' ', 1);
@@ -64,7 +64,7 @@ int	echo(char **cmd)
 	}
 	if (new_line)
 		ft_putchar_fd ('\n', 1);
-	return (0)
+	return (0);
 }
 
 int	check_minus_nnnns (char *cmd)
@@ -82,13 +82,13 @@ int	check_minus_nnnns (char *cmd)
 	return (0);
 }
 
-void ft_free_split(char **cmd)
+void	ft_free_split(char **cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!cmd)
-		return;
+		return ;
 	while (cmd[i])
 	{
 		free(cmd[i]);

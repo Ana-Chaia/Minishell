@@ -59,6 +59,7 @@ int	main(void)
 		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);
 		//printf("----------esquerda do 1 joint à direita: %s\n", tree->right->left->content);
 		print_tree(tree, 1);
+		copy_env();
 		//ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);

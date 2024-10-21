@@ -12,6 +12,7 @@ SRC = 	./src/main.c \
 		./src/redirect/heredoc.c\
 		./src/utils/printer.c \
 		./src/ast/ast.c \
+		./src/builtin/envp_shellzito.c \
 
 OBJ_DIR = obj
 

@@ -11,7 +11,7 @@
 // or -f is supplied with a name that is not a shell function.
 
 
-int export(char **token)
+int	export(char **token)
 {
 	int		i;
 	char	*equal;
@@ -23,14 +23,17 @@ int export(char **token)
 	else
 
 
+
+
+	return (0);
 }
 
 void	print_all_env(void)
 {
-	char		**env;
-    size_t		i;
-	char    	*print;
-    int         position;
+	char	**env;
+    size_t	i;
+	char	*print;
+    int		position;
 
 	env = env_shellzito(NULL);
 	i = 0;

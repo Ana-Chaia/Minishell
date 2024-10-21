@@ -24,4 +24,13 @@ void	free_tokenlist(t_token *tokenlist);
 // apagar printer
 //void	ft_tree_printer(t_ast *root);
 
+//builtins
+void	copy_env(void);
+char	**env_shellzito(char **our_env);
+
+
+//printers
+void	print_env_copy(char **copy);
+void	free_env(char **array);
+
 #endif

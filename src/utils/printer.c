@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:16:09 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/15 17:28:56 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:20:38 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,21 @@ void	list_printer(t_token *list)
 	fprintf(stderr, "|----------|---------------|------|----------|--------|---------|\n\n");
 	fflush(stderr);
 }
+
+void	print_env_copy(char **copy)
+{
+	int	i;
+
+	i = 0;
+	if (copy == NULL)
+		printf("array envcopy vazio\n");
+	while (copy[i])
+	{
+		printf("env_copy: %s\n", copy[i]);
+		i++;
+	}
+}
+
 // # define SPACES 4
 // # define CYAN "\033[36m"
 // # define RESET "\033[0m"
