@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/18 12:14:13 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/21 08:11:35 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ t_token	*pipe_to_ast(t_token *tokenlist)
 	{
 		if ((curr->type == PIPE || curr->prev == NULL) && curr->blob == 0)
 		{
-			//curr->blob = 42;
-			// printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 			return (curr);
 		}
-		// else if (curr->prev != NULL && curr->prev->type == PIPE && curr->prev->blob == 42)
-		// 	if (curr->blob == 0)
-		// 		return (curr);
-		// printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 		curr = curr->prev;
 	}
 	return (tokenlist);
@@ -49,12 +43,12 @@ t_token	*redir_to_ast(t_token *tokenlist)
 	{
 		if (curr->next->type == PIPE)
 		{
-			if (curr->type == CMD)  /// ERA  CMD
+			if (curr->type == CMD)
 			{
 				curr = find_last_one (curr);
 				return (curr);
 			}
-			if (curr->type == FILENAME && curr->blob == 42)  /// ERA  CMD
+			if (curr->type == FILENAME && curr->blob == 42)
 			{
 				curr = find_last_one (tokenlist);
 				return (curr);
@@ -63,11 +57,8 @@ t_token	*redir_to_ast(t_token *tokenlist)
 		}
 		if (is_redirect(curr) == 1 && curr->blob == 0)
 		{
-			//curr->blob = 42;
-		//	printf("BlobsToken: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 			return (curr);
 		}
-		//printf("Token: %s, Type: %d, Blob: %d\n", curr->content, curr->type, curr->blob);
 		curr = curr->next;
 	}
 	curr = find_last_one (tokenlist);
@@ -140,7 +131,6 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	t_ast	*joint;
 	t_token	*curr;
 	t_token	*redir;
-
 
 	joint = NULL;
 	if (tokenlist == NULL)
