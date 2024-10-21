@@ -1,10 +1,30 @@
 
 #include "../include/minishell.h"
 
+
+void    print_tree(t_ast *root, int nivel)
+{
+    int    i;
+
+    if (root)
+    {
+        print_tree(root->right, nivel + 1);
+        printf("\n\n");
+        for(i = 0; i < nivel; i++)
+            printf("\t");
+        printf("%s - %p", root->content, root->type);
+        print_tree(root->left, nivel + 1);
+		printf("\n\n");
+    }
+}
+
+
 int	main(void)
 {
 	// char		**cmd;
 	t_minishell	*mini;
+	t_ast*		tree;
+	t_token		*united;
 
 	// mini = NULL;
 	mini = (t_minishell *)malloc(sizeof(t_minishell));
@@ -17,6 +37,7 @@ int	main(void)
 	{
 		init_struct(mini);
 		mini->input = readline("shellzito: ");
+
 		printf("%s\n", mini->input);
 		add_history(mini->input);
 		if (mini->input == NULL)
@@ -26,8 +47,22 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
+		united = all_together(&(mini->tokenlist));
+		clear_list(&(mini->tokenlist));
+		list_printer(mini->tokenlist);
+		tree = ast_builder(NULL, mini->tokenlist);
+		//printf("----------primeiro joint: %s\n", tree->content);
+		//printf("----------1 joint esquerda : %s\n", tree->left->content);
+		//printf("----------1 joint direita: %s\n", tree->right->content);
+		//printf("----------direita do 1 joint à esquerda: %s\n", tree->left->right->content);
+		//printf("----------esquerda do 1 joint à esquerda: %s\n", tree->left->left->content);
+		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);
+		//printf("----------esquerda do 1 joint à direita: %s\n", tree->right->left->content);
+		print_tree(tree, 1);
+		//ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
+		
 	}
 	free(mini->input);
 	return (0);

@@ -32,13 +32,16 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 {
 	t_token	*new;
 	char	*substr;
+	int		x;
 
+	x = 0;
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
 	substr = ft_substr(input, idx, flag);
 	new->content = ft_strdup(substr);
 	new->type = type;
+	new->blob = x;
 	new->next = NULL;
 	new->prev = NULL;
 	free(substr);
