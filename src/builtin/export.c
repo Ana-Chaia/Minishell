@@ -17,6 +17,7 @@ int	export(char **token)
 	int		i;
 	char	*name;
 	char	*value;
+	char**	env_shellzito_copy;
 
 	i = 0;
 	value = NULL;
@@ -45,6 +46,12 @@ int	export(char **token)
 						ft_strlen(token[1]) - i - 1);
 		printf("name: %s \n", name);
 		printf("value: %s \n", value);
+		
+		env_shellzito_copy = env_shellzito(NULL);
+		if (ft_strcmp(env_shellzito_copy[0], value) == 0)
+			printf("ja existe\n");
+		else
+			printf("nao existe\n");
 	}
 	return (0);
 }
@@ -59,7 +66,8 @@ int	validate_export_name(char *token)
 	{
 		if (!((token[i] >= 'A' && token[i] <= 'Z') 
 				|| (token[i] >= 'a' && token[i] <= 'z')
-				|| (token[i] >= '0' && token[i] <= '9')))
+				|| (token[i] >= '0' && token[i] <= '9')
+				|| (token[i] == '_')))
 			return (0);
 		i++;
 	}
@@ -128,4 +136,6 @@ void	print_export(char **copy)
 		i++;
 	}
 }
+
+
 
