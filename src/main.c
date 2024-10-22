@@ -63,7 +63,7 @@ int	main(void)
 		//ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
-		
+		call_builtins(mini->tokenlist->content);
 	}
 	free(mini->input);
 	return (0);
