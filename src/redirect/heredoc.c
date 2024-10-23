@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/09/19 17:58:21 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:41:48 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		if ((unsigned char)*s1 != (unsigned char)*s2)
 			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
 		if ((unsigned char)*s1 == '\0' || (unsigned char)*s2 == '\0')
 			return (0);
-	s1++;
-	s2++;
 	}
 	return (0);
 }
+

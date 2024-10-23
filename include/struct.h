@@ -12,11 +12,20 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_export
+{
+	char			*name;
+	char			*value;
+	int				on_env;
+	struct s_export	*next;
+	struct s_export	*prev;
+}	t_export;
+
 typedef struct s_minishell
 {
 	char	*input;
 	t_token	*tokenlist;
-
+	t_export	*export_list;
 }	t_minishell;
 
 enum e_type
@@ -33,5 +42,7 @@ enum e_type
 	CMD,
 	ENDKEY,
 };
+
+
 
 #endif

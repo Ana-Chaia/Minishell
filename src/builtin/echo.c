@@ -1,7 +1,7 @@
 
 #include "../include/minishell.h"
 
-int	call_builtins(char *token)
+int	call_builtins(char *token, t_export **export_list)
 {
 	int		builtin;
 	char	**cmd;
@@ -17,7 +17,7 @@ int	call_builtins(char *token)
 	// else if (!ft_strcmp(cmd[0], "pwd"))
 	// 	builtin = pwd(cmd);
 	else if (!ft_strcmp(cmd[0], "export"))
-		builtin = export(cmd);
+		builtin = export(cmd, export_list);
 	// else if (!ft_strcmp(cmd[0], "unset"))
 	// 	builtin = unset(cmd);
 	// else if (!ft_strcmp(cmd[0], "env"))

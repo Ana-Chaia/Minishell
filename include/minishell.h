@@ -29,14 +29,19 @@ void	copy_env(void);
 void	free_env(char **array);
 char	**env_shellzito(char **our_env);
 
-int	call_builtins(char *token);
+int	call_builtins(char *token, t_export **export_list);
 void	ft_free_split(char **cmd);
 
-int	export(char **token);
-int	validate_export_name(char *token);
-int	validate_export_token2(char *token);
+int	export(char **token, t_export **export_list);
+// int	validate_export_name(char *token);
+// int	validate_export_token2(char *token);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
 void	print_export(char **copy);
+int		list_export(char *token, t_export **export_list);
+int	validate_name(char *token);
+int	compare_to_env(char *name);
+t_export	*create_node_exp(char *name, char *value, int on_env);
+void	make_lst_exp(t_export **export_list, t_export *export_node);
 
 //printers
 void	print_env_copy(char **copy);
