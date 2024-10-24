@@ -40,12 +40,16 @@ void	print_export(char **copy);
 int		list_export(char *token, t_export **export_list);
 int	validate_name(char *token);
 int	compare_to_env(char *name);
-t_export	*create_node_exp(char *name, char *value, int on_env);
+t_export	*create_node_exp(char *name, char *value, int on_env, char equal);
 void	make_lst_exp(t_export **export_list, t_export *export_node);
+void	all_you_need_is_env(t_export **export_list);
+char	**come_together_env(char **new_env, t_export *curr);
+char	**strawberry_fields_forenv(char **env);
+char	*join_env(char const *s1, char const *s2);
 
 //printers
 void	print_env_copy(char **copy);
-void	free_env(char **array);
+// void	free_env(char **array);
 
 
 

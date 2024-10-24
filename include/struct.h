@@ -17,6 +17,7 @@ typedef struct s_export
 	char			*name;
 	char			*value;
 	int				on_env;
+	int				equal;
 	struct s_export	*next;
 	struct s_export	*prev;
 }	t_export;

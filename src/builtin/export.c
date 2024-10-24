@@ -23,18 +23,178 @@ int	export(char **token, t_export **export_list)
 	*export_list = NULL;
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
-	while (curr[i])
+	else
 	{
-		if (validate_name(curr[i]) != 1)
+		while (curr[i])
 		{
-			printf("export: %s: not a valid identifier\n", curr[i]);
+			if (validate_name(curr[i]) != 1)
+			{
+				printf("export: %s: not a valid identifier\n", curr[i]);
+			}
+			else
+				list_export(curr[i], export_list);
+			i++;
 		}
-		else
-			list_export(curr[i], export_list);
+		all_you_need_is_env(export_list);
+	}
+	return (0);
+}
+
+void	all_you_need_is_env(t_export **export_list)
+{
+	char	**new_env;
+	char	**env;
+	t_export	*curr;
+	int			j;
+	int		k;
+	char	**shell;
+
+	k = 0;
+	env = env_shellzito(NULL);
+	new_env = strawberry_fields_forenv(env);
+	// while (env[k])
+	// {
+	// 	new_env[k] = ft_strdup(env[k]);
+	// 	k++;
+	// }
+	curr = *export_list;
+	while (curr)
+	{
+		if ((curr->on_env == 42 && curr->equal == 1) || curr->on_env == 0)
+		{
+			j = 0;
+			while (new_env[j])
+			{
+				if (ft_strcmp(new_env[j], curr->name) == 0)
+				{
+					// usar unset para eliminar a linha
+					// free(new_env[j]);
+					new_env[j] = join_env(curr->name, curr->value);
+				}	
+				j++;
+			}
+		}
+		new_env = come_together_env(new_env, curr);
+		curr = curr->next;
+	}
+	while (new_env[k])
+	{
+		printf("new_env: %s\n", new_env[k]);
+		k++;
+	}
+	env_shellzito (new_env);
+	k = 0;
+	shell = env_shellzito(NULL);
+	while (shell[k])
+	{
+		printf("shell_env: %s\n", shell[k]);
+		k++;
+	}
+}
+
+char	**strawberry_fields_forenv(char **env)
+{
+	char	**new_env;
+	int		k;
+	size_t	len;
+
+	if (!env)
+		return (NULL);
+	len = 0;
+	k = 0;
+	while (env[len])
+		len++;
+	new_env = (char **)malloc((len + 1) * sizeof(char *));
+	if (!new_env)
+		return (NULL);
+
+	while (env[k])
+	{
+		new_env[k] = ft_strdup(env[k]);
+		if (!new_env[k])
+		{
+			while (k > 0)
+			{
+				free(new_env[k]);
+				k--;
+			}
+			free(new_env);
+			return (NULL);
+		}
+		k++;
+	}
+	new_env[k] = NULL;
+	return (new_env);
+}
+
+char	**come_together_env(char **new_env, t_export *curr)
+{
+	char **up_env;
+	int	i;
+	int	k;
+
+	k = 0;
+	i = 0;
+	up_env = new_env;
+	while (up_env[i])
+		i++;
+	up_env[i] = join_env(curr->name, curr->value);
+	up_env[i + 1] = NULL;
+	// while (up_env[k])
+	// {
+	// 	printf("up_env: %s\n", up_env[k]);
+	// 	k++;
+	// }
+	return (up_env);
+}
+
+
+
+size_t	ft_strlen_env(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*join_env(char const *s1, char const *s2)
+{
+	char	*new;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	len = ft_strlen_env(s1) + ft_strlen_env(s2) + 3;
+	new = (char *)malloc (len + 1 * sizeof(char));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		new[i] = s1[i];
 		i++;
 	}
-	
-	return (0);
+	j = 0;
+	if (s2)
+	{
+		new[i++] = '=';
+		// new[i++] = '"';
+		while (s2[j] != '\0')
+		{
+			new[i] = s2[j];
+			i++;
+			j++;
+		}
+	}
+	// new[i++] = '"';
+	new[i] = '\0';
+	printf("join_env_line: %s\n", new);
+	return (new);
 }
 
 int	list_export(char *token, t_export **export_list)
@@ -58,7 +218,7 @@ int	list_export(char *token, t_export **export_list)
 	printf("name: %s \n", name);
 	printf("value: %s \n", value);
 	on_env = compare_to_env(name);
-	node = create_node_exp(name, value, on_env);
+	node = create_node_exp(name, value, on_env, i + 1);
 	make_lst_exp(export_list, node);
 	return (0);
 }
@@ -105,7 +265,7 @@ int	validate_name(char *token)
 	return (1);
 }
 
-t_export	*create_node_exp(char *name, char *value, int on_env)
+t_export	*create_node_exp(char *name, char *value, int on_env, char eq)
 {
 	t_export	*new;
 	int			x;
@@ -118,6 +278,10 @@ t_export	*create_node_exp(char *name, char *value, int on_env)
 	new->value = ft_strdup(value);
 	//criar var com aspas e valor??? ou var pronta para colocar no env??
 	new->on_env = on_env;
+	if (eq == '=')
+		new->equal = 1;
+	else
+		new->equal = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:48:56 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/21 13:48:57 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:27:46 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_env(char **array)
 	int	i;
 
 	i = 0;
+	if (!array)
+		return ;
 	while (array[i])
 	{
 		free(array[i]);
