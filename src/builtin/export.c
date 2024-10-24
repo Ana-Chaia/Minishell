@@ -33,6 +33,7 @@ int	export(char **token, t_export **export_list)
 			list_export(curr[i], export_list);
 		i++;
 	}
+	
 	return (0);
 }
 
@@ -44,14 +45,14 @@ int	list_export(char *token, t_export **export_list)
 	char		*value;
 	int			on_env;
 	t_export	*node;
-	
+
 	i = 0;
 	value = NULL;
 	on_env = 0;
 	curr = token;
 	while (curr[i] != '=' && curr[i] != '\0')
 		i++;
-	name = substr_noquote(curr, 0, (i - 1));
+	name = substr_noquote(curr, 0, i - 1);
 	if (curr[i] != '\0')
 		value = substr_noquote(curr, i + 1, ft_strlen(curr) - i - 1);
 	printf("name: %s \n", name);
@@ -141,39 +142,67 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 			curr = curr->next;
 		curr->next = export_node;
 		export_node->prev = curr;
-		printf("colocou o nó: %s na lista \n", curr->name);
+		printf("colocou o nó: %s na lista \n", curr->next->name);
 	}
 }
+
+// char	*substr_noquote(char const *s, unsigned int start, size_t len)
+// {
+// 	char	*new;
+// 	size_t	len_s;
+// 	size_t	i;
+
+// 	len_s = 0;
+// 	if (!s)
+// 		return (NULL);
+// 	while (s[len_s] != '\0')
+// 		len_s++;
+// 	if (len_s < start)
+// 		return (ft_strdup(""));
+// 	if (len >= len_s)
+// 		new = (char *)malloc (len_s - start + 1);
+// 	else
+// 		new = (char *)malloc (len + 1);
+// 	if (!new)
+// 		return (NULL);
+// 	i = 0;
+// 	while (len-- >= 0 && s[start] != '\0')
+// 	{
+// 		if (s[start] == '"' || s[start] == '\'')
+// 			start++;
+// 		new[i++] = s[start++];
+// 	}
+// 	new[i] = '\0';
+// 	return (new);
+// }
 
 char	*substr_noquote(char const *s, unsigned int start, size_t len)
 {
-	char	*new;
-	size_t	len_s;
-	size_t	i;
+	char			*mem;
+	unsigned int	i;
 
-	len_s = 0;
-	if (!s)
-		return (NULL);
-	while (s[len_s] != '\0')
-		len_s++;
-	if (len_s < start)
-		return (ft_strdup(""));
-	if (len >= len_s)
-		new = (char *)malloc (len_s - start + 1);
-	else
-		new = (char *)malloc (len + 1);
-	if (!new)
-		return (NULL);
 	i = 0;
-	while (len-- >= 0 && s[start] != '\0')
+	if (!s)
+		return (0);
+	if (start > ft_strlen(s) || len == 0)
+		return (ft_strdup(""));
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	mem = (char *)malloc((len + 1) * sizeof(char));
+	if (mem == NULL)
+		return (NULL);
+	while (s[start + i] != '\0' && i <= len)
 	{
 		if (s[start] == '"' || s[start] == '\'')
 			start++;
-		new[i++] = s[start++];
+		mem[i] = s[start + i];
+		i++;
 	}
-	new[i] = '\0';
-	return (new);
+	mem[i] = '\0';
+	return (mem);
 }
+
+
 
 void	print_export(char **copy)
 {
