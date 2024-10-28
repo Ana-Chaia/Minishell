@@ -20,7 +20,6 @@ int	export(char **token, t_export **export_list)
 
 	i = 1;
 	curr = token;
-	*export_list = NULL;
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
 	else
@@ -35,23 +34,24 @@ int	export(char **token, t_export **export_list)
 				list_export(curr[i], export_list);
 			i++;
 		}
-		all_you_need_is_env(export_list);
+		all_you_need_is_env(export_list, i);
 	}
 	return (0);
 }
 
-void	all_you_need_is_env(t_export **export_list)
+void	all_you_need_is_env(t_export **export_list, int i)
 {
-	char	**new_env;
-	char	**env;
+	char		**new_env;
+	char		**env;
 	t_export	*curr;
 	int			j;
-	int		k;
-	char	**shell;
+	int			k;
+	char		**shell;
+	int x;
 
 	k = 0;
 	env = env_shellzito(NULL);
-	new_env = strawberry_fields_forenv(env);
+	new_env = strawberry_fields_forenv(env, i);
 	// while (env[k])
 	// {
 	// 	new_env[k] = ft_strdup(env[k]);
@@ -65,34 +65,47 @@ void	all_you_need_is_env(t_export **export_list)
 			j = 0;
 			while (new_env[j])
 			{
-				if (ft_strcmp(new_env[j], curr->name) == 0)
+				x = 0;
+				while (new_env[j][x] != '=' && new_env[j][x] != '\0')
+					x++;
+				printf("Comparando %s com %s\n", new_env[j], curr->name);
+				if (ft_strcmp(ft_substr(new_env[j], 0, x), curr->name) == 0)
 				{
+					printf("Substituindo %s com %s\n", new_env[j], curr->name);
 					// usar unset para eliminar a linha
-					// free(new_env[j]);
+					free(new_env[j]);
 					new_env[j] = join_env(curr->name, curr->value);
+					curr->on_env = 42;
 				}	
 				j++;
 			}
+			if (curr->on_env == 0)
+				new_env = come_together_env(new_env, curr);
 		}
-		new_env = come_together_env(new_env, curr);
 		curr = curr->next;
 	}
+	// while (env[k])
+	// {
+	// 	printf("env: %s\n", env[k]);
+	//  	k++;
+	// }
+	// k = 0;
 	while (new_env[k])
 	{
 		printf("new_env: %s\n", new_env[k]);
-		k++;
+	 	k++;
 	}
 	env_shellzito (new_env);
 	k = 0;
 	shell = env_shellzito(NULL);
 	while (shell[k])
 	{
-		printf("shell_env: %s\n", shell[k]);
-		k++;
+	 	printf("env_shellzito: %s\n", shell[k]);
+	 	k++;
 	}
 }
 
-char	**strawberry_fields_forenv(char **env)
+char	**strawberry_fields_forenv(char **env, int i)
 {
 	char	**new_env;
 	int		k;
@@ -104,10 +117,10 @@ char	**strawberry_fields_forenv(char **env)
 	k = 0;
 	while (env[len])
 		len++;
-	new_env = (char **)malloc((len + 1) * sizeof(char *));
+	printf("len_strawberry: %zu\n", len);
+	new_env = (char **)malloc((len + i + 1) * sizeof(char *));
 	if (!new_env)
 		return (NULL);
-
 	while (env[k])
 	{
 		new_env[k] = ft_strdup(env[k]);
@@ -139,6 +152,7 @@ char	**come_together_env(char **new_env, t_export *curr)
 	while (up_env[i])
 		i++;
 	up_env[i] = join_env(curr->name, curr->value);
+	//up_env[i + 1] = (char *)malloc((1) * sizeof(char *));
 	up_env[i + 1] = NULL;
 	// while (up_env[k])
 	// {
@@ -169,8 +183,8 @@ char	*join_env(char const *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
-	len = ft_strlen_env(s1) + ft_strlen_env(s2) + 3;
-	new = (char *)malloc (len + 1 * sizeof(char));
+	len = ft_strlen_env(s1) + ft_strlen_env(s2) + 1;
+	new = (char *)malloc ((len + 1) * sizeof(char));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -214,11 +228,11 @@ int	list_export(char *token, t_export **export_list)
 		i++;
 	name = substr_noquote(curr, 0, i - 1);
 	if (curr[i] != '\0')
-		value = substr_noquote(curr, i + 1, ft_strlen(curr) - i - 1);
+		value = substr_noquote(curr, i + 1, ft_strlen(curr) - i);
 	printf("name: %s \n", name);
 	printf("value: %s \n", value);
 	on_env = compare_to_env(name);
-	node = create_node_exp(name, value, on_env, i + 1);
+	node = create_node_exp(name, value, on_env, curr[i]);
 	make_lst_exp(export_list, node);
 	return (0);
 }
@@ -227,12 +241,16 @@ int	compare_to_env(char *name)
 {
 	char	**env_shellzito_copy;
 	int		i;
+	int j;
 
 	env_shellzito_copy = env_shellzito(NULL);
 	i = 0;
 	while (env_shellzito_copy[i])
 	{
-		if (ft_strcmp(env_shellzito_copy[i], name) == 0)
+		j = 0;
+		while (env_shellzito_copy[i][j] != '=' && env_shellzito_copy[i][j] != '\0')
+			j++;
+		if (ft_strcmp(ft_substr(env_shellzito_copy[i], 0, j), name) == 0)
 		{
 			printf("ja existe\n");
 			return (42);
@@ -350,12 +368,14 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 		return (0);
 	if (start > ft_strlen(s) || len == 0)
 		return (ft_strdup(""));
+	printf("len b4: %zu\n", len);
 	if (ft_strlen(s + start) < len)
 		len = ft_strlen(s + start);
-	mem = (char *)malloc((len + 1) * sizeof(char));
+	printf("len after: %zu\n", len);
+	mem = (char *)malloc((len + 2) * sizeof(char));    //MUDEI
 	if (mem == NULL)
 		return (NULL);
-	while (s[start + i] != '\0' && i <= len)
+	while (s[start + i] != '\0' && i < len + 1)
 	{
 		if (s[start] == '"' || s[start] == '\'')
 			start++;

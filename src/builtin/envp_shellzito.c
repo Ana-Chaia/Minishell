@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_shellzito.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:48:56 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/24 15:27:46 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:28:06 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	copy_env()
 	env = __environ;
 	while (env[i])
 		i++;
-	our_env = malloc (sizeof(char*) * (i + 1));
+	our_env = ft_calloc (sizeof(char*), (i + 1));
 	i = 0;
 	while (env[i])
 	{

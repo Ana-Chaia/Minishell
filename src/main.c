@@ -32,7 +32,8 @@ int	main(void)
 	{
 		printf("Malloc fail.\n");
 		return (1);
-	}
+	}	
+	copy_env();
 	while (1)
 	{
 		init_struct(mini);
@@ -59,7 +60,7 @@ int	main(void)
 		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);
 		//printf("----------esquerda do 1 joint à direita: %s\n", tree->right->left->content);
 		print_tree(tree, 1);
-		copy_env();
+	
 		//ft_tree_printer(tree);
 		// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
@@ -73,6 +74,7 @@ void	init_struct(t_minishell *mini)
 {
 	mini->input = NULL;
 	mini->tokenlist = NULL;
+	mini->export_list = NULL;
 }
 // 	*tokenlist = NULL;
 // 	(*tokenlist)->position = 0;
