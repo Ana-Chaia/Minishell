@@ -328,35 +328,6 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 	}
 }
 
-// char	*substr_noquote(char const *s, unsigned int start, size_t len)
-// {
-// 	char	*new;
-// 	size_t	len_s;
-// 	size_t	i;
-
-// 	len_s = 0;
-// 	if (!s)
-// 		return (NULL);
-// 	while (s[len_s] != '\0')
-// 		len_s++;
-// 	if (len_s < start)
-// 		return (ft_strdup(""));
-// 	if (len >= len_s)
-// 		new = (char *)malloc (len_s - start + 1);
-// 	else
-// 		new = (char *)malloc (len + 1);
-// 	if (!new)
-// 		return (NULL);
-// 	i = 0;
-// 	while (len-- >= 0 && s[start] != '\0')
-// 	{
-// 		if (s[start] == '"' || s[start] == '\'')
-// 			start++;
-// 		new[i++] = s[start++];
-// 	}
-// 	new[i] = '\0';
-// 	return (new);
-// }
 
 char	*substr_noquote(char const *s, unsigned int start, size_t len)
 {
@@ -390,99 +361,45 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 
 void	print_export(char **copy)
 {
-	int	i;
+	int		i;
+	int 	j;
+	int 	k;
+	char 	*temp;
+	char	*value;
+	char	*name;
 
 	i = 0;
 	if (copy == NULL)
-		printf("VERIFICAR\n");
+		return ;
 	while (copy[i])
 	{
-		printf("declare -x: %s\n", copy[i]);
+		j = i + 1;
+		while (copy[j])
+		{
+			if (ft_strncmp(copy[i], copy[j], ft_strlen(copy[i])) > 0)
+			{
+				temp = copy[i];
+				copy[i] = copy[j];
+				copy[j] = temp;
+			}
+			j++;
+		}
 		i++;
 	}
-	// em ordem alfabética
+	i = 0;
+	while (copy[i])
+	{
+		k = 0;
+		while (copy[i][k] != '=' && copy[i][k] != '\0')
+			k++;
+		value = ft_strchr(copy[i], '=');
+		name = ft_substr(copy[i], 0, k);
+		if (value)
+			printf("declare -x %s=\"%s\"\n", name, value + 1);
+		else
+			printf("declare -x %s\n", name);
+		free(name);
+		i++;
+	}
 }
 
-
-// int	export(char **token)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*name;
-// 	char	*value;
-// 	char	**env_shellzito_copy;
-
-// 	i = 0;
-// 	j = 0;
-// 	value = NULL;
-// 	if (!token[1])
-// 		print_export(env_shellzito(NULL));
-// 	else
-// 	{
-// 		if (token[2] && validate_export_token2(token[2]) == 0)
-// 		{
-// 			printf("export: %s: not a valid token4\n", token[2]);
-// 			return (1);
-// 		}
-// 		while (token[1][i])
-// 		{
-// 			if (validate_export_name(token[1]) == 0)
-// 			{
-// 				printf("export: %s: not a valid identifier (name)\n", token[1]);
-// 				return (1);
-// 			}
-// 			if (token[1][i] != '=' || token[1][i] != '\0')
-// 				i++;
-// 		}
-// 		name = substr_noquote(token[1], 0, (i - 1));
-// 		if (token[1][i] != '\0' && token[1][i + 1])
-// 				value = substr_noquote(token[1], i + 1, 
-// 						ft_strlen(token[1]) - i - 1);
-// 		printf("name: %s \n", name);
-// 		printf("value: %s \n", value);
-		
-// 		env_shellzito_copy = env_shellzito(NULL);
-// 		if (ft_strcmp(env_shellzito_copy[0], value) == 0)
-// 			printf("ja existe\n");
-// 		else
-// 			printf("nao existe\n");
-// 	}
-// 	return (0);
-// }
-
-
-// int	validate_export_name(char *token)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (token[i] && token[i] != '=')
-// 	{
-// 		if (!((token[i] >= 'A' && token[i] <= 'Z') 
-// 				|| (token[i] >= 'a' && token[i] <= 'z')
-// 				|| (token[i] >= '0' && token[i] <= '9')
-// 				|| (token[i] == '_')))
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
-// int	validate_export_token2(char *token)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	while (token[i])
-// 	{
-// 		if (((token[0] >= 'A' && token[0] <= 'Z') 
-// 				|| (token[0] >= 'a' && token[0] <= 'z'))
-// 			&& ((token[i] >= 'A' && token[i] <= 'Z')
-// 				|| (token[i] >= 'a' && token[i] <= 'z')
-// 				|| (token[i] >= '0' && token[i] <= '9')))
-// 				i++;
-// 		else
-// 			return (0);
-// 	}
-// 	return (1);
-// }
