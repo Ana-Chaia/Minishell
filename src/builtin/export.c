@@ -1,25 +1,24 @@
-
-//export
-//export [-fn] [-p] [name[=value]]
-//Mark each name to be passed to child processes in the environment.
-//If the -f option is supplied, the names refer to shell functions; otherwise the names refer to shell variables. 
-//The -n option means to no longer mark each name for export. 
-//If no names are supplied, or if the -p option is given, a list of names of all exported variables is displayed.
-// The -p option displays output in a form that may be reused as input. 
-//If a variable name is followed by =value, the value of the variable is set to value.
-
-//The return status is zero unless an invalid option is supplied, one of the names is not a valid shell variable name,
-// or -f is supplied with a name that is not a shell function.
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
+/*   Updated: 2024/10/28 16:31:47 by anacaro5         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	export(char **token, t_export **export_list)
+int	export(char **cmd, t_export **export_list)
 {
 	int			i;
 	char		**curr;
 
 	i = 1;
-	curr = token;
+	curr = cmd;
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
 	else

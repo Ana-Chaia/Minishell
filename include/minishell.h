@@ -52,5 +52,9 @@ void	print_env_copy(char **copy);
 // void	free_env(char **array);
 
 
+int	unset(char **cmd);
+void	delete_variable(char *var);
+
+
 
 #endif

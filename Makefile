@@ -15,6 +15,7 @@ SRC = 	./src/main.c \
 		./src/builtin/echo.c \
 		./src/builtin/envp_shellzito.c \
 		./src/builtin/export.c \
+		./src/builtin/unset.c \
 
 OBJ_DIR = obj
 
