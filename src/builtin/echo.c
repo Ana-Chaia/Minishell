@@ -14,8 +14,8 @@ int	call_builtins(char *token, t_export **export_list)
 	// 	builtin = echo(cmd);
 	// else if (!ft_strcmp(cmd[0], "cd"))
 	// 	builtin = cd(cmd);
-	// else if (!ft_strcmp(cmd[0], "pwd"))
-	// 	builtin = pwd(cmd);
+	else if (!ft_strcmp(cmd[0], "pwd"))
+		builtin = pwd();
 	else if (!ft_strcmp(cmd[0], "export"))
 		builtin = export(cmd, export_list);
 	else if (!ft_strcmp(cmd[0], "unset"))

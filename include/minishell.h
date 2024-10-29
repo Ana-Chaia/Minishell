@@ -10,6 +10,7 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -51,10 +52,11 @@ char	*join_env(char const *s1, char const *s2);
 void	print_env_copy(char **copy);
 // void	free_env(char **array);
 
-
-int	unset(char **cmd);
+//unset
+int		unset(char **cmd);
 void	delete_variable(char *var);
 
-
+//pwd
+int pwd(void);
 
 #endif
