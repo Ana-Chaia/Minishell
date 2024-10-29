@@ -22,8 +22,8 @@ int	call_builtins(char *token, t_export **export_list)
 	 	builtin = unset(cmd);
 	// else if (!ft_strcmp(cmd[0], "env"))
 	// 	builtin = env(cmd);
-	// else if (!ft_strcmp(cmd[0], "exit"))
-	// 	builtin = exit(cmd);
+	else if (!ft_strcmp(cmd[0], "exit"))
+		builtin = the_exit(cmd);
 	ft_free_split(cmd);
 	return (builtin);
 }

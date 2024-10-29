@@ -57,6 +57,12 @@ int		unset(char **cmd);
 void	delete_variable(char *var);
 
 //pwd
-int pwd(void);
+int		pwd(void);
+
+//exit
+int		the_exit(char **cmd);
+int		verify_args(char **cmd);
+int		is_sign(char c);
+int		is_longer(char *cmd);
 
 #endif

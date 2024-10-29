@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:21:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/29 11:40:00 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:00:49 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,14 @@ int	pwd(void)
 	free(path);
 	return (0);
 }
+
+
+// Obs:
+// anacaro5@c1r7p3:~$ PWD
+// PWD: comando não encontrado
+// anacaro5@c1r7p3:~$ UNSET
+// UNSET: comando não encontrado
+// anacaro5@c1r7p3:~$ ECHO $?
+// ECHO: comando não encontrado
+// anacaro5@c1r7p3:~$ echo $?
+// 127

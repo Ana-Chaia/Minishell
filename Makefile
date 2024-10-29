@@ -17,6 +17,7 @@ SRC = 	./src/main.c \
 		./src/builtin/export.c \
 		./src/builtin/unset.c \
 		./src/builtin/pwd.c \
+		./src/builtin/exit.c \
 
 OBJ_DIR = obj
 
