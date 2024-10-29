@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/29 17:29:07 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:48:59 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,40 @@ int	the_exit(char **cmd)
 		}
 		else
 		{
+			if (verify_args(&cmd[1]) == 1)
+				exit (2);
 			printf("shellzito: exit: %s: too many arguments \n", cmd[i]);
 			exit(1);
 		}
 		i++;
 	}
 	if (cmd[0] && cmd[1] == NULL)
-		exit(status);
+		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;
+	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
 	return (0);
 }
 
 int	verify_args(char **cmd)
 {
-	int	i;
+	int i;
 	int	j;
 
 	i = 0;
-	while (cmd[i])
+	j = 0;
+	while (cmd[i][j])
 	{
-		j = 0;
-		while (cmd[i][j])
-		{
-			if (is_sign(cmd[i][j]) == 1)
-				j++;
-			printf("cmd[%d][%d]: %c\n", i, j, cmd[i][j]);
-			if (ft_isdigit(cmd[i][j]) == 0)
-			{
-				printf("shellzito: exit: %s: numeric argument required\n",
-					cmd[i]);
-				return (1);
-			}
-			if (is_longer(cmd[i]) == 1)
-				return (1);
+		if (is_sign(cmd[i][j]) == 1)
 			j++;
+		printf("cmd[%d][%d]: %c\n", i, j, cmd[i][j]);
+		if (ft_isdigit(cmd[i][j]) == 0)
+		{
+			printf("shellzito: exit: %s: numeric argument required\n",
+				cmd[i]);
+			return (1);
 		}
-		i++;
+		if (is_longer(cmd[i]) == 1)
+			return (1);
+		j++;
 	}
 	return (0);
 }
