@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/15 16:08:46 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:03:28 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ t_token	*all_together(t_token **token_list)
 			curr = united;
 			while (curr != NULL && curr->type != PIPE)
 			{
-				if (curr->type == WORD)
+				if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 1)
+					united->content = ft_strjoin(united->content,
+							curr->content);
+				if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES) && curr->prev->quote_issue == 2)
+					united->content = ft_strjoin(united->content,
+							curr->content);
+				else if ((curr->type == WORD || curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 0)
 				{
 					united->content = ft_strjoin(united->content, " ");
 					united->content = ft_strjoin(united->content,
@@ -71,7 +77,7 @@ t_token	*clear_list(t_token **token_list)
 	while (united)
 	{
 		temp = united->next;
-		if (united->type == WORD)
+		if (united->type == WORD || united->type == S_QUOTES || united->type == D_QUOTES)
 		{
 			if (united->prev != NULL)
 				united->prev->next = united->next;
