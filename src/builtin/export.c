@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/28 16:31:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:52:29 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int	list_export(char *token, t_export **export_list)
 	curr = token;
 	while (curr[i] != '=' && curr[i] != '\0')
 		i++;
-	name = substr_noquote(curr, 0, i - 1);
+	name = substr_noquote(curr, 0, i);
 	if (curr[i] != '\0')
 		value = substr_noquote(curr, i + 1, ft_strlen(curr) - i);
 	printf("name: %s \n", name);
@@ -342,10 +342,10 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 	if (ft_strlen(s + start) < len)
 		len = ft_strlen(s + start);
 	printf("len after: %zu\n", len);
-	mem = (char *)malloc((len + 2) * sizeof(char));    //MUDEI
+	mem = (char *)malloc((len + 1) * sizeof(char));    //MUDEI
 	if (mem == NULL)
 		return (NULL);
-	while (s[start + i] != '\0' && i < len + 1)
+	while (s[start + i] != '\0' && i < len)
 	{
 		if (s[start] == '"' || s[start] == '\'')
 			start++;

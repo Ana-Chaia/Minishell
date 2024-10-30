@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/29 18:48:59 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:18:42 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	the_exit(char **cmd)
 			else
 			{
 				status = ft_atoi(cmd[1]);
-				printf("exit deu certo, status = %d\n", status);
+				printf("exit deu certo, status = %d\n", status);   //acertar print
 				exit(status);
 			}
 		}
