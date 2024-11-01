@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/30 16:08:20 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:20:32 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,8 +357,6 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 	mem[i] = '\0';
 	return (mem);
 }
-
-
 
 void	print_export(char **copy)
 {

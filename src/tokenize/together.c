@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/30 16:03:28 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/10/31 10:37:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*all_together(t_token **token_list)
 				if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 1)
 					united->content = ft_strjoin(united->content,
 							curr->content);
-				if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES) && curr->prev->quote_issue == 2)
+				if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES || curr->prev->type == CMD) && curr->prev->quote_issue == 2)
 					united->content = ft_strjoin(united->content,
 							curr->content);
 				else if ((curr->type == WORD || curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 0)

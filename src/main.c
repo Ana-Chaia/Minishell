@@ -48,21 +48,14 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
+		across_the_universe(&(mini->tokenlist));
+		list_printer(mini->tokenlist);
 		united = all_together(&(mini->tokenlist));
 		clear_list(&(mini->tokenlist));
 		list_printer(mini->tokenlist);
 		tree = ast_builder(NULL, mini->tokenlist);
-		//printf("----------primeiro joint: %s\n", tree->content);
-		//printf("----------1 joint esquerda : %s\n", tree->left->content);
-		//printf("----------1 joint direita: %s\n", tree->right->content);
-		//printf("----------direita do 1 joint à esquerda: %s\n", tree->left->right->content);
-		//printf("----------esquerda do 1 joint à esquerda: %s\n", tree->left->left->content);
-		//printf("----------direita do 1 joint à direita: %s\n", tree->right->right->content);
-		//printf("----------esquerda do 1 joint à direita: %s\n", tree->right->left->content);
 		print_tree(tree, 1);
-	
-		//ft_tree_printer(tree);
-		// execve("/usr/bin/ls", args, NULL);
+				// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
 		call_builtins(mini->tokenlist->content, &mini->export_list);
 	}

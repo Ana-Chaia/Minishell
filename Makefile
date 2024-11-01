@@ -10,6 +10,7 @@ SRC = 	./src/main.c \
 		./src/tokenize/syntax.c \
 		./src/tokenize/together.c\
 		./src/redirect/heredoc.c\
+		./src/expand_vars/across_the_universe.c \
 		./src/utils/printer.c \
 		./src/ast/ast.c \
 		./src/builtin/echo.c \

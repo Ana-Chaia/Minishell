@@ -25,6 +25,12 @@ void	free_tokenlist(t_token *tokenlist);
 // apagar printer
 //void	ft_tree_printer(t_ast *root);
 
+//expand_variable
+void	across_the_universe(t_token **token_list);
+char	*find_dollar(char *cmd);
+char	*change_dollar(char *cmd, int start, int end);
+char	*cut_value(char *name, char **env);
+
 //builtins
 void	copy_env(void);
 void	free_env(char **array);
@@ -47,6 +53,11 @@ void	all_you_need_is_env(t_export **export_list, int i);
 char	**come_together_env(char **new_env, t_export *curr);
 char	**strawberry_fields_forenv(char **env, int i);
 char	*join_env(char const *s1, char const *s2);
+
+int	echo(char **cmd);
+int	check_minus_nnnns(char *cmd);
+
+
 
 //printers
 void	print_env_copy(char **copy);
