@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/28 14:29:45 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:45:18 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	is_heredoc(t_token *token_node)
 	{
 		if (heredoc->type == HEREDOC)
 		{
+			init_signal();
 			file_name = create_file_name();
 			fd_heredoc = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
 			if (fd_heredoc < 0)
@@ -71,8 +72,9 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 	char	*hd_input;
 	int		input_size;
 
+	//init_signal();
 	hd_input = readline("> ");
-	while (ft_strcmp(hd_input, token_node->next->content) != 0)
+	while (hd_input && ft_strcmp(hd_input, token_node->next->content) != 0)
 	{
 		input_size = ft_strlen(hd_input);
 		if (input_size == 0)
@@ -81,15 +83,21 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 			write(fd_heredoc, hd_input, input_size);
 		free(hd_input);
 		hd_input = readline("> ");
-		if (ft_strcmp(hd_input, token_node->next->content) == 0)
-		{
-			free(hd_input);
-			write(fd_heredoc, "\n\0", 2);
-			close(fd_heredoc);
-			break ;
-		}
-		write (fd_heredoc, "\n", 1);
+		// init_signal();
+		// if (hd_input && ft_strcmp(hd_input, token_node->next->content) == 0)
+		// {
+		// 	free(hd_input);
+		// 	write(fd_heredoc, "\n\0", 2);
+		// 	// ctrld(hd_input, fd_heredoc, token_node);
+		// 	close(fd_heredoc);
+		// 	printf("teste input vazio\n");
+		// 	break ;
+		// }
+		// write (fd_heredoc, "\n", 1);
 	}
+	if (hd_input)
+		free(hd_input);
+	close(fd_heredoc);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

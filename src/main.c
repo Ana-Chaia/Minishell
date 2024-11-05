@@ -37,12 +37,15 @@ int	main(void)
 	while (1)
 	{
 		init_struct(mini);
+		init_signal();
 		mini->input = readline("shellzito: ");
-
 		printf("%s\n", mini->input);
 		add_history(mini->input);
 		if (mini->input == NULL)
+		{
 			clear_and_free(mini);
+			return (0);
+		}
 		validate_input(mini);
 		token_type(mini->input, &mini->tokenlist);
 		list_printer(mini->tokenlist);

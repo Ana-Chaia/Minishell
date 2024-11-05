@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/05 10:06:19 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:01:23 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "tokenize.h"
 # include "redirect.h"
 # include "ast.h"
+# include "signal.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -84,5 +85,11 @@ int		the_exit(char **cmd);
 int		verify_args(char **cmd);
 int		is_sign(char c);
 int		is_longer(char *cmd);
+
+//signal
+void	init_signal(void);
+void	signal_handler(int signal);
+void	signal_exec(void);
+void	ctrld(char *input, int fd_heredoc, t_token *token_node);
 
 #endif
