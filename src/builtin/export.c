@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/31 08:20:32 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:12:45 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,8 +349,8 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	while (s[start + i] != '\0' && i < len)
 	{
-		if (s[start + i] == '"' || s[start + i] == '\'')
-			start++;
+		//if (s[start + i] == '"' || s[start + i] == '\'')
+		//	start++;
 		mem[i] = s[start + i];
 		i++;
 	}
