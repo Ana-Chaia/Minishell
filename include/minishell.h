@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/05 14:01:23 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:06:56 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ void	init_signal(void);
 void	signal_handler(int signal);
 void	signal_exec(void);
 void	ctrld(char *input, int fd_heredoc, t_token *token_node);
+void	init_signal_heredoc(int fd_heredoc);
+void	signal_handler_heredoc(int signal);
 
 #endif

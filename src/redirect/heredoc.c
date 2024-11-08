@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/05 14:45:18 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:51:43 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	is_heredoc(t_token *token_node)
 	{
 		if (heredoc->type == HEREDOC)
 		{
-			init_signal();
 			file_name = create_file_name();
 			fd_heredoc = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
+			// init_signal_heredoc(fd_heredoc);
 			if (fd_heredoc < 0)
 				ft_printf("shellzito: %s: %s\n", file_name, strerror(errno));
 			free(file_name);
@@ -73,6 +73,10 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 	int		input_size;
 
 	//init_signal();
+	// init_signal_heredoc(fd_heredoc);
+	signal(SIGINT, signal_handler_heredoc);
+	
+	signal(SIGQUIT, SIG_IGN);
 	hd_input = readline("> ");
 	while (hd_input && ft_strcmp(hd_input, token_node->next->content) != 0)
 	{

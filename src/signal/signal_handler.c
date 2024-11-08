@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/05 14:03:19 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:07:10 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,26 @@ void	ctrld(char *input, int fd_heredoc, t_token *token_node)
 	}
 }
 
+void	init_signal_heredoc(int fd_heredoc)
+{
+	if (SIGINT)
+		close(fd_heredoc);
+	signal(SIGINT, signal_handler_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+	//signal(SIGPIPE, SIG_IGN);
+} //colocar no heredoc tbm
 
+void	signal_handler_heredoc(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		//get_status(130);
+	}
+}
 // lembrar ctrlD na execução (NULL);
 
 // void	signal_execution(int pid)
