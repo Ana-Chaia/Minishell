@@ -10,12 +10,17 @@ SRC = 	./src/main.c \
 		./src/tokenize/syntax.c \
 		./src/tokenize/together.c\
 		./src/redirect/heredoc.c\
+		./src/signal/signal_handler.c \
+		./src/expand_vars/across_the_universe.c \
 		./src/utils/printer.c \
 		./src/ast/ast.c \
 		./src/builtin/echo.c \
 		./src/builtin/envp_shellzito.c \
 		./src/builtin/export.c \
 		./src/builtin/unset.c \
+		./src/builtin/pwd.c \
+		./src/builtin/exit.c \
+		
 
 OBJ_DIR = obj
 

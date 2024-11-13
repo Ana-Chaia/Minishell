@@ -8,6 +8,7 @@ typedef struct s_token
 	int				type;
 	int				blob;
 	char			*content;
+	int				quote_issue;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
