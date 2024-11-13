@@ -143,9 +143,9 @@ char	**come_together_env(char **new_env, t_export *curr)
 {
 	char **up_env;
 	int	i;
-	int	k;
+//	int	k;
 
-	k = 0;
+//	k = 0;
 	i = 0;
 	up_env = new_env;
 	while (up_env[i])
@@ -287,9 +287,9 @@ int	validate_name(char *token)
 t_export	*create_node_exp(char *name, char *value, int on_env, char eq)
 {
 	t_export	*new;
-	int			x;
+//	int			x;
 
-	x = 0;
+//	x = 0;
 	new = malloc(sizeof(t_export));
 	if (!new)
 		return (NULL);

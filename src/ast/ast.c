@@ -15,10 +15,10 @@
 t_token	*pipe_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
-	t_ast	*joint;
+//	t_ast	*joint;
 
 	curr = tokenlist;
-	joint = NULL;
+//	joint = NULL;
 	while (curr->next)
 		curr = curr->next;
 	while (curr != NULL)
@@ -35,10 +35,10 @@ t_token	*pipe_to_ast(t_token *tokenlist)
 t_token	*redir_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
-	t_ast	*joint;
+//	t_ast	*joint;
 
 	curr = tokenlist;
-	joint = NULL;
+//	joint = NULL;
 	while (curr->next != NULL)
 	{
 		if (curr->next->type == PIPE)

@@ -24,7 +24,7 @@ int	main(void)
 	// char		**cmd;
 	t_minishell	*mini;
 	t_ast*		tree;
-	t_token		*united;
+	//t_token		*united;
 
 	// mini = NULL;
 	mini = (t_minishell *)malloc(sizeof(t_minishell));
@@ -53,7 +53,8 @@ int	main(void)
 		search_heredoc (&(mini->tokenlist));
 		across_the_universe(&(mini->tokenlist));
 		list_printer(mini->tokenlist);
-		united = all_together(&(mini->tokenlist));
+		//united = all_together(&(mini->tokenlist));
+		all_together(&(mini->tokenlist));
 		clear_list(&(mini->tokenlist));
 		list_printer(mini->tokenlist);
 		tree = ast_builder(NULL, mini->tokenlist);

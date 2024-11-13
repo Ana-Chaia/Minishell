@@ -75,9 +75,9 @@ int	token_d_quotes(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-	int		i;
+//	int		i;
 
-	i = 0;
+//	i = 0;
 	start = (size_t)idx;
 	idx++;
 	while (input[idx] && input[idx] != '"')
@@ -93,9 +93,9 @@ int	token_s_quotes(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-	int		i;
+//	int		i;
 
-	i = 0;
+//	i = 0;
 	start = (size_t)idx;
 	idx++;
 	while (input[idx] && input[idx] != '\'')
@@ -126,9 +126,9 @@ int	token_word(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-	int		i;
+//	int		i;
 
-	i = 0;
+//	i = 0;
 	if (is_space(input[idx]))
 		return (idx + 1);
 	start = (size_t)idx;
