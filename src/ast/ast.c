@@ -55,7 +55,7 @@ t_token	*redir_to_ast(t_token *tokenlist)
 			}
 			return (tokenlist);
 		}
-		if (is_redirect(curr) == 1 && curr->blob == 0)
+		if (is_redirect(curr->type) == 1 && curr->blob == 0)
 		{
 			return (curr);
 		}
@@ -118,10 +118,10 @@ t_ast	*ast_new_node(t_token *token_node)
 	return (ast_node);
 }
 
-int	is_redirect(t_token	*curr)
+int	is_redirect(int curr)
 {
-	if (curr->type == RED_IN || curr->type == RED_OUT
-		|| curr->type == HEREDOC || curr->type == APPEND)
+	if (curr == RED_IN || curr == RED_OUT
+		|| curr == HEREDOC || curr == APPEND)
 		return (1);
 	return (0);
 }
@@ -161,7 +161,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 				joint->right = ast_builder(joint->right, curr->next);
 		}
 	}
-	else if (is_redirect(curr) == 1)
+	else if (is_redirect(curr->type) == 1)
 	{
 		if (curr->next && curr->next->type == FILENAME)  //faz o filename na direita
 		{

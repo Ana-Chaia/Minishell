@@ -48,10 +48,10 @@ void	copy_env(void);
 void	free_env(char **array);
 char	**env_shellzito(char **our_env);
 
-int		call_builtins(char *token, t_export **export_list);
+//int		call_builtins(char *token, t_export **export_list);
 void	ft_free_split(char **cmd);
 
-int		export(char **token, t_export **export_list);
+int		export(char **token);
 // int	validate_export_name(char *token);
 // int	validate_export_token2(char *token);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
@@ -86,6 +86,14 @@ int		verify_args(char **cmd);
 int		is_sign(char c);
 int		is_longer(char *cmd);
 
+//cd
+int	    cd(char **cmd);
+char    *get_path(char *path);
+void	vars_to_env(char *old_pwd, char *pwd);
+
+//env
+int 	env(char **cmd);
+
 //signal
 void	init_signal(void);
 void	signal_handler(int signal);
@@ -93,5 +101,12 @@ void	signal_exec(void);
 void	ctrld(char *input, int fd_heredoc, t_token *token_node);
 void	init_signal_heredoc(int fd_heredoc);
 void	signal_handler_heredoc(int signal);
+
+//exec
+void    execution(t_ast *node);
+int	    is_builtin(char *cmd);
+int     execute_pipe(t_ast *node);
+void    child_process(int task, t_ast *node, int nb_pid);
+int	    execute_builtin(char *token_tree);
 
 #endif

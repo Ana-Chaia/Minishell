@@ -20,7 +20,10 @@ SRC = 	./src/main.c \
 		./src/builtin/unset.c \
 		./src/builtin/pwd.c \
 		./src/builtin/exit.c \
-		
+		./src/builtin/cd.c \
+		./src/builtin/env.c \
+		./src/execute/exec.c \
+		./src/execute/pipe.c \
 
 OBJ_DIR = obj
 

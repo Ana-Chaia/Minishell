@@ -12,13 +12,15 @@
 
 #include "../include/minishell.h"
 
-int	export(char **cmd, t_export **export_list)
+int	export(char **cmd)
 {
 	int			i;
 	char		**curr;
+	t_export **export_list;
 
 	i = 1;
 	curr = cmd;
+	export_list = NULL;
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
 	else

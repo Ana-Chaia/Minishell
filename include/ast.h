@@ -15,7 +15,8 @@
 
 typedef struct s_ast
 {
-	int				*type;
+	//int				*type;
+	int				type;
 	char			*content;
 	struct s_ast	*left;
 	struct s_ast	*right;
@@ -28,7 +29,7 @@ t_token	*pipe_to_ast(t_token *tokenlist);
 t_token	*redir_to_ast(t_token *tokenlist);
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist);
 t_ast	*ast_new_node(t_token *token_node);
-int		is_redirect(t_token	*curr);
+int		is_redirect(int curr);
 t_token *find_last_one (t_token *tokenlist);
 
 

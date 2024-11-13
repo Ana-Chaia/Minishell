@@ -61,7 +61,8 @@ int	main(void)
 		print_tree(tree, 1);
 				// execve("/usr/bin/ls", args, NULL);
 		//free_tokenlist(mini->tokenlist);
-		call_builtins(mini->tokenlist->content, &mini->export_list);
+		//call_builtins(mini->tokenlist->content, &mini->export_list);
+		execution(tree);
 	}
 	free(mini->input);
 	return (0);
