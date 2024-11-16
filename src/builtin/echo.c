@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:51 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/31 10:59:52 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/15 22:14:51 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	execute_builtin(char *token_tree)
 		return (builtin);
 	if (!ft_strcmp(cmd[0], "echo"))
 		builtin = echo(cmd);
-	else if (!ft_strcmp(cmd[0], "cd"))
-	 	builtin = cd(cmd);
+	//else if (!ft_strcmp(cmd[0], "cd"))
+	 	//builtin = cd(cmd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		builtin = pwd();
 	else if (!ft_strcmp(cmd[0], "export"))

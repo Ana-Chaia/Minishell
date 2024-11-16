@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/21 08:11:35 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:57:36 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node = (t_ast *) malloc(sizeof(t_ast));
 	if (!ast_node)
 		return (NULL);
-	ast_node->type = &token_node->type;
+	ast_node->type = token_node->type;
 	ast_node->content = token_node->content;
 	ast_node->left = NULL;
 	ast_node->right = NULL;

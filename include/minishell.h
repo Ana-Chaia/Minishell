@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/06 10:06:56 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/15 22:00:04 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,8 @@ int     execute_pipe(t_ast *node);
 void    child_process(int task, t_ast *node, int nb_pid);
 int	    execute_builtin(char *token_tree);
 
+
+int	execute_redirect(t_ast *node);
+int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
+int	dup_dup(t_ast *node, int *fd);
 #endif

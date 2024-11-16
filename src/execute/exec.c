@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
+/*   Updated: 2024/11/15 19:09:44 by anacaro5         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void    execution(t_ast *node)
+void	execution(t_ast *node)
 {
-    if (node->type == PIPE)
-		execute_pipe(node);  
-    //if (is_redirect(node->type) == 1)   //ajustar is_redirect para int (e enviar curr->type)
-   // 	execute_redirect(node);
+	if (node->type == PIPE)
+		execute_pipe(node);
+	if (is_redirect(node->type) == 1)
+		execute_redirect(node);
 	else
-    {
+	{
 		if (is_builtin(node->content) == 1)
 			//printf("isbuiltin working\n");
-    		execute_builtin (node->content);  //call_builtins
+			execute_builtin (node->content);  //call_builtins
 	//	else
 	//		execute_others (node, node->content);
 	}
