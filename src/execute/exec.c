@@ -34,3 +34,14 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+int status_shellzito(int exit_status)
+{
+	static int	status;
+
+	if (exit_status != -1)
+		status = exit_status;
+	return (status);
+}
+
+
+

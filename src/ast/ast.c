@@ -109,7 +109,7 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node = (t_ast *) malloc(sizeof(t_ast));
 	if (!ast_node)
 		return (NULL);
-	ast_node->type = &token_node->type;
+	ast_node->type = token_node->type;
 	ast_node->content = token_node->content;
 	ast_node->left = NULL;
 	ast_node->right = NULL;
