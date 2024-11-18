@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/18 09:42:54 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:46:44 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,10 @@ int status_shellzito(int exit_status);
 int	execute_redirect(t_ast *node);
 int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
 int	dup_dup(t_ast *node, int *fd);
+
+int	execute_others(t_ast *node);
+void	validate_cmd(char *cmd);
+char	**split_path(void);
+void	get_cmd(t_ast *node);
+
 #endif
