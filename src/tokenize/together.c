@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/10/31 10:37:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:10:22 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	change_type(t_token *united)
 		if (united->prev != NULL && (united->prev->type == RED_IN
 			|| united->prev->type == RED_OUT || united->prev->type == APPEND))
 			united->type = FILENAME;
-		if (united->prev != NULL && (united->prev->type == HEREDOC))
-			united->type = ENDKEY;
+		//if (united->prev != NULL && (united->prev->type == HEREDOC))
+			//united->type = FILENAME;
 		united = united->next;
 	}
 }		

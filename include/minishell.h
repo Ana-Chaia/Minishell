@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/15 22:00:04 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/18 09:42:54 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 
 #include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
 #include <errno.h>   // Para errno
@@ -97,7 +98,7 @@ int 	env(char **cmd);
 //signal
 void	init_signal(void);
 void	signal_handler(int signal);
-void	signal_exec(void);
+void	signal_exec(int pid);
 void	ctrld(char *input, int fd_heredoc, t_token *token_node);
 void	init_signal_heredoc(int fd_heredoc);
 void	signal_handler_heredoc(int signal);
@@ -106,8 +107,9 @@ void	signal_handler_heredoc(int signal);
 void    execution(t_ast *node);
 int	    is_builtin(char *cmd);
 int     execute_pipe(t_ast *node);
-void    child_process(int task, t_ast *node, int nb_pid);
+void    child_process(int *task, t_ast *node, int nb_pid);
 int	    execute_builtin(char *token_tree);
+int status_shellzito(int exit_status);
 
 
 int	execute_redirect(t_ast *node);

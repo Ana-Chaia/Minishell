@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/15 19:09:44 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:00:32 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	execution(t_ast *node)
 		if (is_builtin(node->content) == 1)
 			//printf("isbuiltin working\n");
 			execute_builtin (node->content);  //call_builtins
-	//	else
-	//		execute_others (node, node->content);
+		else
+			execute_others (node);
 	}
 }
 

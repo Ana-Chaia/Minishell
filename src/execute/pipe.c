@@ -5,11 +5,11 @@ int execute_pipe(t_ast *node)
 	int		task[2];
 	int		status[2];
 	pid_t	pid[2];
-	
+
 	if (!node || !node->left || !node->right)
-        return (-1);
+	return (-1);
 	//if (is_redirect(node->left->type) == 1)
-	//	execution(node->left);
+		//execution(node->left);
 	if (pipe(task) == -1)
 	{
 		printf("pipe error \n");

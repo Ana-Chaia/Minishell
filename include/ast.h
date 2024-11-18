@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:59:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/18 09:52:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:56:58 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ typedef struct s_ast
 	//int				*type;
 	int				type;
 	char			*content;
+	char			*first_cmd;
+	char			*exec_ready;
+	char			**cmd_args;
+	char			**path_array;
 	struct s_ast	*left;
 	struct s_ast	*right;
 	//struct s_ast	*parent;
