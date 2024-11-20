@@ -4,10 +4,11 @@ int execute_pipe(t_ast *node)
 {
 	int		task[2];
 	int		status[2];
-	pid_t	pid[2];
+	pid_t	pid1;
+	pid_t	pid2;
 
 	if (!node || !node->left || !node->right)
-	return (-1);
+		return (-1);
 	//if (is_redirect(node->left->type) == 1)
 		//execution(node->left);
 	if (pipe(task) == -1)
@@ -15,41 +16,41 @@ int execute_pipe(t_ast *node)
 		printf("pipe error \n");
 		return (-1);		
 	}
-	pid[0] = fork();
-	signal_exec(pid[0]);
-	if (pid[0] < 0)	
+	pid1 = fork();
+	signal_exec(pid1);
+	if (pid1 < 0)	
 	{
 		printf("fork error \n");
 		close(task[0]);
 		close(task[1]);
 		return (-1);
 	}
-	else if	(pid[0] == 0)
+	else if	(pid1 == 0)
 		child_process(task, node->left, 0);
-	pid[1] = fork();
-	signal_exec(pid[1]);
-	if (pid[1] < 0)
+	pid2 = fork();
+	signal_exec(pid2);
+	if (pid2 < 0)
 	{
 		printf("fork error \n");
 		close(task[0]);
 		close(task[1]);
 		return (-1);
 	}
-	else if (pid[1] == 0)
+	else if (pid2 == 0)
 		child_process(task, node->right, 1);
 	close(task[0]);
 	close(task[1]);
 	//status = status_shellzito(-1);
-	waitpid(pid[0], &status[0], 0);
-	waitpid(pid[1], &status[1], 0);
+	waitpid(pid1, &status[0], 0);
+	waitpid(pid2, &status[1], 0);
 	return (status_shellzito(status[1]));
 }
 
 void child_process(int *task, t_ast *node, int nb_pid)
 {
    // printf("chegou aqui %d\n", task);
-    printf("chegou aqui %s\n", node->content);
-    printf("chegou aqui %d\n", nb_pid);
+    printf("chegou aqui-node->content %s\n", node->content);
+    printf("chegou aqui-nb_pid %d\n", nb_pid);
 	if(nb_pid == 0)
 	{
 		close(task[0]);

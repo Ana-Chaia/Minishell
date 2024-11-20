@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/18 16:44:38 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:39:38 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	execute_others(t_ast *node)
 	//char	*cmd;
 	int 	i;
 	char 	*curr;
-	int		pid;
+	pid_t	pid;
 	char	*path;
+	char	**env;
 
 	get_cmd(node);
 	validate_cmd(node->first_cmd);
@@ -42,7 +43,20 @@ int	execute_others(t_ast *node)
 		}	
 		i++;
 	}
+	i = 0;
 	printf("exec_ready: %s\n", node->exec_ready);
+	while (node->cmd_args[i])
+	{
+		printf("cmd_args[%d]: %s\n", i, node->cmd_args[i]);
+		i++;
+	}
+	i = 0;
+	env = env_shellzito(NULL);
+	while (env[i])
+	{
+		printf("env[%d]: %s\n", i, env[i]);
+		i++;
+	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -53,11 +67,16 @@ int	execute_others(t_ast *node)
 	signal_exec(pid);
 	if (pid == 0)
 	{
-		printf("teste execve1");
-		execve(node->exec_ready, node->cmd_args, env_shellzito(NULL));
-		printf("teste execve");
-	//erros que não vao existir?
+		printf("pid dentro do if: %d\n", pid);
+		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
+		{
+			perror ("shellzito");
+			exit(127);
+		}
+		printf("teste execve certo");
 	}
+	//erros que não vao existir?
+	waitpid(pid, NULL, 0);
 	return (0);
 }
 
@@ -70,7 +89,6 @@ void	validate_cmd(char *cmd)
 void	get_cmd(t_ast *node)
 {
 	int		i;
-	int		j;
 	char	**cmd_array;
 	size_t	size;
 
@@ -78,17 +96,16 @@ void	get_cmd(t_ast *node)
 	node->cmd_args = NULL;
 	cmd_array = ft_split(node->content, ' ');
 	node->first_cmd = ft_strdup(cmd_array[0]);
-	i = 1;
-	j = 0;
+	i = 0;
 	while (cmd_array[size] != NULL)
 		size++;
 	node->cmd_args = malloc((size + 1) * sizeof(char *));
 	while (cmd_array[i] != NULL)
 	{
-		node->cmd_args[j] = ft_strdup(cmd_array[i]);
+		node->cmd_args[i] = ft_strdup(cmd_array[i]);
 		i++;
-		j++;
 	}
+	node->cmd_args[i] = NULL;
 	return ;
 }
 
@@ -96,8 +113,9 @@ char	**split_path(void)
 {
 	char	*path;
 	char	**path_array;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	path = getenv("PATH");
 	path_array = ft_split(path, ':');
 	while( path_array[i])

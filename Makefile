@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 SRC = 	./src/main.c \
 		./src/tokenize/token.c \

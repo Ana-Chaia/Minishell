@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/18 15:23:55 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:23:52 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,12 @@ void	execution(t_ast *node)
 {
 	if (node->type == PIPE)
 		execute_pipe(node);
-	if (is_redirect(node->type) == 1)
+	else if (is_redirect(node->type) == 1)
 		execute_redirect(node);
+	else if (is_builtin(node->content) == 1)
+			execute_builtin (node->content);
 	else
-	{
-		if (is_builtin(node->content) == 1)
-			//printf("isbuiltin working\n");
-			execute_builtin (node->content);  //call_builtins
-		else
 			execute_others (node);
-	}
 }
 
 int	is_builtin(char *cmd)

@@ -26,8 +26,17 @@
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
-            ]
+                {
+                    "description": "Set follow-fork-mode to child",
+                    "text": "set follow-fork-mode child"
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "build",
+            "logging": {
+                "engineLogging": true
+             },
+            "internalConsoleOptions": "openOnSessionStart"
         }
-
     ]
 }
