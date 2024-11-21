@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/18 09:38:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:58:40 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	ctrld(char *input, int fd_heredoc, t_token *token_node)
 	}
 }
 
-void	init_signal_heredoc(int fd_heredoc)
-{
-	if (SIGINT)
-		close(fd_heredoc);
-	signal(SIGINT, signal_handler_heredoc);
-	signal(SIGQUIT, SIG_IGN);
-	//signal(SIGPIPE, SIG_IGN);
-} //colocar no heredoc tbm
+// void	init_signal_heredoc(int fd_heredoc)
+// {
+	
+// 		//close(fd_heredoc);
+// 	signal(SIGINT, signal_handler_heredoc);
+// 	signal(SIGQUIT, SIG_IGN);
+// 	//signal(SIGPIPE, SIG_IGN);
+// } //colocar no heredoc tbm
 
 void	signal_handler_heredoc(int signal)
 {

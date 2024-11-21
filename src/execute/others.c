@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 14:47:39 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:57:52 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	execute_others(t_ast *node)
 		printf("pid dentro do if: %d\n", pid);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
+			perror ("shellzito ");
 			printf("Shellzito : command not found \n");
 			get_status(127);
 			exit(5);

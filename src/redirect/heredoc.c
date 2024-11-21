@@ -6,11 +6,12 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/21 14:18:08 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:09:32 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <fcntl.h>
 
 void	search_heredoc(t_token **token_list)
 {
@@ -40,7 +41,9 @@ void	is_heredoc(t_token *token_node)
 		if (heredoc->type == HEREDOC)
 		{
 			file_name = create_file_name();
-			fd_heredoc = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
+
+			fd_heredoc = open(file_name, O_WRONLY, 0);
+			
 			// init_signal_heredoc(fd_heredoc);
 			if (fd_heredoc < 0)
 			{
@@ -78,9 +81,8 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 	int		input_size;
 
 	//init_signal();
-	// init_signal_heredoc(fd_heredoc);
+	//init_signal_heredoc(fd_heredoc);
 	signal(SIGINT, signal_handler_heredoc);
-	
 	signal(SIGQUIT, SIG_IGN);
 	hd_input = readline("> ");
 	while (hd_input && ft_strcmp(hd_input, token_node->next->content) != 0)
@@ -89,7 +91,12 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 		if (input_size == 0)
 			write(fd_heredoc, "\n", 1);
 		else
-			write(fd_heredoc, hd_input, input_size);
+		{	
+			if (write(fd_heredoc, hd_input, input_size) < 0)
+			{
+				perror(strerror(errno));
+			}
+		}
 		free(hd_input);
 		hd_input = readline("> ");
 		// init_signal();
