@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:28:44 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/09/20 10:20:57 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:28:34 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	validate_input(t_minishell *mini)
 {
 	if ((quotes_closed(mini->input) != 42))
-		ft_putstr_fd("Error: quotes not closed\n", 2);
-		//ft_printf("%s\n", "DEU RUIM!!");
+	{
+		ft_putstr_fd("Shellzito: error quotes not closed\n", 2);
+		exit(2);
+	}
 }
 
 int	quotes_closed(char *str)
@@ -68,6 +70,8 @@ int	quotes_closed(char *str)
 void	invalid_input(char c)
 {
 	if ((c == '(') || (c == ')') || (c == '\\') || (c == ';'))
-		ft_putstr_fd("Error: invalid character\n", 2);
-		//ft_printf("%s\n", "muito RUIM!!");
+	{
+		ft_putstr_fd("Shellzito: error invalid character\n", 2);
+		exit(2);
+	}
 }

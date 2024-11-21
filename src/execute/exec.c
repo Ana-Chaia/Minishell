@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/20 15:23:52 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:37:33 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int status_shellzito(int exit_status)
+int get_status(int exit_status)
 {
 	static int	status;
 

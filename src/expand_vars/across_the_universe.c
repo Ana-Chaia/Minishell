@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/04 10:25:23 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:32:47 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*find_dollar(char *cmd)
 		{
 			if (cmd[i + 1] == '?')
 			{
-				value = ft_itoa(42);
+				value = ft_itoa(get_status(-1));
 				new = ft_strjoin(new, value);
 				i += 2;
 			}

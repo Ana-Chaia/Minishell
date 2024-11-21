@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:21:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/29 12:00:49 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:41:37 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	pwd(void)
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
-		perror("pwd: error retrieving current directory");
-		return (1);
+		perror("pwd: error retrieving current directory \n");
+		return (get_status(-1));
 	}
 	printf("%s\n", path);
 	free(path);
-	return (0);
+	return (get_status(0));
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/18 14:46:44 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:37:51 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	    is_builtin(char *cmd);
 int     execute_pipe(t_ast *node);
 void    child_process(int *task, t_ast *node, int nb_pid);
 int	    execute_builtin(char *token_tree);
-int status_shellzito(int exit_status);
+int     get_status(int exit_status);
 
 
 int	execute_redirect(t_ast *node);

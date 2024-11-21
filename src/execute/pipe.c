@@ -13,17 +13,17 @@ int execute_pipe(t_ast *node)
 		//execution(node->left);
 	if (pipe(task) == -1)
 	{
-		printf("pipe error \n");
-		return (-1);		
+		printf("Shellzito: pipe error \n");
+		return (get_status(-1));
 	}
 	pid1 = fork();
 	signal_exec(pid1);
 	if (pid1 < 0)	
 	{
-		printf("fork error \n");
+		printf("Shellzito: fork error \n");
 		close(task[0]);
 		close(task[1]);
-		return (-1);
+		return (get_status(-1));
 	}
 	else if	(pid1 == 0)
 		child_process(task, node->left, 0);
@@ -31,19 +31,19 @@ int execute_pipe(t_ast *node)
 	signal_exec(pid2);
 	if (pid2 < 0)
 	{
-		printf("fork error \n");
+		printf("Shellzito: fork error \n");
 		close(task[0]);
 		close(task[1]);
-		return (-1);
+		return (get_status(-1));
 	}
 	else if (pid2 == 0)
 		child_process(task, node->right, 1);
 	close(task[0]);
 	close(task[1]);
-	//status = status_shellzito(-1);
+	//status = get_status(-1);
 	waitpid(pid1, &status[0], 0);
 	waitpid(pid2, &status[1], 0);
-	return (status_shellzito(status[1]));
+	return (get_status(status[1]));
 }
 
 void child_process(int *task, t_ast *node, int nb_pid)
@@ -69,7 +69,7 @@ void child_process(int *task, t_ast *node, int nb_pid)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	exit(status_shellzito(-1));
+	exit(get_status(-1));
 }
 
 //para o arquivo signal:
@@ -122,7 +122,7 @@ int execute_pipe(t_ast *node)
 	}
 	else
 	{
-		status_shellzito(status[1]);
+		get_status(status[1]);
 		close(task[0]);
 		close(task[1]);
 	}	

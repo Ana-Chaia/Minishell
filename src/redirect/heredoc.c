@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/18 11:07:37 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:18:08 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	is_heredoc(t_token *token_node)
 			fd_heredoc = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
 			// init_signal_heredoc(fd_heredoc);
 			if (fd_heredoc < 0)
-				ft_printf("shellzito: %s: %s\n", file_name, strerror(errno));
+			{
+				ft_printf("Shellzito: %s: %s\n", file_name, strerror(errno));
+				get_status(1);
+			}
 			filling_a_file(fd_heredoc, heredoc);
 			heredoc->next->content = ft_strdup(file_name);
 			heredoc->next->type = FILENAME;

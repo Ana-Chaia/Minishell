@@ -32,7 +32,7 @@ typedef struct s_minishell
 
 enum e_type
 {
-	PIPE,
+	PIPE, //0
 	S_QUOTES,
 	D_QUOTES,
 	RED_IN,

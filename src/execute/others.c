@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/20 15:39:38 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:47:39 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	execute_others(t_ast *node)
 	if (node->path_array == NULL)
 	{
 		printf("shellzito: %s: command not found\n", node->first_cmd);
-		return (127);
+		return (get_status(127));
 	}
 	i = 0;
 	node->exec_ready = ft_strdup(node->first_cmd);
@@ -60,8 +60,8 @@ int	execute_others(t_ast *node)
 	pid = fork();
 	if (pid == -1)
 	{
-		printf("pipe error \n");
-		return (-1);		
+		perror("Pipe error \n");
+		return (get_status(-1));		
 	}
 	printf("pid: %d\n", pid);
 	signal_exec(pid);
@@ -70,8 +70,9 @@ int	execute_others(t_ast *node)
 		printf("pid dentro do if: %d\n", pid);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
-			perror ("shellzito");
-			exit(127);
+			printf("Shellzito : command not found \n");
+			get_status(127);
+			exit(5);
 		}
 		printf("teste execve certo");
 	}
@@ -83,7 +84,7 @@ int	execute_others(t_ast *node)
 void	validate_cmd(char *cmd)
 {
 	if ((ft_strncmp(cmd, "./", 2) == 0) || (ft_strncmp(cmd, "../", 3) == 0))
-		status_shellzito(127);
+		get_status(127);
 }
 
 void	get_cmd(t_ast *node)

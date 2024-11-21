@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/15 21:57:36 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:23:27 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,10 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 			curr->next->blob = 42;
 			printf("----------novo joint_filename: %s\n", joint->right->content);
 		}
-		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda   ***não coloca o primeiro cmd depois de um | usado;
+		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda 
 			joint->left = ast_builder(joint->left, curr->prev);
+		if (curr->next->next && curr->next->next->type != PIPE)
+			joint->left = ast_builder(joint->left, curr->next->next);
 	}
 	else if (curr->prev == NULL && curr->blob == 0)
 	{

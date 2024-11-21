@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/18 11:10:22 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:11:16 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,47 @@
 
 void	change_type(t_token *united)
 {
-	while (united)
+	t_token	*temp;
+	int i;
+	
+	i = 0;
+	temp = united;
+	while (temp)
 	{
-		if (united->prev == NULL || united->prev->type == PIPE)
-			united->type = CMD;
-		if (united->prev != NULL && (united->prev->type == RED_IN
-			|| united->prev->type == RED_OUT || united->prev->type == APPEND))
-			united->type = FILENAME;
-		//if (united->prev != NULL && (united->prev->type == HEREDOC))
-			//united->type = FILENAME;
-		united = united->next;
+		if ((temp->prev == NULL || temp->prev->type == PIPE) && temp->type != RED_IN)
+			temp->type = CMD;
+		//if (temp->prev == NULL && temp->type != RED_IN)
+		//criar outra regra para CMD com redirecionamento;
+		if (temp->prev != NULL && (temp->prev->type == RED_IN
+			|| temp->prev->type == RED_OUT || temp->prev->type == APPEND))
+			temp->type = FILENAME;
+		//if (temp->prev != NULL && (temp->prev->type == HEREDOC))
+			//temp->type = FILENAME;
+		temp = temp->next;
 	}
-}		
+	//printf("temp->type 1= %i\n", temp->type);
+	temp = united;
+	while (temp)
+	{
+		if (temp->type == CMD)
+			i++;
+		temp = temp->next;
+	}
+	if (i == 0)
+	{
+		temp = united;
+		while (temp)
+		{
+			if (temp->type == WORD)
+			{
+				temp->type = CMD;
+				break ;
+			}
+			temp = temp->next;
+		}
+	}
+}
+	
 void del(void *content) {
     free(content);
 }

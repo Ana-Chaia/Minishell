@@ -55,6 +55,7 @@ int	main(void)
 		list_printer(mini->tokenlist);
 		//united = all_together(&(mini->tokenlist));
 		all_together(&(mini->tokenlist));
+		list_printer(mini->tokenlist);
 		clear_list(&(mini->tokenlist));
 		list_printer(mini->tokenlist);
 		tree = ast_builder(NULL, mini->tokenlist);
