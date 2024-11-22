@@ -21,25 +21,45 @@ void    print_tree(t_ast *root, int nivel)
 
 int	main(void)
 {
-	// char		**cmd;
 	t_minishell	*mini;
-	t_ast*		tree;
-	//t_token		*united;
+	t_termios	terminal;
+	int			fd_bckp;
+	int			the_end;
 
-	// mini = NULL;
+	the_end = 0;
+	fd_bckp = dup(STDIN_FILENO);
 	mini = (t_minishell *)malloc(sizeof(t_minishell));
 	if (mini == NULL)
 	{
 		printf("Malloc fail.\n");
-		return (1);
+		return (0);
 	}	
+	init_struct(mini);
 	copy_env();
+	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
 	{
-		init_struct(mini);
 		init_signal();
+		dup2(fd_bckp, STDIN_FILENO);
+		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+		the_end = shellzito_on(mini);
+		// if(//sinal)
+		// {
+		// 	rl_clear_history();
+		// 	close_fds(fd_bckp);
+		// 	//free path env
+		// 	exit(the_end);
+		// }
+	}
+	//free(mini->input);
+	close_fds(fd_bckp);
+	return (the_end);
+}	
+int	shellzito_on(t_minishell *mini)
+{	
+	while (1)
+	{	
 		mini->input = readline("shellzito: ");
-		printf("%s\n", mini->input);
 		add_history(mini->input);
 		if (mini->input == NULL)
 		{
@@ -47,32 +67,37 @@ int	main(void)
 			return (0);
 		}
 		validate_input(mini);
-		token_type(mini->input, &mini->tokenlist);
-		list_printer(mini->tokenlist);
+		token_type(mini->input, &(mini)->tokenlist);
+		list_printer(mini->tokenlist); //apagar
 		check_syntax(&(mini->tokenlist));
 		search_heredoc (&(mini->tokenlist));
 		across_the_universe(&(mini->tokenlist));
-		list_printer(mini->tokenlist);
-		//united = all_together(&(mini->tokenlist));
 		all_together(&(mini->tokenlist));
-		list_printer(mini->tokenlist);
 		clear_list(&(mini->tokenlist));
-		list_printer(mini->tokenlist);
-		tree = ast_builder(NULL, mini->tokenlist);
-		print_tree(tree, 1);
-				// execve("/usr/bin/ls", args, NULL);
-		//free_tokenlist(mini->tokenlist);
-		//call_builtins(mini->tokenlist->content, &mini->export_list);
-		execution(tree);
+		list_printer(mini->tokenlist); //apagar
+		mini->tree = ast_builder(NULL, mini->tokenlist); //free tokenlis
+		print_tree(mini->tree, 1); //apagar
+		execution(mini->tree);
+		
 	}
-	free(mini->input);
-	return (0);
+	free(mini->input); //free???
+	return (get_status(-1));
+}
+
+
+void	close_fds(int fd_bckp)
+{
+	close(fd_bckp);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 void	init_struct(t_minishell *mini)
 {
 	mini->input = NULL;
 	mini->tokenlist = NULL;
+	mini->tree = NULL;
 	mini->export_list = NULL;
 }
 // 	*tokenlist = NULL;

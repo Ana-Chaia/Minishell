@@ -13,6 +13,21 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_ast
+{
+	//int				*type;
+	int				type;
+	char			*content;
+	char			*first_cmd;
+	char			*exec_ready;
+	char			**cmd_args;
+	char			**path_array;
+	struct s_ast	*left;
+	struct s_ast	*right;
+	//struct s_ast	*parent;
+	// struct s_ast	*child;
+}				t_ast;
+
 typedef struct s_export
 {
 	char			*name;
@@ -27,6 +42,7 @@ typedef struct s_minishell
 {
 	char	*input;
 	t_token	*tokenlist;
+	t_ast	*tree;
 	t_export	*export_list;
 }	t_minishell;
 

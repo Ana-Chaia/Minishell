@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 11:37:51 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:58:28 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,18 @@
 #include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
 #include <errno.h>   // Para errno
 #include <string.h>  // Para strerror
+#include <sys/types.h>  // Para open
+#include <termios.h>
+#include <signal.h>
 
+typedef struct termios	t_termios;
+
+int		shellzito_on(t_minishell *mini);
 void	init_struct(t_minishell *mini);
 void	clear_and_free(t_minishell *mini);
 void	take_token(char *input);
 void	free_tokenlist(t_token *tokenlist);
+void	close_fds(int fd_bckp);
 // apagar printer
 //void	ft_tree_printer(t_ast *root);
 
