@@ -34,12 +34,12 @@ int	main(void)
 		printf("Malloc fail.\n");
 		return (0);
 	}	
-	init_struct(mini);
 	copy_env();
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
 	{
 		init_signal();
+		init_struct(mini);
 		dup2(fd_bckp, STDIN_FILENO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
 		the_end = shellzito_on(mini);
@@ -51,14 +51,18 @@ int	main(void)
 		// 	exit(the_end);
 		// }
 	}
+	//clear_and_free(mini);
 	//free(mini->input);
 	close_fds(fd_bckp);
 	return (the_end);
 }	
 int	shellzito_on(t_minishell *mini)
-{	
-	while (1)
-	{	
+{		
+		if (mini->input != NULL)
+        {
+            free(mini->input);
+            mini->input = NULL;
+        }
 		mini->input = readline("shellzito: ");
 		add_history(mini->input);
 		if (mini->input == NULL)
@@ -78,9 +82,9 @@ int	shellzito_on(t_minishell *mini)
 		mini->tree = ast_builder(NULL, mini->tokenlist); //free tokenlis
 		print_tree(mini->tree, 1); //apagar
 		execution(mini->tree);
-		
-	}
-	free(mini->input); //free???
+		free(mini->input);
+
+	//free(mini->input); //free???
 	return (get_status(-1));
 }
 
