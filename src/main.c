@@ -34,11 +34,12 @@ int	main(void)
 		printf("Malloc fail.\n");
 		return (0);
 	}	
+	init_signal();
 	copy_env();
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
 	{
-		init_signal();
+		signal_main();
 		init_struct(mini);
 		dup2(fd_bckp, STDIN_FILENO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);

@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/21 14:11:16 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:54:04 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	change_type(t_token *united)
 	temp = united;
 	while (temp)
 	{
-		if ((temp->prev == NULL || temp->prev->type == PIPE) && temp->type != RED_IN)
+		//if ((temp->prev == NULL || temp->prev->type == PIPE) && temp->type != RED_IN)
+		if ((temp->prev == NULL || temp->prev->type == PIPE) && is_redirect(temp->type) == 0)
 			temp->type = CMD;
 		//if (temp->prev == NULL && temp->type != RED_IN)
 		//criar outra regra para CMD com redirecionamento;

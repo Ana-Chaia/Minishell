@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/21 16:09:32 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:45:12 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	is_heredoc(t_token *token_node)
 		{
 			file_name = create_file_name();
 
-			fd_heredoc = open(file_name, O_WRONLY, 0);
+			fd_heredoc = open(file_name, O_CREAT | O_RDWR | O_TRUNC, 0666);
 			
 			// init_signal_heredoc(fd_heredoc);
 			if (fd_heredoc < 0)
