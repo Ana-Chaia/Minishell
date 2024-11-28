@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 12:14:31 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:03:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	signal_handler(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		rl_on_new_line();
+		rl_on_new_line();exit(127);   // 
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//get_status(130);
+		get_status(130);
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -36,7 +36,7 @@ void	signal_handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//get_status(131);
+		get_status(131);
 	}
 }
 
@@ -53,7 +53,7 @@ void	ctrld(char *input, int fd_heredoc, t_token *token_node, int std_in)
 	if (g_signal == SIGINT)
 	{
 		dup2(std_in, STDIN_FILENO);
-		printf("FECHOU ĉ");
+		printf("FECHOU ĉ");   //apagar
 		// if(hd_input)
 		// // {
 		// // 	free(hd_input);
@@ -65,7 +65,7 @@ void	ctrld(char *input, int fd_heredoc, t_token *token_node, int std_in)
 	{
 		printf("shellzito: warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
 		close(fd_heredoc);
-		//get_status(0);
+		get_status(0);
 		return ;
 	}
 }
@@ -89,7 +89,7 @@ void	signal_handler_heredoc(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//get_status(130);
+		get_status(130);
 	}
 }
 // lembrar ctrlD na execução (NULL);
@@ -128,7 +128,7 @@ void	signal_handler_exec(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		//rl_redisplay();
-		//get_status(130);
+		get_status(130);
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -136,7 +136,7 @@ void	signal_handler_exec(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 	//	rl_redisplay();
-		//get_status(131);
+		get_status(131);
 	}
 }
 

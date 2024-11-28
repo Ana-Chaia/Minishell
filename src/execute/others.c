@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 14:57:52 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:00:53 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ int	execute_others(t_ast *node)
 		printf("pid dentro do if: %d\n", pid);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
-			perror ("shellzito ");
-			printf("Shellzito : command not found \n");
+			perror ("shellzito ");    //apagar?????
+			printf("Shellzito !!!: command not found \n");  /// apagar??
+			printf("%s: command not found \n", node->first_cmd);   
 			get_status(127);
-			exit(5);
+			exit(127);
 		}
-		printf("teste execve certo");
+		printf("teste execve certo");   //apagar
 	}
 	//erros que não vao existir?
 	waitpid(pid, NULL, 0);

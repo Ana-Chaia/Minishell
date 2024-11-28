@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 12:11:53 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:51:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ extern volatile int g_signal;
 
 int		shellzito_on(t_minishell *mini);
 void	init_struct(t_minishell *mini);
-void	clear_and_free(t_minishell *mini);
-void	take_token(char *input);
+// void	clear_and_free(t_minishell *mini);
+// void	take_token(char *input);
 void	free_tokenlist(t_token *tokenlist);
 void	close_fds(int fd_bckp);
 // apagar printer

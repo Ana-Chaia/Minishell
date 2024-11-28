@@ -73,12 +73,12 @@ int	shellzito_on(t_minishell *mini)
 			//clear_and_free(mini);
 			mini->input = ft_strdup("exit");
 			printf("exit\n");
-			//get_status( );      completar???
+			//get_status( );      completar 0 ????
 		}
-		validate_input(mini);
 		token_type(mini->input, &(mini)->tokenlist);
 		list_printer(mini->tokenlist); //apagar
-		check_syntax(&(mini->tokenlist));
+		if (check_syntax(&(mini->tokenlist)) == 1 || validate_input(mini) == 1)
+			return (get_status(2));
 		search_heredoc (&(mini->tokenlist));
 		across_the_universe(&(mini->tokenlist));
 		all_together(&(mini->tokenlist));
@@ -117,15 +117,15 @@ void	init_struct(t_minishell *mini)
 // 	(*tokenlist)->next = NULL;
 // }
 
-void	clear_and_free(t_minishell *mini)
-{
-	rl_clear_history();
-	printf("exit\n");    //vf no bash "exit" ou "shellzito: exit"
-	if (mini->input)
-		free(mini->input);
-	free(mini);
-	return ;
-}
+// void	clear_and_free(t_minishell *mini)
+// {
+// 	rl_clear_history();
+// 	printf("exit\n");    //vf no bash "exit" ou "shellzito: exit"
+// 	if (mini->input)
+// 		free(mini->input);
+// 	free(mini);
+// 	return ;
+// }
 
 void	free_tokenlist(t_token *tokenlist)
 {

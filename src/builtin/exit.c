@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/30 11:18:42 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:02:07 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	the_exit(char **cmd)
 			else
 			{
 				status = ft_atoi(cmd[1]);
-				printf("exit deu certo, status = %d\n", status);   //acertar print
-				exit(status);
+				printf("exit deu certo, status = %d\n", status);   //acertar print   "exit"
+				exit(status);  // ajustar get status?? 
 			}
 		}
 		else
