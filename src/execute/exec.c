@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 11:37:33 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:41:12 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	execution(t_ast *node)
 {
+	if (g_signal == SIGINT)
+	{
+		return ;
+	}
 	init_signal_exec();
 	if (node->type == PIPE)
 		execute_pipe(node);

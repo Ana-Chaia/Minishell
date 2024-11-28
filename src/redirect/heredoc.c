@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/27 10:45:12 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:13:21 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,7 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 	signal(SIGINT, signal_handler_heredoc);
 	signal(SIGQUIT, SIG_IGN);
 	hd_input = readline("> ");
-	if (g_signal == SIGINT)
-	{
-		dup2(std_in, STDIN_FILENO);
-		if(hd_input)
-		{
-			free(hd_input);
-			hd_input = NULL;
-		}
-		close(fd_heredoc);
-	}
-	ctrld(hd_input, fd_heredoc, token_node);
+	//ctrld(hd_input, fd_heredoc, token_node);
 	/*
 	if (hd_input == NULL)
 	{
@@ -109,6 +99,16 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 		return ;
 	}
 	*/
+	// if (g_signal == SIGINT)
+	// {
+	// 	dup2(std_in, STDIN_FILENO);
+	// 	// if(hd_input)
+	// 	// // {
+	// 	// // 	free(hd_input);
+	// 	// // 	hd_input = NULL;
+	// 	// // }
+	// 	close(fd_heredoc);
+	// }
 	while (hd_input && ft_strcmp(hd_input, token_node->next->content) != 0)
 	{
 		input_size = ft_strlen(hd_input);
@@ -120,6 +120,7 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 			{
 				perror(strerror(errno));
 			}
+			write(fd_heredoc, "\n", 1);
 		}
 		// init_signal();
 		// if (hd_input && ft_strcmp(hd_input, token_node->next->content) == 0)
@@ -135,9 +136,13 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 		free(hd_input);
 		hd_input = readline("> ");
 	}
+	if (hd_input == NULL)
+		ctrld(hd_input, fd_heredoc, token_node, std_in);
 	if (hd_input)
+	{
 		free(hd_input);
-	close(fd_heredoc);
+		close(fd_heredoc);
+	}
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

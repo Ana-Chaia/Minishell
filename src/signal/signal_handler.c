@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/27 10:28:54 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:14:31 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,25 @@ void	signal_handler(int signal)
 void	signal_main(void)
 {
 	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	//signal(SIGPIPE, SIG_IGN);
 }
 
-void	ctrld(char *input, int fd_heredoc, t_token *token_node)
+void	ctrld(char *input, int fd_heredoc, t_token *token_node, int std_in)
 {
-	if (input == NULL)
+	input = NULL;
+	if (g_signal == SIGINT)
+	{
+		dup2(std_in, STDIN_FILENO);
+		printf("FECHOU ĉ");
+		// if(hd_input)
+		// // {
+		// // 	free(hd_input);
+		// // 	hd_input = NULL;
+		// // }
+		close(fd_heredoc);
+	}
+	else
 	{
 		printf("shellzito: warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
 		close(fd_heredoc);
@@ -123,7 +135,7 @@ void	signal_handler_exec(int signal)
 		printf("Quit (core dump)\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+	//	rl_redisplay();
 		//get_status(131);
 	}
 }
