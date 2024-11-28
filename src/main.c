@@ -1,6 +1,7 @@
 
 #include "../include/minishell.h"
 
+volatile int g_signal;
 
 void    print_tree(t_ast *root, int nivel)
 {
@@ -39,6 +40,7 @@ int	main(void)
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
 	{
+		g_signal = 0;
 		signal_main();
 		init_struct(mini);
 		dup2(fd_bckp, STDIN_FILENO);
@@ -68,8 +70,10 @@ int	shellzito_on(t_minishell *mini)
 		add_history(mini->input);
 		if (mini->input == NULL)
 		{
-			clear_and_free(mini);
-			return (0);
+			//clear_and_free(mini);
+			mini->input = ft_strdup("exit");
+			printf("exit\n");
+			//get_status( );      completar???
 		}
 		validate_input(mini);
 		token_type(mini->input, &(mini)->tokenlist);
@@ -116,7 +120,7 @@ void	init_struct(t_minishell *mini)
 void	clear_and_free(t_minishell *mini)
 {
 	rl_clear_history();
-	printf("exit\n");
+	printf("exit\n");    //vf no bash "exit" ou "shellzito: exit"
 	if (mini->input)
 		free(mini->input);
 	free(mini);

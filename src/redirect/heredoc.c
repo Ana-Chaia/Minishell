@@ -34,8 +34,10 @@ void	is_heredoc(t_token *token_node)
 	t_token	*heredoc;
 	char	*file_name;
 	int		fd_heredoc;
+	int		std_in;
 
 	heredoc = token_node;
+	std_in = dup(STDIN_FILENO);
 	while (heredoc != NULL)
 	{
 		if (heredoc->type == HEREDOC)
@@ -50,9 +52,11 @@ void	is_heredoc(t_token *token_node)
 				ft_printf("Shellzito: %s: %s\n", file_name, strerror(errno));
 				get_status(1);
 			}
-			filling_a_file(fd_heredoc, heredoc);
+			filling_a_file(fd_heredoc, heredoc, std_in);
 			heredoc->next->content = ft_strdup(file_name);
 			heredoc->next->type = FILENAME;
+			if(g_signal == SIGINT)
+				unlink(file_name);
 			free(file_name);
 		}
 		heredoc = heredoc->next;
@@ -75,7 +79,7 @@ char	*create_file_name(void)
 	return (name);
 }
 
-void	filling_a_file(int fd_heredoc, t_token *token_node)
+void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 {
 	char	*hd_input;
 	int		input_size;
@@ -85,6 +89,26 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 	signal(SIGINT, signal_handler_heredoc);
 	signal(SIGQUIT, SIG_IGN);
 	hd_input = readline("> ");
+	if (g_signal == SIGINT)
+	{
+		dup2(std_in, STDIN_FILENO);
+		if(hd_input)
+		{
+			free(hd_input);
+			hd_input = NULL;
+		}
+		close(fd_heredoc);
+	}
+	ctrld(hd_input, fd_heredoc, token_node);
+	/*
+	if (hd_input == NULL)
+	{
+		printf("shellzito: warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
+		close(fd_heredoc);
+		//get_status(0);
+		return ;
+	}
+	*/
 	while (hd_input && ft_strcmp(hd_input, token_node->next->content) != 0)
 	{
 		input_size = ft_strlen(hd_input);
@@ -97,19 +121,19 @@ void	filling_a_file(int fd_heredoc, t_token *token_node)
 				perror(strerror(errno));
 			}
 		}
-		free(hd_input);
-		hd_input = readline("> ");
 		// init_signal();
 		// if (hd_input && ft_strcmp(hd_input, token_node->next->content) == 0)
 		// {
 		// 	free(hd_input);
 		// 	write(fd_heredoc, "\n\0", 2);
-		// 	// ctrld(hd_input, fd_heredoc, token_node);
+		//ctrld(hd_input, fd_heredoc, token_node);
 		// 	close(fd_heredoc);
 		// 	printf("teste input vazio\n");
 		// 	break ;
 		// }
 		// write (fd_heredoc, "\n", 1);
+		free(hd_input);
+		hd_input = readline("> ");
 	}
 	if (hd_input)
 		free(hd_input);

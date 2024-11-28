@@ -72,22 +72,7 @@ void child_process(int *task, t_ast *node, int nb_pid)
 	exit(get_status(-1));
 }
 
-//para o arquivo signal:
-void	signal_exec(int pid)
-{
-	if(pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGPIPE, signal_handler);
-	}
-	else
-	{
-		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, signal_handler);
-		signal(SIGPIPE, SIG_IGN);
-	}
-}
+
 
 
 

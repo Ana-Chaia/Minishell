@@ -14,6 +14,7 @@
 
 void	execution(t_ast *node)
 {
+	init_signal_exec();
 	if (node->type == PIPE)
 		execute_pipe(node);
 	else if (is_redirect(node->type) == 1)

@@ -36,6 +36,8 @@
 
 typedef struct termios	t_termios;
 
+extern volatile int g_signal;
+
 int		shellzito_on(t_minishell *mini);
 void	init_struct(t_minishell *mini);
 void	clear_and_free(t_minishell *mini);
@@ -110,6 +112,8 @@ void	signal_main(void);
 void	ctrld(char *input, int fd_heredoc, t_token *token_node);
 void	init_signal_heredoc(int fd_heredoc);
 void	signal_handler_heredoc(int signal);
+void	init_signal_exec(void);
+void	signal_handler_exec(int signal);
 
 //exec
 void    execution(t_ast *node);
