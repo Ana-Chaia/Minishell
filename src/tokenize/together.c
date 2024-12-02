@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/27 10:54:04 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:42:29 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ t_token	*all_together(t_token **token_list)
 {
 	t_token	*united;
 	t_token	*curr;
+	//char 	*space;
+	char	*temp;
 
 	united = *token_list;
 	change_type(united);
+	//space = ft_strdup(" ");
 	while (united)
 	{
 		if (united->type == CMD)
@@ -76,16 +79,28 @@ t_token	*all_together(t_token **token_list)
 			while (curr != NULL && curr->type != PIPE)
 			{
 				if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 1)
+				{
+					temp = united->content;
 					united->content = ft_strjoin(united->content,
 							curr->content);
+					free(temp);
+				}
 				if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES || curr->prev->type == CMD) && curr->prev->quote_issue == 2)
+				{
+					temp = united->content;
 					united->content = ft_strjoin(united->content,
 							curr->content);
+					free(temp);
+				}
 				else if ((curr->type == WORD || curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 0)
 				{
+					temp = united->content;
 					united->content = ft_strjoin(united->content, " ");
+					free(temp);
+					temp = united->content;
 					united->content = ft_strjoin(united->content,
 							curr->content);
+					free(temp);
 					// curr->next = NULL;
 					// curr->prev = NULL;
 					//curr->next->prev = curr->prev;

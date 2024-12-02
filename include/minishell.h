@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 15:51:37 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:34:59 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,11 @@ int	execute_others(t_ast *node);
 void	validate_cmd(char *cmd);
 char	**split_path(void);
 void	get_cmd(t_ast *node);
+
+
+//free
+void	free_export(t_export *export_list);
+void	free_ast(t_ast *ast_node);
+void	free_mini(t_minishell *mini);
 
 #endif

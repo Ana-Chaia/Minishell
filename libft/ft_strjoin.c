@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:39:16 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/01 13:46:21 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:36:43 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	new[i] = '\0';
+	// free ((char *)s1);
+	// free ((char *)s2);
 	return (new);
 }

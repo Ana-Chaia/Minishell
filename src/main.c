@@ -87,7 +87,8 @@ int	shellzito_on(t_minishell *mini)
 		mini->tree = ast_builder(NULL, mini->tokenlist); //free tokenlis
 		print_tree(mini->tree, 1); //apagar
 		execution(mini->tree);
-		free(mini->input);
+		free_mini(mini);
+		//free(mini->input);
 
 	//free(mini->input); //free???
 	return (get_status(-1));
@@ -136,9 +137,82 @@ void	free_tokenlist(t_token *tokenlist)
 	while (curr)
 	{
 		next = curr->next;
-		free(curr->content);
+		if (curr->content)
+		{
+			free(curr->content);
+			//curr->content = NULL;
+		}
 		free(curr);
 		curr = next;
 	}
-	tokenlist = NULL;
+	// tokenlist = NULL;
 }
+
+void	free_export(t_export *export_list)
+{
+	t_export	*curr;
+	t_export	*next;
+
+	curr = export_list;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr->name);
+		free(curr->value);
+		free(curr);
+		curr = next;
+	}
+	export_list = NULL;
+}
+
+void	free_ast(t_ast *ast_node)
+{
+	if (ast_node == NULL)
+		return ;
+	free_ast(ast_node->left);
+	free_ast(ast_node->right);
+	// if (ast_node->content != NULL)
+	// {
+	// 	free(ast_node->content);
+	// 	ast_node->content = NULL;
+	// }
+	// if (ast_node->first_cmd)
+	// 	free(ast_node->first_cmd);
+	// if (ast_node->exec_ready)
+	// 	free(ast_node->exec_ready);
+	// if (ast_node->cmd_args)
+	// 	free(ast_node->cmd_args);
+	// if (ast_node->path_array)
+	// 	free(ast_node->path_array);
+	free(ast_node);
+}
+
+void	free_mini(t_minishell *mini)
+{
+// 	if (mini == NULL)
+// 		return ;
+// 	if (mini->tree != NULL)
+// 	{
+// 		free_ast(mini->tree);
+// 		mini->tree = NULL;
+// 	}
+// 	if (mini->tokenlist != NULL)
+// 	{
+// 		free_tokenlist(mini->tokenlist);
+// 		mini->tokenlist = NULL;
+// 	}
+// 	if (mini->export_list != NULL)
+// 	{
+// 		free_export(mini->export_list);
+// 		mini->export_list = NULL;
+// 	}
+// 	free(mini);
+// }
+
+	free(mini->input);
+	free_tokenlist(mini->tokenlist);
+	free_ast(mini->tree);
+	free_export(mini->export_list);
+	//free(mini);
+}
+

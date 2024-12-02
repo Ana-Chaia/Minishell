@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/21 14:32:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:48:12 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	across_the_universe(t_token **token_list)
 		}
 		if (temp->type == D_QUOTES || temp->type == WORD)
 		{
-			temp->content = find_dollar(temp->content);
+			curr = find_dollar(temp->content);
+			free(temp->content);
+			temp->content = curr;
 		}
 		temp = temp->next;
 	}
@@ -40,6 +42,8 @@ char	*find_dollar(char *cmd)
 	int		x;
 	char	*value;
 	char	*new;
+	char	*substr;
+	char	*temp;
 
 	i = 0;
 	new = NULL;
@@ -64,9 +68,13 @@ char	*find_dollar(char *cmd)
 		x = i;
 		while (cmd[i] && cmd[i] != '$')
 			i++;
-		new = ft_strjoin(new, ft_substr (cmd, x, i));
+		substr = ft_substr(cmd, x, i);
+		temp = ft_strjoin(new, substr);
+		free(substr);
+		free(new);
+		//new = ft_strjoin(new, ft_substr (cmd, x, i));
 	}
-	return (new);
+	return (temp);
 }
 
 char	*change_dollar(char *cmd, int start, int end)
