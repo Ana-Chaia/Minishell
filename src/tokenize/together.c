@@ -128,7 +128,9 @@ t_token	*clear_list(t_token **token_list)
 				united->prev->next = united->next;
 			if (united->next != NULL)
 				united->next->prev = united->prev;
+			free(united->content);
 			free(united);
+			united = NULL;
 		}
 		united = temp;
 	}

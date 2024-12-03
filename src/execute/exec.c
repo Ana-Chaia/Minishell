@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	execution(t_ast *node)
+void	execution(t_ast *node, t_minishell *mini)
 {
 	if (g_signal == SIGINT)
 	{
@@ -24,7 +24,7 @@ void	execution(t_ast *node)
 	else if (is_redirect(node->type) == 1)
 		execute_redirect(node);
 	else if (is_builtin(node->content) == 1)
-			execute_builtin (node->content);
+		execute_builtin (node->content, mini);
 	else
 			execute_others (node);
 }

@@ -59,7 +59,7 @@ void	free_env(char **array);
 char	**env_shellzito(char **our_env);
 
 //int		call_builtins(char *token, t_export **export_list);
-void	ft_free_split(char **cmd);
+//void	ft_free_split(char **cmd);
 
 int		export(char **token);
 // int	validate_export_name(char *token);
@@ -91,7 +91,7 @@ void	delete_variable(char *var);
 int		pwd(void);
 
 //exit
-int		the_exit(char **cmd);
+int		the_exit(char **cmd, t_minishell *mini);
 int		verify_args(char **cmd);
 int		is_sign(char c);
 int		is_longer(char *cmd);
@@ -109,18 +109,18 @@ void	init_signal(void);
 void	signal_handler(int signal);
 void	signal_exec(int pid);
 void	signal_main(void);
-void	ctrld(char *input, int fd_heredoc, t_token *token_node, int std_in);
+void	ctrld(int fd_heredoc, t_token *token_node, int std_in);
 void	init_signal_heredoc(int fd_heredoc);
 void	signal_handler_heredoc(int signal);
 void	init_signal_exec(void);
 void	signal_handler_exec(int signal);
 
 //exec
-void    execution(t_ast *node);
+void    execution(t_ast *node, t_minishell *mini);
 int	    is_builtin(char *cmd);
 int     execute_pipe(t_ast *node);
 void    child_process(int *task, t_ast *node, int nb_pid);
-int	    execute_builtin(char *token_tree);
+int	    execute_builtin(char *token_tree, t_minishell *mini);
 int     get_status(int exit_status);
 
 
@@ -138,5 +138,7 @@ void	get_cmd(t_ast *node);
 void	free_export(t_export *export_list);
 void	free_ast(t_ast *ast_node);
 void	free_mini(t_minishell *mini);
+void	free_ptrptr(char **env);
+void	bye_bye(t_minishell *mini);
 
 #endif

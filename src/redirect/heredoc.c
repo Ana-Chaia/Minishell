@@ -137,7 +137,7 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 		hd_input = readline("> ");
 	}
 	if (hd_input == NULL)
-		ctrld(hd_input, fd_heredoc, token_node, std_in);
+		ctrld(fd_heredoc, token_node, std_in);
 	if (hd_input)
 	{
 		free(hd_input);

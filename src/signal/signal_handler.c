@@ -47,9 +47,8 @@ void	signal_main(void)
 	//signal(SIGPIPE, SIG_IGN);
 }
 
-void	ctrld(char *input, int fd_heredoc, t_token *token_node, int std_in)
+void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 {
-	input = NULL;
 	if (g_signal == SIGINT)
 	{
 		dup2(std_in, STDIN_FILENO);

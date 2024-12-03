@@ -110,11 +110,15 @@ t_ast	*ast_new_node(t_token *token_node)
 	if (!ast_node)
 		return (NULL);
 	ast_node->type = token_node->type;
-	ast_node->content = token_node->content;
+	ast_node->content = ft_strdup(token_node->content);
 	ast_node->left = NULL;
 	ast_node->right = NULL;
 //	ast_node->parent = NULL;
 	// ast_node->child = NULL;
+	ast_node->first_cmd = NULL;
+    ast_node->exec_ready = NULL;
+    ast_node->cmd_args = NULL;
+    ast_node->path_array = NULL;
 	return (ast_node);
 }
 

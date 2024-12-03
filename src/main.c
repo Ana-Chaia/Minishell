@@ -56,6 +56,7 @@ int	main(void)
 	}
 	//clear_and_free(mini);
 	//free(mini->input);
+	bye_bye(mini);
 	close_fds(fd_bckp);
 	return (the_end);
 }	
@@ -86,8 +87,9 @@ int	shellzito_on(t_minishell *mini)
 		list_printer(mini->tokenlist); //apagar
 		mini->tree = ast_builder(NULL, mini->tokenlist); //free tokenlis
 		print_tree(mini->tree, 1); //apagar
-		execution(mini->tree);
-		free_mini(mini);
+		execution(mini->tree, mini);
+		//bye_bye(mini);
+		//free_mini(mini);
 		//free(mini->input);
 
 	//free(mini->input); //free???
@@ -140,12 +142,13 @@ void	free_tokenlist(t_token *tokenlist)
 		if (curr->content)
 		{
 			free(curr->content);
-			//curr->content = NULL;
+			curr->content = NULL;
 		}
 		free(curr);
 		curr = next;
 	}
-	// tokenlist = NULL;
+	//free(tokenlist);
+	//tokenlist = NULL;
 }
 
 void	free_export(t_export *export_list)
@@ -169,22 +172,22 @@ void	free_ast(t_ast *ast_node)
 {
 	if (ast_node == NULL)
 		return ;
-	free_ast(ast_node->left);
-	free_ast(ast_node->right);
-	// if (ast_node->content != NULL)
-	// {
-	// 	free(ast_node->content);
-	// 	ast_node->content = NULL;
-	// }
-	// if (ast_node->first_cmd)
-	// 	free(ast_node->first_cmd);
-	// if (ast_node->exec_ready)
-	// 	free(ast_node->exec_ready);
-	// if (ast_node->cmd_args)
-	// 	free(ast_node->cmd_args);
-	// if (ast_node->path_array)
-	// 	free(ast_node->path_array);
+	if(ast_node->left)
+		free_ast(ast_node->left);
+	if(ast_node->right)
+		free_ast(ast_node->right);
+	if (ast_node->content)
+	 	free(ast_node->content);
+	if (ast_node->first_cmd)
+	 	free(ast_node->first_cmd);
+	if (ast_node->exec_ready)
+	 	free(ast_node->exec_ready);
+	if (ast_node->cmd_args)
+	 	free_ptrptr(ast_node->cmd_args);
+	if (ast_node->path_array)
+	 	free_ptrptr(ast_node->path_array);
 	free(ast_node);
+	ast_node = NULL;
 }
 
 void	free_mini(t_minishell *mini)
@@ -216,3 +219,41 @@ void	free_mini(t_minishell *mini)
 	//free(mini);
 }
 
+
+void	bye_bye(t_minishell *mini)
+{
+	char	**env_copy;
+	int		fd;
+
+	fd = STDIN_FILENO;
+	env_copy = env_shellzito(NULL);
+	printf("ENTROU AQUI: %d\n", fd);   //apagar
+	if (mini->input)
+		free(mini->input);
+	if (env_copy)
+		free_ptrptr(env_copy);
+	if (mini->tree)
+		free_ast(mini->tree);
+	if(mini->export_list)
+		free_export(mini->export_list);
+	if (mini->tokenlist)
+		free_tokenlist(mini->tokenlist);
+	if(mini)
+		free(mini);
+	close_fds(fd);
+}
+
+void	free_ptrptr(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd)
+		return ;
+	while (cmd[i])
+	{
+		free(cmd[i]);
+		i++;
+	}
+	free(cmd);
+}

@@ -12,13 +12,13 @@
 
 #include "../include/minishell.h"
 
-int	the_exit(char **cmd)
+int	the_exit(char **cmd, t_minishell *shellzito)
 {
 	int		i;
 	int		count;
 	int		status;
-
-	status = 42;
+		
+	status = get_status(2);  ///get_status
 	count = 0;
 	i = 1;
 	while (cmd[i] != NULL)
@@ -48,8 +48,12 @@ int	the_exit(char **cmd)
 		i++;
 	}
 	if (cmd[0] && cmd[1] == NULL)
+	{
+		bye_bye(shellzito);
+		free_ptrptr(cmd);
 		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;
 	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
+	}
 	return (0);
 }
 

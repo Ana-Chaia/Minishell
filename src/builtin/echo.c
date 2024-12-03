@@ -14,7 +14,7 @@
 #include "../include/minishell.h"
 
 //int	call_builtins(char *token, t_export **export_list)
-int	execute_builtin(char *token_tree)
+int	execute_builtin(char *token_tree, t_minishell *mini)
 {
 	int		builtin;
 	char	**cmd;
@@ -36,8 +36,8 @@ int	execute_builtin(char *token_tree)
 	else if (!ft_strcmp(cmd[0], "env"))
 	 	builtin = env(cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
-		builtin = the_exit(cmd);
-	ft_free_split(cmd);
+		builtin = the_exit(cmd, mini);
+	free_ptrptr(cmd);
 	return (builtin);
 }
 
@@ -96,6 +96,8 @@ int	check_minus_nnnns(char *cmd)
 	return (0);
 }
 
+/*
+substituida por free_ptrptr
 void	ft_free_split(char **cmd)
 {
 	int	i;
@@ -110,4 +112,4 @@ void	ft_free_split(char **cmd)
 	}
 	free(cmd);
 }
-
+*/
