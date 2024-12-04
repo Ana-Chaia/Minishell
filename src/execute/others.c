@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 11:50:28 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:02:51 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	execute_others(t_ast *node)
 	pid_t	pid;
 	char	*path;
 	char	**env;
+	int		status;
 
+	status = 0;
 	get_cmd(node);
 	validate_cmd(node->first_cmd);
 	node->path_array = split_path();
@@ -42,6 +44,7 @@ int	execute_others(t_ast *node)
 			free(node->exec_ready);
 			node->exec_ready = NULL;
 			node->exec_ready = ft_strdup(path);
+			free(path);
 			break ;
 		}	
 		free(path);
@@ -49,6 +52,7 @@ int	execute_others(t_ast *node)
 	}
 	i = 0;
 	printf("exec_ready: %s\n", node->exec_ready);
+	printf("first_cmd: %s\n", node->first_cmd);
 	while (node->cmd_args[i])
 	{
 		printf("cmd_args[%d]: %s\n", i, node->cmd_args[i]);
@@ -56,11 +60,6 @@ int	execute_others(t_ast *node)
 	}
 	i = 0;
 	env = env_shellzito(NULL);
-	// while (env[i])
-	// {
-	// 	printf("env[%d]: %s\n", i, env[i]);
-	// 	i++;
-	// }
 	pid = fork();
 	if (pid == -1)
 	{
@@ -73,22 +72,12 @@ int	execute_others(t_ast *node)
 	{
 		printf("pid dentro do if: %d\n", pid);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
-		{
-			perror ("shellzito ");    //apagar?????
-			printf("Shellzito !!!: command not found \n");  /// apagar??
-			printf("%s: command not found \n", node->first_cmd);   
-			get_status(127);
-			exit(127);
-		}
-		printf("teste execve certo");   //apagar
+			status = gone_wrong(node);
+			//free em MINI??
 	}
-	//erros que não vao existir?
-	waitpid(pid, NULL, 0);
-	if(path)
-		free(path);
-	if(path)
-		printf("%s: PATH \n", path);
-	return (0);
+	waitpid(pid, &status, 0);
+	wise_status(status);
+	return (WEXITSTATUS(status));
 }
 
 void	validate_cmd(char *cmd)
@@ -135,4 +124,64 @@ char	**split_path(void)
 		i++;
 	}	
 	return (path_array);
+}
+int gone_wrong(t_ast *node)
+{
+	int		status;
+
+	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 && is_directory(node->exec_ready) == -1)
+	{
+		printf("shellzito: %s: command not found\n", node->first_cmd);
+		return (get_status(127));
+	}
+	else if (access(node->exec_ready, F_OK) == -1)
+	{
+		printf("shellzito: %s: no such file or directory\n", node->first_cmd);
+		return (get_status(1));
+	}
+	else if (is_directory(node->exec_ready) == 1)
+	{
+		printf("shellzito: %s: is a directory\n", node->first_cmd);
+		return (get_status(126));
+	}
+	else if (access(node->exec_ready, X_OK) == -1
+		&& access(node->exec_ready, R_OK | W_OK) == -1)
+	{
+		printf("shellzito: %s: permission denied\n", node->first_cmd);
+		return (get_status(126));
+	}
+	status = get_status(-1);
+	return (status);
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+		return (-1);
+	return (S_ISDIR(statbuf.st_mode));
+
+}
+
+void	wise_status(int status)
+{
+	if (WIFSIGNALED(status))
+	{
+		status = WTERMSIG(status);
+		if (status == SIGINT)
+			get_status(130);
+		else if (status == SIGQUIT)
+		{
+			signal(SIGPIPE, SIG_IGN);		
+			get_status(131);
+		}
+	}
+	if (WIFEXITED(status))
+	{
+		status = WEXITSTATUS(status);
+		get_status(status);
+	}
+	else
+		get_status(0);
 }

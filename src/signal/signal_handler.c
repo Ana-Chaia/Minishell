@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 17:03:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:04:00 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	init_signal_exec(void)
 	printf("SINAL NA EXECUCAO\n");   //apagar
 	signal(SIGINT, signal_handler_exec);
 	signal(SIGQUIT, signal_handler_exec);
-	//signal(SIGPIPE, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
 } //colocar no heredoc tbm
 
 void	signal_handler_exec(int signal)

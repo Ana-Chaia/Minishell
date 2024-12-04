@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 16:02:07 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:54:09 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	int		count;
 	int		status;
 		
-	status = get_status(2);  ///get_status
+	status = get_status(-1);  ///get_status
 	count = 0;
 	i = 1;
 	while (cmd[i] != NULL)
@@ -30,7 +30,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 		if (count == 2)
 		{
 			if (verify_args(&cmd[1]) == 1)
-				exit (2);
+				exit(2);
 			else
 			{
 				status = ft_atoi(cmd[1]);
@@ -41,7 +41,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 		else
 		{
 			if (verify_args(&cmd[1]) == 1)
-				exit (2);
+				exit(2);
 			printf("shellzito: exit: %s: too many arguments \n", cmd[i]);
 			exit(1);
 		}
