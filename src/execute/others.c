@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 17:00:53 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:50:28 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ int	execute_others(t_ast *node)
 	{
 		curr = ft_strjoin(node->path_array[i], "/");
 		path = ft_strjoin(curr, node->first_cmd);
+		free(curr);
 		printf("path = %s\n", path);
 		if (access(path, X_OK) == 0)
 		{
-			node->exec_ready = path;
+			free(node->exec_ready);
+			node->exec_ready = NULL;
+			node->exec_ready = ft_strdup(path);
 			break ;
 		}	
+		free(path);
 		i++;
 	}
 	i = 0;
@@ -52,11 +56,11 @@ int	execute_others(t_ast *node)
 	}
 	i = 0;
 	env = env_shellzito(NULL);
-	while (env[i])
-	{
-		printf("env[%d]: %s\n", i, env[i]);
-		i++;
-	}
+	// while (env[i])
+	// {
+	// 	printf("env[%d]: %s\n", i, env[i]);
+	// 	i++;
+	// }
 	pid = fork();
 	if (pid == -1)
 	{
@@ -80,6 +84,10 @@ int	execute_others(t_ast *node)
 	}
 	//erros que não vao existir?
 	waitpid(pid, NULL, 0);
+	if(path)
+		free(path);
+	if(path)
+		printf("%s: PATH \n", path);
 	return (0);
 }
 

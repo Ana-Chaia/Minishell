@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 11:41:12 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:02:13 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	execution(t_ast *node, t_minishell *mini)
 	}
 	init_signal_exec();
 	if (node->type == PIPE)
-		execute_pipe(node);
+		execute_pipe(node, mini);
 	else if (is_redirect(node->type) == 1)
-		execute_redirect(node);
+		execute_redirect(node, mini);
 	else if (is_builtin(node->content) == 1)
 		execute_builtin (node->content, mini);
 	else
-			execute_others (node);
+		execute_others (node);
 }
 
 int	is_builtin(char *cmd)

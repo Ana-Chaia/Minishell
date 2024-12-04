@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/02 10:34:59 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:31:27 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,13 @@ void	signal_handler_exec(int signal);
 //exec
 void    execution(t_ast *node, t_minishell *mini);
 int	    is_builtin(char *cmd);
-int     execute_pipe(t_ast *node);
-void    child_process(int *task, t_ast *node, int nb_pid);
+int     execute_pipe(t_ast *node, t_minishell *mini);
+void    child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
 int	    execute_builtin(char *token_tree, t_minishell *mini);
 int     get_status(int exit_status);
 
 
-int	execute_redirect(t_ast *node);
+int	execute_redirect(t_ast *node, t_minishell *mini);
 int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
 int	dup_dup(t_ast *node, int *fd);
 

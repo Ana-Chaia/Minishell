@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:10:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 14:16:52 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:31:08 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	execute_redirect(t_ast *node)
+int	execute_redirect(t_ast *node, t_minishell *mini)
 {
 	int	svd_stdin;
 	int	svd_stdout;
@@ -26,7 +26,7 @@ int	execute_redirect(t_ast *node)
 	{
 		dup_dup(node, &fd);
 		if (node->left)
-			execution(node->left);
+			execution(node->left, mini);
 		dup2(svd_stdin, STDIN_FILENO);
 		close(svd_stdin);
 		dup2(svd_stdout, STDOUT_FILENO);

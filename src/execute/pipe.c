@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int execute_pipe(t_ast *node)
+int execute_pipe(t_ast *node, t_minishell *mini)
 {
 	int		task[2];
 	int		status[2];
@@ -26,7 +26,7 @@ int execute_pipe(t_ast *node)
 		return (get_status(-1));
 	}
 	else if	(pid1 == 0)
-		child_process(task, node->left, 0);
+		child_process(task, node->left, 0, mini);
 	pid2 = fork();
 	signal_exec(pid2);
 	if (pid2 < 0)
@@ -37,7 +37,7 @@ int execute_pipe(t_ast *node)
 		return (get_status(-1));
 	}
 	else if (pid2 == 0)
-		child_process(task, node->right, 1);
+		child_process(task, node->right, 1, mini);
 	close(task[0]);
 	close(task[1]);
 	//status = get_status(-1);
@@ -46,7 +46,7 @@ int execute_pipe(t_ast *node)
 	return (get_status(status[1]));
 }
 
-void child_process(int *task, t_ast *node, int nb_pid)
+void child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
 {
    // printf("chegou aqui %d\n", task);
     printf("chegou aqui-node->content %s\n", node->content);
@@ -65,7 +65,7 @@ void child_process(int *task, t_ast *node, int nb_pid)
 		dup2(task[0], STDIN_FILENO);
 		close(task[0]);
 	}
-	execution(node);
+	execution(node, mini);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

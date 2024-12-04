@@ -40,6 +40,8 @@ int	main(void)
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
 	{
+		if (mini == NULL)
+			mini = (t_minishell *)malloc(sizeof(t_minishell));
 		g_signal = 0;
 		signal_main();
 		init_struct(mini);
@@ -53,6 +55,7 @@ int	main(void)
 		// 	//free path env
 		// 	exit(the_end);
 		// }
+		//bye_bye(mini);
 	}
 	//clear_and_free(mini);
 	//free(mini->input);
@@ -89,7 +92,7 @@ int	shellzito_on(t_minishell *mini)
 		print_tree(mini->tree, 1); //apagar
 		execution(mini->tree, mini);
 		//bye_bye(mini);
-		//free_mini(mini);
+		free_mini(mini);
 		//free(mini->input);
 
 	//free(mini->input); //free???
@@ -136,6 +139,8 @@ void	free_tokenlist(t_token *tokenlist)
 	t_token	*next;
 
 	curr = tokenlist;
+	if (tokenlist == NULL)
+		return ;
 	while (curr)
 	{
 		next = curr->next;
@@ -211,12 +216,19 @@ void	free_mini(t_minishell *mini)
 // 	}
 // 	free(mini);
 // }
-
-	free(mini->input);
-	free_tokenlist(mini->tokenlist);
-	free_ast(mini->tree);
-	free_export(mini->export_list);
+	// free(mini->input);
+	// free_tokenlist(mini->tokenlist);
+	// free_ast(mini->tree);
+	// free_export(mini->export_list);
 	//free(mini);
+	if (mini->input)
+		free(mini->input);
+	if (mini->tree)
+		free_ast(mini->tree);
+	if(mini->export_list)
+		free_export(mini->export_list);
+	if (mini->tokenlist)
+		free_tokenlist(mini->tokenlist);
 }
 
 
