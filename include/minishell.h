@@ -120,7 +120,7 @@ void	signal_handler_exec(int signal);
 void    execution(t_ast *node, t_minishell *mini);
 int	    is_builtin(char *cmd);
 int     execute_pipe(t_ast *node, t_minishell *mini);
-void    child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
+void    child_process(int *fd, t_ast *node, int nb_pid, t_minishell *mini);
 int	    execute_builtin(char *token_tree, t_minishell *mini);
 int     get_status(int exit_status);
 int gone_wrong(t_ast *node);

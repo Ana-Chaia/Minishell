@@ -2,7 +2,7 @@
 
 int execute_pipe(t_ast *node, t_minishell *mini)
 {
-	int		task[2];
+	int		fd[2];
 	int		status[2];
 	pid_t	pid1;
 	pid_t	pid2;
@@ -11,7 +11,7 @@ int execute_pipe(t_ast *node, t_minishell *mini)
 		return (-1);
 	//if (is_redirect(node->left->type) == 1)
 		//execution(node->left);
-	if (pipe(task) == -1)
+	if (pipe(fd) == -1)
 	{
 		printf("Shellzito: pipe error \n");
 		return (get_status(-1));
@@ -21,54 +21,56 @@ int execute_pipe(t_ast *node, t_minishell *mini)
 	if (pid1 < 0)	
 	{
 		printf("Shellzito: fork error \n");
-		close(task[0]);
-		close(task[1]);
+		close(fd[0]);
+		close(fd[1]);
 		return (get_status(-1));
 	}
 	else if	(pid1 == 0)
-		child_process(task, node->left, 0, mini);
+		child_process(fd, node->left, 0, mini);
 	pid2 = fork();
 	signal_exec(pid2);
 	if (pid2 < 0)
 	{
 		printf("Shellzito: fork error \n");
-		close(task[0]);
-		close(task[1]);
+		close(fd[0]);
+		close(fd[1]);
 		return (get_status(-1));
 	}
 	else if (pid2 == 0)
-		child_process(task, node->right, 1, mini);
-	close(task[0]);
-	close(task[1]);
+		child_process(fd, node->right, 1, mini);
+	close(fd[0]);
+	close(fd[1]);
 	//status = get_status(-1);
 	waitpid(pid1, &status[0], 0);
 	waitpid(pid2, &status[1], 0);
 	return (get_status(status[1]));
 }
 
-void child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
+void child_process(int *fd, t_ast *node, int nb_pid, t_minishell *mini)
 {
-   // printf("chegou aqui %d\n", task);
+   // printf("chegou aqui %d\n", fd);
     printf("chegou aqui-node->content %s\n", node->content);
     printf("chegou aqui-nb_pid %d\n", nb_pid);
 	if(nb_pid == 0)
 	{
-		close(task[0]);
-		//dup2(task[1], STDOUT_FILENO);
-		dup2(task[1], STDOUT_FILENO);
-		close(task[1]);
+		close(fd[0]);
+		//dup2(fd[1], STDOUT_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
 	}	
 	else if (nb_pid == 1)
 	{
-		close(task[1]);
-		//dup2(task[0], STDIN_FILENO);
-		dup2(task[0], STDIN_FILENO);
-		close(task[0]);
+		close(fd[1]);
+		//dup2(fd[0], STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 	}
 	execution(node, mini);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
+	bye_bye(mini);
+	rl_clear_history();
+//	close(STDIN_FILENO);
+//	close(STDOUT_FILENO);
+//	close(STDERR_FILENO);
 	exit(get_status(-1));
 }
 

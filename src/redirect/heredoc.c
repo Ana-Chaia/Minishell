@@ -53,6 +53,7 @@ void	is_heredoc(t_token *token_node)
 				get_status(1);
 			}
 			filling_a_file(fd_heredoc, heredoc, std_in);
+			free(heredoc->next->content);
 			heredoc->next->content = ft_strdup(file_name);
 			heredoc->next->type = FILENAME;
 			if(g_signal == SIGINT)

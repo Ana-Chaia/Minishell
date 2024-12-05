@@ -19,7 +19,7 @@ int	execute_others(t_ast *node)
 	char 	*curr;
 	pid_t	pid;
 	char	*path;
-	char	**env;
+	//char	**env;
 	int		status;
 
 	status = 0;
@@ -59,7 +59,7 @@ int	execute_others(t_ast *node)
 		i++;
 	}
 	i = 0;
-	env = env_shellzito(NULL);
+	//env = env_shellzito(NULL);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -106,6 +106,7 @@ void	get_cmd(t_ast *node)
 		i++;
 	}
 	node->cmd_args[i] = NULL;
+	free_ptrptr(cmd_array);
 	return ;
 }
 
