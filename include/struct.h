@@ -40,9 +40,9 @@ typedef struct s_export
 
 typedef struct s_minishell
 {
-	char	*input;
-	t_token	*tokenlist;
-	t_ast	*tree;
+	char		*input;
+	t_token		*tokenlist;
+	t_ast		*tree;
 	t_export	*export_list;
 }	t_minishell;
 

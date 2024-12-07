@@ -6,10 +6,9 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:51 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/18 11:18:16 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/07 13:19:50 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -40,19 +39,6 @@ int	execute_builtin(char *token_tree, t_minishell *mini)
 	free_ptrptr(cmd);
 	return (builtin);
 }
-
-/*
-https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
-Output the args, separated by spaces, terminated with a newline. The return status is 0 unless a write error occurs. 
-If -n is specified, the trailing newline is suppressed. 
-If the -e option is given, interpretation of the following backslash-escaped characters is enabled. 
-The -E option disables the interpretation of these escape characters, 
-even on systems where they are interpreted by default. 
-The xpg_echo shell option may be used to dynamically determine whether or 
-not echo expands these escape characters by default. echo does not interpret -- to mean the end of options.
-
-não vamos trabalhar com backslash, por isso ignorei o -e.
-*/
 
 int	echo(char **cmd)
 {

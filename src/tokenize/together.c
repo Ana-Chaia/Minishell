@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/02 13:42:29 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:59:29 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	change_type(t_token *united)
 {
 	t_token	*temp;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	temp = united;
 	while (temp)
@@ -55,9 +55,10 @@ void	change_type(t_token *united)
 		}
 	}
 }
-	
-void del(void *content) {
-    free(content);
+
+void	del(void *content)
+{
+	free(content);
 }
 
 
@@ -122,7 +123,8 @@ t_token	*clear_list(t_token **token_list)
 	while (united)
 	{
 		temp = united->next;
-		if (united->type == WORD || united->type == S_QUOTES || united->type == D_QUOTES)
+		if (united->type == WORD || united->type == S_QUOTES
+			|| united->type == D_QUOTES)
 		{
 			if (united->prev != NULL)
 				united->prev->next = united->next;

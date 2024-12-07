@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/04 10:12:45 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:04:52 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	export(char **cmd)
 {
 	int			i;
 	char		**curr;
-	t_export **export_list;
+	t_export *export_list;
 
 	i = 1;
 	curr = cmd;
-	export_list = NULL;
+	export_list = malloc(sizeof(t_export *));
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
 	else
@@ -40,7 +40,7 @@ int	export(char **cmd)
 	return (0);
 }
 
-void	all_you_need_is_env(t_export **export_list, int i)
+void	all_you_need_is_env(t_export *export_list, int i)
 {
 	char		**new_env;
 	char		**env;
@@ -49,6 +49,7 @@ void	all_you_need_is_env(t_export **export_list, int i)
 	int			k;
 	char		**shell;
 	int x;
+	char *substr;
 
 	k = 0;
 	env = env_shellzito(NULL);
@@ -58,7 +59,7 @@ void	all_you_need_is_env(t_export **export_list, int i)
 	// 	new_env[k] = ft_strdup(env[k]);
 	// 	k++;
 	// }
-	curr = *export_list;
+	curr = export_list;
 	while (curr)
 	{
 		if ((curr->on_env == 42 && curr->equal == 1) || curr->on_env == 0)
@@ -70,14 +71,16 @@ void	all_you_need_is_env(t_export **export_list, int i)
 				while (new_env[j][x] != '=' && new_env[j][x] != '\0')
 					x++;
 				printf("Comparando %s com %s\n", new_env[j], curr->name);
-				if (ft_strcmp(ft_substr(new_env[j], 0, x), curr->name) == 0)
+				substr = ft_substr(new_env[j], 0, x);
+				if (ft_strcmp(substr, curr->name) == 0)
 				{
 					printf("Substituindo %s com %s\n", new_env[j], curr->name);
 					// usar unset para eliminar a linha
 					free(new_env[j]);
 					new_env[j] = join_env(curr->name, curr->value);
 					curr->on_env = 42;
-				}	
+				}
+				free(substr);	
 				j++;
 			}
 			if (curr->on_env == 0)
@@ -212,7 +215,7 @@ char	*join_env(char const *s1, char const *s2)
 	return (new);
 }
 
-int	list_export(char *token, t_export **export_list)
+int	list_export(char *token, t_export *export_list)
 {
 	int			i;
 	char		*curr;
@@ -243,6 +246,7 @@ int	compare_to_env(char *name)
 	char	**env_shellzito_copy;
 	int		i;
 	int j;
+	char	*substr;
 
 	env_shellzito_copy = env_shellzito(NULL);
 	i = 0;
@@ -251,11 +255,13 @@ int	compare_to_env(char *name)
 		j = 0;
 		while (env_shellzito_copy[i][j] != '=' && env_shellzito_copy[i][j] != '\0')
 			j++;
-		if (ft_strcmp(ft_substr(env_shellzito_copy[i], 0, j), name) == 0)
+		substr = ft_substr(env_shellzito_copy[i], 0, j);
+		if (ft_strcmp(substr, name) == 0)
 		{
 			printf("ja existe\n");
 			return (42);
-		}	
+		}
+		free(substr);
 		i++;
 	}
 	printf("nao existe\n");
@@ -305,24 +311,26 @@ t_export	*create_node_exp(char *name, char *value, int on_env, char eq)
 		new->equal = 0;
 	new->next = NULL;
 	new->prev = NULL;
+	free(name);
+	free(value);
 	return (new);
 }
 
-void	make_lst_exp(t_export **export_list, t_export *export_node)
+void	make_lst_exp(t_export *export_list, t_export *export_node)
 {
 	t_export	*curr;
 
 	if (!export_node)
 		return ;
 	curr = NULL;
-	if (*export_list == NULL)
+	if (export_list == NULL)
 	{
-		*export_list = export_node;
+		export_list = export_node;
 		printf("colocou o nó inicial \n");
 	}	
 	else
 	{
-		curr = *export_list;
+		curr = export_list;
 		while (curr->next != NULL)
 			curr = curr->next;
 		curr->next = export_node;

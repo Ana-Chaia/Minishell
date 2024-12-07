@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 11:23:27 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:58:20 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	is_redirect(int curr)
 	return (0);
 }
 
-t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
+t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 {
 	t_ast	*joint;
 	t_token	*curr;
@@ -148,43 +148,43 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist)
 	{
 		curr->blob = 42;
 		joint = ast_new_node(curr);
-		printf("----------novo joint: %s\n", joint->content);
+		printf("----------level %d\tnovo joint: %s\n",level, joint->content);
 	}
 	else
 		joint = ast_node;
 	if (curr->type == PIPE)
 	{
 		if (joint->left == NULL)
-			joint->left = ast_builder(joint->left, curr);
+			joint->left = ast_builder(joint->left, curr, level + 1);
 		if (curr->next)
 		{
 			redir = redir_to_ast(curr->next);
 			if (redir != curr->next)
-				joint->right = ast_builder(joint->right, redir);
+				joint->right = ast_builder(joint->right, redir, level + 1);
 			if (curr->next && curr->next->type == CMD)
-				joint->right = ast_builder(joint->right, curr->next);
+				joint->right = ast_builder(joint->right, curr->next, level + 1);
 		}
 	}
 	else if (is_redirect(curr->type) == 1)
 	{
-		if (curr->next && curr->next->type == FILENAME)  //faz o filename na direita
+		if (curr->next && curr->next->type == FILENAME && curr->next->blob != 42)  //faz o filename na direita
 		{
 			joint->right = ast_new_node(curr->next);
 			curr->next->blob = 42;
-			printf("----------novo joint_filename: %s\n", joint->right->content);
+			printf("----------level %d\tnovo joint_filename: %s\n",level, joint->right->content);
 		}
 		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda 
-			joint->left = ast_builder(joint->left, curr->prev);
+			joint->left = ast_builder(joint->left, curr->prev, level + 1);
 		if (curr->next->next && curr->next->next->type != PIPE)
-			joint->left = ast_builder(joint->left, curr->next->next);
+			joint->left = ast_builder(joint->left, curr->next->next, level + 1);
 	}
 	else if (curr->prev == NULL && curr->blob == 0)
 	{
 		curr->blob = 42;
 		redir = redir_to_ast(curr);                  // faz o primeiro redir na esquerda
 		if (redir != curr)
-			joint->left = ast_builder(joint->left, redir);
-		joint->left = ast_builder(joint->left, curr);
+			joint->left = ast_builder(joint->left, redir, level + 1);
+		joint->left = ast_builder(joint->left, curr, level + 1);
 	}
 	return (joint);
 }

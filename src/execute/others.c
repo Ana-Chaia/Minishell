@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 16:02:51 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:28:12 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	get_cmd(t_ast *node)
 		i++;
 	}
 	node->cmd_args[i] = NULL;
+	free_ptrptr(cmd_array);
 	return ;
 }
 

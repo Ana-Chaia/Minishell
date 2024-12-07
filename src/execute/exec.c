@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 11:02:13 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:57:25 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int	is_builtin(char *cmd)
 	len = (ft_strchr(cmd, ' ') - cmd);   //vf com ana se td bem
 	if (len == 0)
 		return (0);
-	if (strncmp(cmd, "echo", len) == 0 
-		|| strncmp(cmd, "cd", len) == 0 
-		|| strncmp(cmd, "pwd", len) == 0 
-		|| strncmp(cmd, "export", len) == 0 
-		|| strncmp(cmd, "unset", len) == 0 
-		|| strncmp(cmd, "env", len) == 0 
+	if (strncmp(cmd, "echo", len) == 0
+		|| strncmp(cmd, "cd", len) == 0
+		|| strncmp(cmd, "pwd", len) == 0
+		|| strncmp(cmd, "export", len) == 0
+		|| strncmp(cmd, "unset", len) == 0
+		|| strncmp(cmd, "env", len) == 0
 		|| strncmp(cmd, "exit", len) == 0)
 		return (1);
 	return (0);
 }
 
-int get_status(int exit_status)
+int	get_status(int exit_status)
 {
 	static int	status;
 

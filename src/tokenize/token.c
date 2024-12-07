@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 12:58:21 by anacaro5          #+#    #+#             */
+/*   Updated: 2024/12/07 12:58:22 by anacaro5         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../include/minishell.h"
 
@@ -40,12 +52,12 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 		return (NULL);
 	substr = ft_substr(input, idx, flag);
 	new->content = ft_strdup(substr);
+	free(substr);
 	new->type = type;
 	new->blob = x;
 	new->quote_issue = 0;
 	new->next = NULL;
 	new->prev = NULL;
-	free(substr);
 	return (new);
 }
 
@@ -75,9 +87,7 @@ int	token_d_quotes(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-//	int		i;
 
-//	i = 0;
 	start = (size_t)idx;
 	idx++;
 	while (input[idx] && input[idx] != '"')
@@ -93,9 +103,7 @@ int	token_s_quotes(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-//	int		i;
 
-//	i = 0;
 	start = (size_t)idx;
 	idx++;
 	while (input[idx] && input[idx] != '\'')
@@ -126,9 +134,7 @@ int	token_word(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
 	size_t	end;
-//	int		i;
 
-//	i = 0;
 	if (is_space(input[idx]))
 		return (idx + 1);
 	start = (size_t)idx;

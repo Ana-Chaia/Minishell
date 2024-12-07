@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 15:31:54 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/07 13:16:13 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/wait.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 #include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
 #include <errno.h>   // Para errno
@@ -67,12 +67,12 @@ int		export(char **token);
 // int	validate_export_token2(char *token);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
 void	print_export(char **copy);
-int		list_export(char *token, t_export **export_list);
+int		list_export(char *token, t_export *export_list);
 int		validate_name(char *token);
 int		compare_to_env(char *name);
 t_export	*create_node_exp(char *name, char *value, int on_env, char equal);
-void	make_lst_exp(t_export **export_list, t_export *export_node);
-void	all_you_need_is_env(t_export **export_list, int i);
+void	make_lst_exp(t_export *export_list, t_export *export_node);
+void	all_you_need_is_env(t_export *export_list, int i);
 char	**come_together_env(char **new_env, t_export *curr);
 char	**strawberry_fields_forenv(char **env, int i);
 char	*join_env(char const *s1, char const *s2);
@@ -98,12 +98,12 @@ int		is_sign(char c);
 int		is_longer(char *cmd);
 
 //cd
-int	    cd(char **cmd);
-char    *get_path(char *path);
+int		cd(char **cmd);
+char	*get_path(char *path);
 void	vars_to_env(char *old_pwd, char *pwd);
 
 //env
-int 	env(char **cmd);
+int		env(char **cmd);
 
 //signal
 void	init_signal(void);
@@ -117,23 +117,23 @@ void	init_signal_exec(void);
 void	signal_handler_exec(int signal);
 
 //exec
-void    execution(t_ast *node, t_minishell *mini);
-int	    is_builtin(char *cmd);
-int     execute_pipe(t_ast *node, t_minishell *mini);
-void    child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
-int	    execute_builtin(char *token_tree, t_minishell *mini);
-int     get_status(int exit_status);
-int gone_wrong(t_ast *node);
-int	is_directory(const char *path);
+void	execution(t_ast *node, t_minishell *mini);
+int		is_builtin(char *cmd);
+int		execute_pipe(t_ast *node, t_minishell *mini);
+void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
+int		execute_builtin(char *token_tree, t_minishell *mini);
+int		get_status(int exit_status);
+int		gone_wrong(t_ast *node);
+int		is_directory(const char *path);
 void	wise_status(int status);
 
 
 
-int	execute_redirect(t_ast *node, t_minishell *mini);
-int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
-int	dup_dup(t_ast *node, int *fd);
+int		execute_redirect(t_ast *node, t_minishell *mini);
+int		open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
+int		dup_dup(t_ast *node, int *fd);
 
-int	execute_others(t_ast *node);
+int		execute_others(t_ast *node);
 void	validate_cmd(char *cmd);
 char	**split_path(void);
 void	get_cmd(t_ast *node);

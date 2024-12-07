@@ -1,23 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
+/*   Updated: 2024/12/07 13:19:38 by anacaro5         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
-
-/*
-◦ cd with only a relative or absolute path
-caminho absoluto -  localização exata de um arquivo ou diretório
- a partir do diretório raiz do sistema (/). Ele sempre começa com /
-  e fornece o caminho completo desde a raiz até o diretório ou 
-  arquivo desejado.
-caminho relativo - localização de um diretório ou arquivo em 
-relação ao diretório atual. Ele não começa com / e usa referências
-como . (diretório atual) , .. (diretório anterior) para navegar e ~ (diretorio home)
-
-cd nome - procura dentro do diretorio atual
-cd ../nome - um nivel acima
-
-na env tem:
-OLDPWD vazia no início
-
-*/
-
 
 int	cd(char **cmd)
 {

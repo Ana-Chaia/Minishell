@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/11/28 12:13:21 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:04:01 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	is_heredoc(t_token *token_node)
 				get_status(1);
 			}
 			filling_a_file(fd_heredoc, heredoc, std_in);
+			free(heredoc->next->content);
 			heredoc->next->content = ft_strdup(file_name);
 			heredoc->next->type = FILENAME;
 			if(g_signal == SIGINT)

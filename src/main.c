@@ -3,20 +3,20 @@
 
 volatile int g_signal;
 
-void    print_tree(t_ast *root, int nivel)
+void	print_tree(t_ast *root, int nivel)
 {
-    int    i;
+	int	i;
 
-    if (root)
-    {
-        print_tree(root->right, nivel + 1);
-        printf("\n\n");
-        for(i = 0; i < nivel; i++)
-            printf("\t");
-        printf("%s - %d", root->content, root->type);
-        print_tree(root->left, nivel + 1);
+	if (root)
+	{
+		print_tree(root->right, nivel + 1);
 		printf("\n\n");
-    }
+		for(i = 0; i < nivel; i++)  //APAGAR
+			printf("\t");
+		printf("%s - %d", root->content, root->type);
+		print_tree(root->left, nivel + 1);
+		printf("\n\n");
+	}
 }
 
 
@@ -66,10 +66,10 @@ int	main(void)
 int	shellzito_on(t_minishell *mini)
 {		
 		if (mini->input != NULL)
-        {
-            free(mini->input);
-            mini->input = NULL;
-        }
+		{
+			free(mini->input);
+			mini->input = NULL;
+		}
 		mini->input = readline("shellzito: ");
 		add_history(mini->input);
 		if (mini->input == NULL)
@@ -88,7 +88,7 @@ int	shellzito_on(t_minishell *mini)
 		all_together(&(mini->tokenlist));
 		clear_list(&(mini->tokenlist));
 		list_printer(mini->tokenlist); //apagar
-		mini->tree = ast_builder(NULL, mini->tokenlist); //free tokenlis
+		mini->tree = ast_builder(NULL, mini->tokenlist, 0); //free tokenlis
 		print_tree(mini->tree, 1); //apagar
 		execution(mini->tree, mini);
 		//bye_bye(mini);
@@ -115,13 +115,6 @@ void	init_struct(t_minishell *mini)
 	mini->tree = NULL;
 	mini->export_list = NULL;
 }
-// 	*tokenlist = NULL;
-// 	(*tokenlist)->position = 0;
-// 	(*tokenlist)->content = NULL;
-// 	(*tokenlist)->type = 0;
-// 	(*tokenlist)->prev = NULL;
-// 	(*tokenlist)->next = NULL;
-// }
 
 // void	clear_and_free(t_minishell *mini)
 // {
@@ -148,6 +141,8 @@ void	free_tokenlist(t_token *tokenlist)
 		{
 			free(curr->content);
 			curr->content = NULL;
+			curr->next = NULL;
+			curr->prev = NULL;
 		}
 		free(curr);
 		curr = next;
@@ -170,27 +165,34 @@ void	free_export(t_export *export_list)
 		free(curr);
 		curr = next;
 	}
-	export_list = NULL;
+	free(export_list);
+	//export_list = NULL;
 }
 
 void	free_ast(t_ast *ast_node)
 {
 	if (ast_node == NULL)
 		return ;
-	if(ast_node->left)
+	if (ast_node->left)
+	{
 		free_ast(ast_node->left);
-	if(ast_node->right)
+		//ast_node->left = NULL;
+	}
+	if (ast_node->right)
+	{
 		free_ast(ast_node->right);
+		//ast_node->right = NULL;
+	}
 	if (ast_node->content)
-	 	free(ast_node->content);
+		free(ast_node->content);
 	if (ast_node->first_cmd)
-	 	free(ast_node->first_cmd);
+		free(ast_node->first_cmd);
 	if (ast_node->exec_ready)
-	 	free(ast_node->exec_ready);
+		free(ast_node->exec_ready);
 	if (ast_node->cmd_args)
-	 	free_ptrptr(ast_node->cmd_args);
+		free_ptrptr(ast_node->cmd_args);
 	if (ast_node->path_array)
-	 	free_ptrptr(ast_node->path_array);
+		free_ptrptr(ast_node->path_array);
 	free(ast_node);
 	ast_node = NULL;
 }
@@ -224,11 +226,19 @@ void	free_mini(t_minishell *mini)
 	if (mini->input)
 		free(mini->input);
 	if (mini->tree)
+	{
 		free_ast(mini->tree);
+		//free(mini->tree);
+		//mini->tree = NULL;
+	}
 	if(mini->export_list)
 		free_export(mini->export_list);
 	if (mini->tokenlist)
+	{
 		free_tokenlist(mini->tokenlist);
+		//free(mini->tokenlist);
+		mini->tokenlist = NULL;
+	}
 }
 
 
@@ -245,12 +255,18 @@ void	bye_bye(t_minishell *mini)
 	if (env_copy)
 		free_ptrptr(env_copy);
 	if (mini->tree)
+	{
 		free_ast(mini->tree);
-	if(mini->export_list)
+		//free(mini->tree);
+	}		
+	if (mini->export_list)
+	{
 		free_export(mini->export_list);
+		free(mini->export_list);
+	}
 	if (mini->tokenlist)
 		free_tokenlist(mini->tokenlist);
-	if(mini)
+	if (mini)
 		free(mini);
 	close_fds(fd);
 }
