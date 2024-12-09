@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:51 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/07 13:19:50 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:12:31 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	execute_builtin(char *token_tree, t_minishell *mini)
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		builtin = pwd();
 	else if (!ft_strcmp(cmd[0], "export"))
-		builtin = export(cmd);
+		builtin = export(cmd, mini);
 	else if (!ft_strcmp(cmd[0], "unset"))
 	 	builtin = unset(cmd);
 	else if (!ft_strcmp(cmd[0], "env"))

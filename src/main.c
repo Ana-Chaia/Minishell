@@ -157,15 +157,27 @@ void	free_export(t_export *export_list)
 	t_export	*next;
 
 	curr = export_list;
+	if (export_list == NULL)
+		return ;
 	while (curr)
 	{
 		next = curr->next;
-		free(curr->name);
-		free(curr->value);
+		if (curr->name)
+		{
+			free(curr->name);
+			curr->name = NULL;
+		}
+		if (curr->value)
+		{
+			free(curr->value);
+			curr->value = NULL;
+		}
+		curr->next = NULL;
+		curr->prev = NULL;
 		free(curr);
 		curr = next;
 	}
-	free(export_list);
+	//free(export_list);
 	//export_list = NULL;
 }
 
@@ -232,12 +244,17 @@ void	free_mini(t_minishell *mini)
 		//mini->tree = NULL;
 	}
 	if(mini->export_list)
+	{
 		free_export(mini->export_list);
+		mini->export_list = NULL;
+		printf("DEU FREE NO EXPORTLIST");
+	}
 	if (mini->tokenlist)
 	{
 		free_tokenlist(mini->tokenlist);
 		//free(mini->tokenlist);
 		mini->tokenlist = NULL;
+		printf("DEU FREE NO TOKENLIST");
 	}
 }
 

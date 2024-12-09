@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 17:04:52 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:14:25 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	export(char **cmd)
+int	export(char **cmd, t_minishell *mini)
 {
 	int			i;
 	char		**curr;
-	t_export *export_list;
-
+	
 	i = 1;
 	curr = cmd;
-	export_list = malloc(sizeof(t_export *));
 	if (!curr[1])
 		print_export(env_shellzito(NULL));
 	else
@@ -32,10 +30,10 @@ int	export(char **cmd)
 				printf("export: %s: not a valid identifier\n", curr[i]);
 			}
 			else
-				list_export(curr[i], export_list);
+				list_export(curr[i], &(mini)->export_list);
 			i++;
 		}
-		all_you_need_is_env(export_list, i);
+		all_you_need_is_env(mini->export_list, i);
 	}
 	return (0);
 }
@@ -60,6 +58,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	// 	k++;
 	// }
 	curr = export_list;
+	printf("export_list: %s", export_list->name);
 	while (curr)
 	{
 		if ((curr->on_env == 42 && curr->equal == 1) || curr->on_env == 0)
@@ -215,7 +214,7 @@ char	*join_env(char const *s1, char const *s2)
 	return (new);
 }
 
-int	list_export(char *token, t_export *export_list)
+int	list_export(char *token, t_export **export_list)
 {
 	int			i;
 	char		*curr;
@@ -311,26 +310,27 @@ t_export	*create_node_exp(char *name, char *value, int on_env, char eq)
 		new->equal = 0;
 	new->next = NULL;
 	new->prev = NULL;
+	printf("create_node: %s", new->name);
 	free(name);
 	free(value);
 	return (new);
 }
 
-void	make_lst_exp(t_export *export_list, t_export *export_node)
+void	make_lst_exp(t_export **export_list, t_export *export_node)
 {
 	t_export	*curr;
 
 	if (!export_node)
 		return ;
 	curr = NULL;
-	if (export_list == NULL)
+	if (*export_list == NULL)
 	{
-		export_list = export_node;
+		*export_list = export_node;
 		printf("colocou o nó inicial \n");
 	}	
 	else
 	{
-		curr = export_list;
+		curr = *export_list;
 		while (curr->next != NULL)
 			curr = curr->next;
 		curr->next = export_node;

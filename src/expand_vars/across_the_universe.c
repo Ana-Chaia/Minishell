@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   across_the_universe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/07 16:21:48 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/09 10:27:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*find_dollar(char *cmd)
 			value = change_dollar(cmd, x, i);
 			if (value)
 				new = (ft_strjoin(new, value));
+			free(value);
 		}
 		x = i;
 		while (cmd[i] && cmd[i] != '$')
@@ -116,7 +117,7 @@ char	*cut_value(char *name, char **env)
 							- j));
 				value = temp2;
 				free (temp);
-				free (temp2);
+				//free (temp2);
 			}
 			return (value);
 		}

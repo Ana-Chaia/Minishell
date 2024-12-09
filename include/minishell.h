@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/07 13:16:13 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:13:17 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ char	**env_shellzito(char **our_env);
 //int		call_builtins(char *token, t_export **export_list);
 //void	ft_free_split(char **cmd);
 
-int		export(char **token);
+int		export(char **token, t_minishell *mini);
 // int	validate_export_name(char *token);
 // int	validate_export_token2(char *token);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
 void	print_export(char **copy);
-int		list_export(char *token, t_export *export_list);
+int		list_export(char *token, t_export **export_list);
 int		validate_name(char *token);
 int		compare_to_env(char *name);
 t_export	*create_node_exp(char *name, char *value, int on_env, char equal);
-void	make_lst_exp(t_export *export_list, t_export *export_node);
+void	make_lst_exp(t_export **export_list, t_export *export_node);
 void	all_you_need_is_env(t_export *export_list, int i);
 char	**come_together_env(char **new_env, t_export *curr);
 char	**strawberry_fields_forenv(char **env, int i);
