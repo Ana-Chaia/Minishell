@@ -9,6 +9,7 @@ typedef struct s_token
 	int				blob;
 	char			*content;
 	int				quote_issue;
+	int				quote;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -22,6 +23,7 @@ typedef struct s_ast
 	char			*exec_ready;
 	char			**cmd_args;
 	char			**path_array;
+	int				quote;
 	struct s_ast	*left;
 	struct s_ast	*right;
 	//struct s_ast	*parent;

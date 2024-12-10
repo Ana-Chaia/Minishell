@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/07 12:57:25 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:47:38 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	execution(t_ast *node, t_minishell *mini)
 		execute_pipe(node, mini);
 	else if (is_redirect(node->type) == 1)
 		execute_redirect(node, mini);
+	//else if ()
 	else if (is_builtin(node->content) == 1)
 		execute_builtin (node->content, mini);
 	else

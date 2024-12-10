@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/07 14:58:20 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:41:21 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_ast	*ast_new_node(t_token *token_node)
 	if (!ast_node)
 		return (NULL);
 	ast_node->type = token_node->type;
+	ast_node->quote = token_node->quote;
 	ast_node->content = ft_strdup(token_node->content);
 	ast_node->left = NULL;
 	ast_node->right = NULL;

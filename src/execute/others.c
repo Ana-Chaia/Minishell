@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 16:28:12 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:58:20 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_others(t_ast *node)
 	char 	*curr;
 	pid_t	pid;
 	char	*path;
-	char	**env;
+	//char	**env;
 	int		status;
 
 	status = 0;
@@ -59,7 +59,7 @@ int	execute_others(t_ast *node)
 		i++;
 	}
 	i = 0;
-	env = env_shellzito(NULL);
+	//env = env_shellzito(NULL);
 	pid = fork();
 	if (pid == -1)
 	{

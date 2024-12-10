@@ -66,9 +66,11 @@ void child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
 		close(task[0]);
 	}
 	execution(node, mini);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
+	bye_bye(mini);
+	rl_clear_history();
+	// close(STDIN_FILENO);
+	// close(STDOUT_FILENO);
+	// close(STDERR_FILENO);
 	exit(get_status(-1));
 }
 
