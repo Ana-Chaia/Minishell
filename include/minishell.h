@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/09 12:13:17 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:09:42 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	across_the_universe(t_token **token_list);
 char	*find_dollar(char *cmd);
 char	*change_dollar(char *cmd, int start, int end);
 char	*cut_value(char *name, char **env);
+char 	*not_expanded(char *cmd, int i, char *temp);
+char	*ft_strxcpy(char *dest, char *src, size_t destsize);
 
 //builtins
 void	copy_env(void);
