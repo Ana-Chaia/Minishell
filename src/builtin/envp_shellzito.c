@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
 
 //na main tem que ter envp como variavel
 
-void	copy_env()
+void	copy_env(void)
 {
 	char	**our_env;
 	char	**env;
@@ -25,7 +24,7 @@ void	copy_env()
 	env = __environ;
 	while (env[i])
 		i++;
-	our_env = ft_calloc (sizeof(char*), (i + 1));
+	our_env = ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (env[i])
 	{

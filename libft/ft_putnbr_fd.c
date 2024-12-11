@@ -22,7 +22,7 @@ void	ft_putnbr_fd(int n, int fd)
 	{
 		num *= -1;
 		write (fd, "-", 1);
-	}	
+	}
 	if (num > 9)
 		ft_putnbr_fd(num / 10, fd);
 	write (fd, &str[num % 10], 1);

@@ -126,6 +126,7 @@ char	**split_path(void)
 	}	
 	return (path_array);
 }
+
 int gone_wrong(t_ast *node)
 {
 	int		status;

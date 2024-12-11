@@ -23,7 +23,7 @@ int	cd(char **cmd)
 	pwd = NULL;
 	if (cmd[2])
 	{
-		printf("cd: too many arguments\n");		//pode usar uma função de printar com fd
+		printf("cd: too many arguments\n");	//pode usar uma função de printar com fd
 		return (0);
 	}
 	if (!cmd[1])
@@ -32,8 +32,8 @@ int	cd(char **cmd)
 		if (path == NULL)
 			printf("cd: Could not get the home directory.\n");
 		//	printf("home_path = %s\n", path);
-	}	
-	else 
+	}
+	else
 	{
 		path = get_path(cmd[1]);
 	}
@@ -41,37 +41,37 @@ int	cd(char **cmd)
 	{
 		printf("cd: %s: No such file or directory\n", pwd);
 		return (0);
-	}	
+	}
 	pwd = getcwd(NULL, 0);
-	printf("old_pwd: %s\n", old_pwd); 	//apagar
-	printf("pwd: %s\n", pwd);			//apagar
+	//printf("old_pwd: %s\n", old_pwd); 	//apagar
+	//printf("pwd: %s\n", pwd);			//apagar
 	vars_to_env(old_pwd, pwd);
 	return (0);
 }
-	
-char *get_path(char *path)
+
+char	*get_path(char *path)
 {
 	char	*new_path;
 	char	*x;
 	size_t	len;
-	
-  new_path = NULL;
+
+	new_path = NULL;
 	x = getcwd(NULL, 0);
-	if ((path[0] = '.') && (path[1] == '\0'))
+	if ((path[0] == '.') && (path[1] == '\0'))
 		new_path = x;
-	else if ((path[0] = '.') && (path[1] && path[1] != '.'))
+	else if ((path[0] == '.') && (path[1] && path[1] != '.'))
 	{
 		len = (ft_strrchr(x, '/')) - x;
 		new_path = ft_strjoin(x, (ft_substr(path, 1, strlen(x) - 1)));
-	}	
-	else if ((path[0] = '.') && (path[1] == '.'))
+	}
+	else if ((path[0] == '.') && (path[1] == '.'))
 	{
 		len = (ft_strrchr(x, '/')) - x;
 		new_path = ft_strjoin((ft_substr(x, 0, len)), (ft_substr(path, 2, strlen(x) - 2)));
-	}	
-	else if ((path[0] = '~') && (path[1] == '\0'))
+	}
+	else if ((path[0] == '~') && (path[1] == '\0'))
 		new_path = getenv("HOME");
-	else if ((path[0] = '~') && (path[1] != '\0'))
+	else if ((path[0] == '~') && (path[1] != '\0'))
 		new_path = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
 	printf("new_path: %s\n", new_path);		//apagar
 	return (new_path);
@@ -116,8 +116,5 @@ void	vars_to_env(char *old_pwd, char *pwd)
 		to_env = join_env("OLDPWD", old_pwd);
 		our_env[i] = to_env;
 		our_env[i + 1] = NULL;
-	}	
+	}
 }
-
-
-

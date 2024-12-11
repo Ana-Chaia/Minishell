@@ -17,7 +17,6 @@
 // determining the name of the current directory or an invalid option is
 // supplied.
 
-
 #include "../include/minishell.h"
 
 int	pwd(void)
@@ -35,7 +34,6 @@ int	pwd(void)
 	return (get_status(0));
 }
 
-
 // Obs:
 // anacaro5@c1r7p3:~$ PWD
 // PWD: comando não encontrado
@@ -45,3 +43,4 @@ int	pwd(void)
 // ECHO: comando não encontrado
 // anacaro5@c1r7p3:~$ echo $?
 // 127
+

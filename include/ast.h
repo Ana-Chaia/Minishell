@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+
 #ifndef AST_H
 # define AST_H
 
@@ -25,3 +27,4 @@ t_token	*find_last_one(t_token *tokenlist);
 
 
 #endif
+*/

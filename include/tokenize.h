@@ -1,12 +1,14 @@
 
+/*
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
-/**
+*
  * @brief:gmhkmg
  * @param:
  * @return:
  */
+/*
 int	validate_input(t_minishell *mini);
 int	double_quotes_closed(char *str);
 int	single_quotes_closed(char *str);
@@ -42,3 +44,4 @@ void validate_quote_issue(t_token **token_list, size_t start,
 		size_t end,	char *input);
 
 #endif
+*/

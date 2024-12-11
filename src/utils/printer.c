@@ -61,3 +61,19 @@ void	print_env_copy(char **copy)
 		i++;
 	}
 }
+
+void	print_tree(t_ast *root, int nivel)
+{
+	int	i;
+
+	if (root)
+	{
+		print_tree(root->right, nivel + 1);
+		printf("\n\n");
+		for(i = 0; i < nivel; i++)  //APAGAR
+			printf("\t");
+		printf("%s - %d", root->content, root->type);
+		print_tree(root->left, nivel + 1);
+		printf("\n\n");
+	}
+}

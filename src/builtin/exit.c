@@ -17,7 +17,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	int		i;
 	int		count;
 	int		status;
-		
+
 	status = get_status(-1);  ///get_status
 	count = 0;
 	i = 1;
@@ -59,7 +59,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 
 int	verify_args(char **cmd)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;

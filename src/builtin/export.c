@@ -16,7 +16,7 @@ int	export(char **cmd, t_minishell *mini)
 {
 	int			i;
 	char		**curr;
-	
+
 	i = 1;
 	curr = cmd;
 	if (!curr[1])
@@ -46,8 +46,8 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	int			j;
 	int			k;
 	char		**shell;
-	int x;
-	char *substr;
+	int			x;
+	char		*substr;
 
 	k = 0;
 	env = env_shellzito(NULL);
@@ -79,7 +79,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 					new_env[j] = join_env(curr->name, curr->value);
 					curr->on_env = 42;
 				}
-				free(substr);	
+				free(substr);
 				j++;
 			}
 			if (curr->on_env == 0)
@@ -96,15 +96,15 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	while (new_env[k])
 	{
 		printf("new_env: %s\n", new_env[k]);
-	 	k++;
+		k++;
 	}
 	env_shellzito (new_env);
 	k = 0;
 	shell = env_shellzito(NULL);
 	while (shell[k])
 	{
-	 	printf("env_shellzito: %s\n", shell[k]);
-	 	k++;
+		printf("env_shellzito: %s\n", shell[k]);
+		k++;
 	}
 }
 
@@ -145,8 +145,8 @@ char	**strawberry_fields_forenv(char **env, int i)
 
 char	**come_together_env(char **new_env, t_export *curr)
 {
-	char **up_env;
-	int	i;
+	char	**up_env;
+	int		i;
 //	int	k;
 
 //	k = 0;
@@ -164,8 +164,6 @@ char	**come_together_env(char **new_env, t_export *curr)
 	// }
 	return (up_env);
 }
-
-
 
 size_t	ft_strlen_env(const char *str)
 {
@@ -244,7 +242,7 @@ int	compare_to_env(char *name)
 {
 	char	**env_shellzito_copy;
 	int		i;
-	int j;
+	int		j;
 	char	*substr;
 
 	env_shellzito_copy = env_shellzito(NULL);
@@ -273,10 +271,10 @@ int	validate_name(char *token)
 
 	i = 1;
 	if (!((token[0] >= 'A' && token[0] <= 'Z')
-		|| (token[0] >= 'a' && token[0] <= 'z')
-		|| (token[0] == '_')
-		|| (token[0] == '"') || (token[0] == '\'')))
-			return (0);
+			|| (token[0] >= 'a' && token[0] <= 'z')
+			|| (token[0] == '_')
+			|| (token[0] == '"') || (token[0] == '\'')))
+		return (0);
 	while (token[i] && token[i] != '=')
 	{
 		if ((token[i] >= 'A' && token[i] <= 'Z')
@@ -284,7 +282,7 @@ int	validate_name(char *token)
 			|| (token[i] >= '0' && token[i] <= '9')
 			|| (token[i] == '_')
 			|| (token[i] == '"') || (token[i] == '\''))
-				i++;
+			i++;
 		else
 			return (0);
 	}
@@ -327,7 +325,7 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 	{
 		*export_list = export_node;
 		printf("colocou o nó inicial \n");
-	}	
+	}
 	else
 	{
 		curr = *export_list;
@@ -338,7 +336,6 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 		printf("colocou o nó: %s na lista \n", curr->next->name);
 	}
 }
-
 
 char	*substr_noquote(char const *s, unsigned int start, size_t len)
 {
@@ -371,9 +368,9 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 void	print_export(char **copy)
 {
 	int		i;
-	int 	j;
-	int 	k;
-	char 	*temp;
+	int		j;
+	int		k;
+	char	*temp;
 	char	*value;
 	char	*name;
 
@@ -411,4 +408,3 @@ void	print_export(char **copy)
 		i++;
 	}
 }
-

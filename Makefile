@@ -25,7 +25,9 @@ SRC = 	./src/main.c \
 		./src/execute/exec.c \
 		./src/execute/pipe.c \
 		./src/execute/redirect.c \
+		./src/execute/builtin.c  \
 		./src/execute/others.c \
+		./src/utils/free.c    \
 
 OBJ_DIR = obj
 

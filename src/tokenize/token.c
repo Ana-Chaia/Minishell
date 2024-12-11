@@ -58,10 +58,10 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	new->quote_issue = 0;
 	new->next = NULL;
 	new->prev = NULL;
-	if (type == S_QUOTES || type == D_QUOTES)
-		new->quote = 42;
-	else
-		new->quote = 0;
+	//if (type == S_QUOTES || type == D_QUOTES)
+	//	new->quote = 42;
+	//else
+	//	new->quote = 0;
 	return (new);
 }
 

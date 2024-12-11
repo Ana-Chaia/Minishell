@@ -23,7 +23,7 @@ static int	ft_numlen(int n)
 	{
 		n /= 10;
 		len++;
-	}	
+	}
 	return (len);
 }
 
@@ -54,4 +54,4 @@ char	*ft_itoa(int n)
 	if (temp < 0)
 		str[0] = '-';
 	return (str);
-}	
+}

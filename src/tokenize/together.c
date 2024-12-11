@@ -56,10 +56,10 @@ void	change_type(t_token *united)
 	}
 }
 
-void	del(void *content)
-{
-	free(content);
-}
+//void	del(void *content)
+//{
+//	free(content);
+//}
 
 
 t_token	*all_together(t_token **token_list)

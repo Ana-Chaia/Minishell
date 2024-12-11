@@ -170,6 +170,7 @@ char *not_expanded(char *cmd, int i, char *temp)
 }
 */
 
+/*
 char	*ft_strxcpy(char *dest, char *src, size_t destsize)
 {
 	size_t	i;
@@ -185,7 +186,7 @@ char	*ft_strxcpy(char *dest, char *src, size_t destsize)
 	dest[i] = '\0';
 	return (dest);
 }
-
+*/
 
 char	*change_dollar(char *cmd, int start, int end)
 {

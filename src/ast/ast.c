@@ -16,7 +16,6 @@ t_token	*pipe_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
 //	t_ast	*joint;
-
 	curr = tokenlist;
 //	joint = NULL;
 	while (curr->next)
@@ -36,7 +35,6 @@ t_token	*redir_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
 //	t_ast	*joint;
-
 	curr = tokenlist;
 //	joint = NULL;
 	while (curr->next != NULL)
@@ -65,7 +63,7 @@ t_token	*redir_to_ast(t_token *tokenlist)
 	return (curr);
 }
 
-t_token *find_last_one (t_token *tokenlist)
+t_token	*find_last_one(t_token *tokenlist)
 {
 	int		last_one;
 	t_token	*curr;
@@ -75,7 +73,7 @@ t_token *find_last_one (t_token *tokenlist)
 	if (curr->next != NULL && curr->next->type != PIPE)
 	{
 		while (curr->next != NULL)
-		{	
+		{
 			curr = curr->next;
 			if (curr != NULL && curr->type != PIPE)
 				break ;
@@ -91,7 +89,8 @@ t_token *find_last_one (t_token *tokenlist)
 	}
 	if (last_one == 1)
 	{
-		while (curr->next != NULL || (curr->next != NULL && curr->next->type != PIPE))
+		while (curr->next != NULL 
+			|| (curr->next != NULL && curr->next->type != PIPE))
 		{
 			if (curr->blob == 0)
 				return (curr);
@@ -101,7 +100,6 @@ t_token *find_last_one (t_token *tokenlist)
 	return (tokenlist);
 }
 
-
 t_ast	*ast_new_node(t_token *token_node)
 {
 	t_ast	*ast_node;
@@ -110,7 +108,7 @@ t_ast	*ast_new_node(t_token *token_node)
 	if (!ast_node)
 		return (NULL);
 	ast_node->type = token_node->type;
-	ast_node->quote = token_node->quote;
+	//ast_node->quote = token_node->quote;
 	ast_node->content = ft_strdup(token_node->content);
 	ast_node->left = NULL;
 	ast_node->right = NULL;
@@ -149,7 +147,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 	{
 		curr->blob = 42;
 		joint = ast_new_node(curr);
-		printf("----------level %d\tnovo joint: %s\n",level, joint->content);
+	//	printf("----------level %d\tnovo joint: %s\n",level, joint->content);
 	}
 	else
 		joint = ast_node;
@@ -172,7 +170,7 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 		{
 			joint->right = ast_new_node(curr->next);
 			curr->next->blob = 42;
-			printf("----------level %d\tnovo joint_filename: %s\n",level, joint->right->content);
+		//printf("----------level %d\tnovo joint_filename: %s\n",level, joint->right->content);
 		}
 		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda 
 			joint->left = ast_builder(joint->left, curr->prev, level + 1);
@@ -189,4 +187,3 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 	}
 	return (joint);
 }
-

@@ -70,4 +70,3 @@ void	delete_variable(char *var)
 		i++;
 	}
 }
-
