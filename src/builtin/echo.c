@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:51 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/11 09:34:20 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:50:15 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int	echo(char **cmd)
 	}
 	while (cmd[i])
 	{
-		if (space)$ 
-mini output = ()
-
+		if (space)
 			ft_putchar_fd (' ', 1);
 		else
 			space++;

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/11 09:12:29 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:49:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	shellzito_on(t_minishell *mini)
 		return (get_status(2));
 	search_heredoc (&(mini->tokenlist));
 	across_the_universe(&(mini->tokenlist));
+	list_printer(mini->tokenlist); //apagar
 	all_together(&(mini->tokenlist));
 	clear_list(&(mini->tokenlist));
 	list_printer(mini->tokenlist); //apagar
