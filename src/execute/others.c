@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/10 13:58:20 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:38:50 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	execute_others(t_ast *node)
 	int		status;
 
 	status = 0;
-	get_cmd(node);
+	//get_cmd(node);
 	validate_cmd(node->first_cmd);
 	node->path_array = split_path();
 	if (node->path_array == NULL)
@@ -86,29 +86,29 @@ void	validate_cmd(char *cmd)
 		get_status(127);
 }
 
-void	get_cmd(t_ast *node)
-{
-	int		i;
-	char	**cmd_array;
-	size_t	size;
+// void	get_cmd(t_ast *node)
+// {
+// 	int		i;
+// 	char	**cmd_array;
+// 	size_t	size;
 
-	size = 0;
-	node->cmd_args = NULL;
-	cmd_array = ft_split(node->content, ' ');
-	node->first_cmd = ft_strdup(cmd_array[0]);
-	i = 0;
-	while (cmd_array[size] != NULL)
-		size++;
-	node->cmd_args = malloc((size + 1) * sizeof(char *));
-	while (cmd_array[i] != NULL)
-	{
-		node->cmd_args[i] = ft_strdup(cmd_array[i]);
-		i++;
-	}
-	node->cmd_args[i] = NULL;
-	free_ptrptr(cmd_array);
-	return ;
-}
+// 	size = 0;
+// 	node->cmd_args = NULL;
+// 	cmd_array = ft_split(node->content, ' ');
+// 	node->first_cmd = ft_strdup(cmd_array[0]);
+// 	i = 0;
+// 	while (cmd_array[size] != NULL)
+// 		size++;
+// 	node->cmd_args = malloc((size + 1) * sizeof(char *));
+// 	while (cmd_array[i] != NULL)
+// 	{
+// 		node->cmd_args[i] = ft_strdup(cmd_array[i]);
+// 		i++;
+// 	}
+// 	node->cmd_args[i] = NULL;
+// 	free_ptrptr(cmd_array);
+// 	return ;
+// }
 
 char	**split_path(void)
 {

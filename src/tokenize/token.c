@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:58:21 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/10 12:39:57 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:38:16 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	free(substr);
 	new->type = type;
 	new->blob = x;
+	new->cmd_args = NULL;
 	new->quote_issue = 0;
 	new->next = NULL;
 	new->prev = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/10 11:09:42 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:38:56 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		get_status(int exit_status);
 int		execute_pipe(t_ast *node, t_minishell *mini);
 void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
     //builtin
-int		execute_builtin(char *token_tree, t_minishell *mini);
+int		execute_builtin(t_ast *node, t_minishell *mini);
     //redirect
 int		execute_redirect(t_ast *node, t_minishell *mini);
 int		open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
@@ -157,7 +157,7 @@ int		dup_dup(t_ast *node, int *fd);
     //others
 int		execute_others(t_ast *node);
 void	validate_cmd(char *cmd);
-void	get_cmd(t_ast *node);
+//void	get_cmd(t_ast *node);
 char	**split_path(void);
 int		gone_wrong(t_ast *node);
 int		is_directory(const char *path);

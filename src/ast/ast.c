@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/10 12:41:21 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:52:36 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ t_token	*find_last_one(t_token *tokenlist)
 t_ast	*ast_new_node(t_token *token_node)
 {
 	t_ast	*ast_node;
+	int 	i;
 
+	i = 0;
 	ast_node = (t_ast *) malloc(sizeof(t_ast));
 	if (!ast_node)
 		return (NULL);
@@ -112,12 +114,31 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node->content = ft_strdup(token_node->content);
 	ast_node->left = NULL;
 	ast_node->right = NULL;
-//	ast_node->parent = NULL;
-	// ast_node->child = NULL;
 	ast_node->first_cmd = NULL;
     ast_node->exec_ready = NULL;
-    ast_node->cmd_args = NULL;
     ast_node->path_array = NULL;
+	// if (token_node->cmd_args != NULL)
+	// {
+		// while (cmd_array[size] != NULL)
+// 		size++;
+// 	node->cmd_args = malloc((size + 1) * sizeof(char *));
+// 	while (cmd_array[i] != NULL)
+// 	{
+// 		node->cmd_args[i] = ft_strdup(cmd_array[i]);
+// 		i++;
+// 	}
+// 	node->cmd_args[i] = NULL;
+		
+		
+		// while (token_node->cmd_args[i])
+		// {
+		// 	ast_node->cmd_args[i] = ft_strdup(token_node->cmd_args[i]);
+		// 	i++;
+		// }
+	// }
+	// else
+	// 	ast_node->cmd_args = NULL;
+	ast_node->cmd_args = token_node->cmd_args;
 	return (ast_node);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:33:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/11 09:33:24 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:31:45 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_token
 	int				type;
 	int				blob;
 	char			*content;
+	char			**cmd_args;
 	int				quote_issue;
 	//int				quote;
 	struct s_token	*next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   across_the_universe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/11 11:16:23 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:33:42 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 void	across_the_universe(t_token **token_list)
 {
 	t_token	*temp;
-	//char	*curr;
+	char	*curr;
 	char	*new_content;
 
 	temp = *token_list;
 	while (temp)
 	{
-		// if (temp->type == D_QUOTES || temp->type == S_QUOTES)
-		// {
-		// 	curr = ft_substr(temp->content, 1, (ft_strlen(temp->content) - 2));
-		// 	free (temp->content);
-		// 	temp->content = curr;
-		// }                             USAR PARA RETIRAR ASPAS
+		if (temp->type == D_QUOTES || temp->type == S_QUOTES)
+		{
+			curr = ft_substr(temp->content, 1, (ft_strlen(temp->content) - 2));
+			free (temp->content);
+			temp->content = curr;
+		}                             //USAR PARA RETIRAR ASPAS
 		if (temp->type == D_QUOTES || temp->type == WORD)
 		{
 			new_content = find_dollar(temp->content);
