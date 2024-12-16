@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:33:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/12 09:31:45 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:06:14 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef struct s_token
 	int				blob;
 	char			*content;
 	char			**cmd_args;
-	int				quote_issue;
+	int				quote_issue_prev;
+	int				quote_issue_next;
 	//int				quote;
 	struct s_token	*next;
 	struct s_token	*prev;

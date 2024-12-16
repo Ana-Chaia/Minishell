@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/12 11:38:50 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:55:22 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	execute_others(t_ast *node)
 
 	status = 0;
 	//get_cmd(node);
+	node->first_cmd = ft_strdup(node->cmd_args[0]);
 	validate_cmd(node->first_cmd);
 	node->path_array = split_path();
 	if (node->path_array == NULL)

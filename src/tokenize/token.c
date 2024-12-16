@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:58:21 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/12 09:38:16 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:07:42 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	new->type = type;
 	new->blob = x;
 	new->cmd_args = NULL;
-	new->quote_issue = 0;
+	new->quote_issue_prev = 0;
+	new->quote_issue_next = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	//if (type == S_QUOTES || type == D_QUOTES)
@@ -129,9 +130,9 @@ void validate_quote_issue (t_token **token_list, size_t start,
 	while (curr->next != NULL)
 		curr = curr->next;
 	if (input[start - 1] && (is_space (input[start - 1]) == 0))
-		curr->quote_issue = 1;
+		curr->quote_issue_prev = 1;
 	if (input[end] && (is_space (input[end]) == 0))
-		curr->quote_issue = 2;
+		curr->quote_issue_next = 1;
 }
 
 

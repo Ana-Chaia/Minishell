@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/12 11:47:32 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:17:42 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,35 +95,96 @@ t_token	*all_together(t_token **token_list)
 			curr = united;
 			while (curr != NULL && curr->type != PIPE)
 			{
-				if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 1)
+				if (curr->next && curr->next->quote_issue_prev == 1)
 				{
-					//temp = united->content;
-					//united->content = ft_strjoin(united->content,
-							//curr->content);
-					united->cmd_args[i] = ft_strjoin(united->cmd_args[i - 1], curr->content);
-					//free(temp);
+					united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
+					curr = curr->next;
+					printf("1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 				}
-				if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES || curr->prev->type == CMD) && curr->prev->quote_issue == 2)
+				if (curr->next && curr->quote_issue_next == 1)
 				{
-					//temp = united->content;
-					//united->content = ft_strjoin(united->content,
-							//curr->content);
-					united->cmd_args[i] = ft_strjoin(united->cmd_args[i - 1], curr->content);
-					//free(temp);
-				}
-				else if ((curr->type == WORD || curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue == 0)
-				{
-					//temp = united->content;
-					//united->content = ft_strjoin(united->content, " ");
-					united->cmd_args[i] = ft_strdup(curr->content);
-					//free(temp);
-					//temp = united->content;
-					//united->content = ft_strjoin(united->content,
-							//curr->content);
-					//free(temp);
-				}
-				i++;
+					if (united->cmd_args[i])
+					{
+						printf("2.1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						united->cmd_args[i] = ft_strjoin(united->cmd_args[i], curr->next->content);
+						printf("2.2cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						curr = curr->next;
+					}
+					else
+					{
+						united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
+						printf("3cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						curr = curr->next;
+					}
+					//united->cmd_args[i] = ft_strdup(curr->content);
+				// if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue_next == 1)
+				// {
+				// 	if(curr->quote_issue_prev == 1)
+				// 	{
+				// 		united->cmd_args[i] = ft_strjoin(united->cmd_args[i], curr->content);
+				// 		curr = curr->next;
+				// 		printf("2cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+				// 	}
+				// 	else
+				// 	{
+				// 		united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
+				// 		curr = curr->next;
+				// 		printf("3cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+				// 	}
+				// }
+				// if (curr->next && curr->next->quote_issue_prev == 1)
+				// {
+				// 	united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
+				// 	curr = curr->next;
+				// 	printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+				// }
+			}
+			else
+			{
+				united->cmd_args[i] = ft_strdup(curr->content);
+				printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+			}
+				
+				// if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue_prev == 1)
+				// {
+				// 	//temp = united->content;
+				// 	//united->content = ft_strjoin(united->content,
+				// 			//curr->content);
+				// 	//united->cmd_args[i] = ft_strjoin(united->cmd_args[i - 1], curr->content);
+				// 	united->cmd_args[i] = ft_strdup(curr->content);
+				// 					//free(temp);
+				// }
+				// else if (curr->prev && (curr->prev->type == S_QUOTES || curr->prev->type == D_QUOTES || curr->prev->type == CMD) && curr->prev->quote_issue_next == 1)
+				// {
+				// 	//temp = united->content;
+				// 	//united->content = ft_strjoin(united->content,
+				// 			//curr->content);
+				// 	united->cmd_args[i] = ft_strjoin(united->cmd_args[i - 1], curr->content);
+				// 					//free(temp);
+				// }
+				// //else if ((curr->type == WORD || curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue_prev == 0 && curr->quote_issue_next == 0)
+				// else if (curr->type == WORD && curr->next != NULL && curr->next->quote_issue_prev == 1)
+				// {
+				// 	curr->next->content = ft_strjoin(curr->content, curr->next->content);
+				// 	printf("curr->next->content: %s\n", curr->next->content);
+				// 	i--;
+				// }				
+				// else if ((curr->type == WORD && curr->next != NULL && curr->next->quote_issue_prev == 0)
+				// 	|| (curr->type == S_QUOTES && curr->quote_issue_prev == 0)
+				// 	|| (curr->type == D_QUOTES && curr->quote_issue_prev == 0)
+				// 	|| (curr->type == WORD && curr->next == NULL))
+				// {
+				// 	//temp = united->content;
+				// 	//united->content = ft_strjoin(united->content, " ");
+				// 	united->cmd_args[i] = ft_strdup(curr->content);
+				// 						//free(temp);
+				// 	//temp = united->content;
+				// 	//united->content = ft_strjoin(united->content,
+				// 			//curr->content);
+				// 	//free(temp);
+			
 				curr = curr->next;
+				i++;
 			}
 			united->cmd_args[i] = NULL;
 		}
