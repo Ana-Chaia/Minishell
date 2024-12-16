@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:10:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 10:31:08 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/16 18:12:39 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 			close(STDIN_FILENO);
 			dup2(*svd_stdin, STDIN_FILENO);
 			ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
-			return (get_status(1));
+			get_status(1);
+			return (1);
 		}
 	}
 	else if (node && (node->type == RED_OUT))
@@ -62,8 +63,9 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 		dup2(*svd_stdin, STDIN_FILENO);
 		close(STDOUT_FILENO);
 		dup2(*svd_stdout, STDOUT_FILENO);
-		ft_printf("Shellzito: %s\n", node->right->content, strerror(errno));
-		return (get_status(1));
+		ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
+		get_status(1);
+		return (1);
 	}
 	return (fd);
 }

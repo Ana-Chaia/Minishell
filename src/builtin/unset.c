@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:18:15 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/10/28 17:18:04 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:33:57 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	unset(char **cmd)
 		if (validate_name(cmd[i]) != 1)
 		{
 			printf("unset: %s: not a valid identifier\n", cmd[i]);
+			get_status(1);
 		}
 		else
 			delete_variable(cmd[i]);
@@ -47,6 +48,7 @@ void	delete_variable(char *var)
 		if (var[x] == '=')
 		{
 			printf("unset: %s: not a valid identifier\n", var);
+			get_status(1);
 			return ;
 		}
 		x++;

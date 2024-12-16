@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/16 15:17:42 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 18:01:19 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ t_token	*all_together(t_token **token_list)
 			curr = united;
 			while (curr != NULL && curr->type != PIPE)
 			{
-				if (curr->next && curr->next->quote_issue_prev == 1)
+				if (curr->next && curr->next->quote_issue_prev == 1 && is_redirect(curr->type) != 1 && curr->type != FILENAME)
 				{
 					united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
 					curr = curr->next;
 					printf("1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 				}
-				if (curr->next && curr->quote_issue_next == 1)
+				if (curr->next && curr->quote_issue_next == 1 && is_redirect(curr->type) != 1 && curr->type != FILENAME)
 				{
 					if (united->cmd_args[i])
 					{
@@ -139,11 +139,13 @@ t_token	*all_together(t_token **token_list)
 				// 	printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 				// }
 			}
-			else
+			else if (is_redirect(curr->type) != 1 && curr->type != FILENAME && curr->quote_issue_prev == 0 && curr->quote_issue_next == 0)
 			{
 				united->cmd_args[i] = ft_strdup(curr->content);
 				printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 			}
+			else if (is_redirect(curr->type) == 1 || curr->type == FILENAME)
+				i--;
 				
 				// if ((curr->type == S_QUOTES || curr->type == D_QUOTES) && curr->quote_issue_prev == 1)
 				// {
@@ -183,8 +185,8 @@ t_token	*all_together(t_token **token_list)
 				// 			//curr->content);
 				// 	//free(temp);
 			
-				curr = curr->next;
-				i++;
+			curr = curr->next;
+			i++;
 			}
 			united->cmd_args[i] = NULL;
 		}

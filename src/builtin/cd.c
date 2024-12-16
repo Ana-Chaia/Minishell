@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/07 13:19:38 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:48:20 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	cd(char **cmd)
 	if (cmd[2])
 	{
 		printf("cd: too many arguments\n");	//pode usar uma função de printar com fd
+		get_status(1);
 		return (0);
 	}
 	if (!cmd[1])
@@ -31,7 +32,6 @@ int	cd(char **cmd)
 		path = getenv("HOME");
 		if (path == NULL)
 			printf("cd: Could not get the home directory.\n");
-		//	printf("home_path = %s\n", path);
 	}
 	else
 	{
@@ -39,7 +39,8 @@ int	cd(char **cmd)
 	}
 	if (chdir(path) != 0)
 	{
-		printf("cd: %s: No such file or directory\n", pwd);
+		printf("cd: %s: No such file or directory\n", path);
+		get_status(1);
 		return (0);
 	}
 	pwd = getcwd(NULL, 0);
@@ -73,6 +74,8 @@ char	*get_path(char *path)
 		new_path = getenv("HOME");
 	else if ((path[0] == '~') && (path[1] != '\0'))
 		new_path = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
+	else if (path[0] == '/')
+		new_path = ft_strdup(path);
 	printf("new_path: %s\n", new_path);		//apagar
 	return (new_path);
 }

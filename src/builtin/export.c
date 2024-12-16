@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/09 12:14:25 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:32:33 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	export(char **cmd, t_minishell *mini)
 			if (validate_name(curr[i]) != 1)
 			{
 				printf("export: %s: not a valid identifier\n", curr[i]);
+				get_status(1);
 			}
 			else
 				list_export(curr[i], &(mini)->export_list);
