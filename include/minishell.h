@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 09:46:12 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:04:30 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	signal_exec(int pid);
 //void	init_signal_heredoc(int fd_heredoc);
 
 //exec
-void	execution(t_ast *node, t_minishell *mini);
+int	execution(t_ast *node, t_minishell *mini);
 int		is_builtin(char *cmd);
 int		get_status(int exit_status);
     //pipe

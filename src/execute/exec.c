@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/12 11:29:59 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:00:04 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	execution(t_ast *node, t_minishell *mini)
+int	execution(t_ast *node, t_minishell *mini)
 {
+	int	status;
+
 	if (g_signal == SIGINT)
 	{
-		return ;
+		return (130);
 	}
 	init_signal_exec();
 	if (node->type == PIPE)
-		execute_pipe(node, mini);
+		status = execute_pipe(node, mini);
 	else if (is_redirect(node->type) == 1)
-		execute_redirect(node, mini);
-	//else if ()
+		status = execute_redirect(node, mini);
 	else if (is_builtin(node->content) == 1)
-		execute_builtin (node, mini);
+		status = execute_builtin (node, mini);
 	else
-		execute_others (node);
+		status = execute_others (node);
+	return (status);
 }
 
 int	is_builtin(char *cmd)

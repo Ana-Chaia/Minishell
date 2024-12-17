@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:08 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/11 09:12:10 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:50:25 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	bye_bye(t_minishell *mini)
 	if (mini->export_list)
 	{
 		free_export(mini->export_list);
-		free(mini->export_list);
+//		free(mini->export_list);
 	}
 	if (mini->tokenlist)
 		free_tokenlist(mini->tokenlist);

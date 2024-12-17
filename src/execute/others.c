@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/16 09:55:22 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:33:01 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,22 @@ int	execute_others(t_ast *node)
 	if (pid == 0)
 	{
 		printf("pid dentro do if: %d\n", pid);
+		printf("exec_ready: %s\n", node->exec_ready);
+		printf("cmd_args: %s\n", node->cmd_args[1]);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
+		{
+			printf("exec_ready: %s\n", node->exec_ready);
+			printf("cmd_args: %s\n", node->cmd_args[1]);
 			status = gone_wrong(node);
-			//free em MINI??
+			printf("status_gonewrong: %d\n", status);
+				//free em MINI??
+		}
 	}
 	waitpid(pid, &status, 0);
 	wise_status(status);
-	return (WEXITSTATUS(status));
+	printf("status_wisestatus: %d", status);
+	//return (WEXITSTATUS(status));
+	return (get_status(WEXITSTATUS(status)));
 }
 
 void	validate_cmd(char *cmd)
