@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/12 11:38:56 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 09:46:12 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		check_syntax(t_token **token_list);
 int		pipe_syntax(t_token *token_node);
 int		chevron_syntax(t_token *token_node);
 	//parsing
+void	malloc_cmd_args(t_token *united);
 void	change_type(t_token *united);
 t_token	*all_together(t_token **token_list);
 t_token *clear_list(t_token **token_list);
