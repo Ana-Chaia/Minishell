@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 14:33:01 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:33:16 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	execute_others(t_ast *node)
 	status = 0;
 	//get_cmd(node);
 	node->first_cmd = ft_strdup(node->cmd_args[0]);
+	if (node->first_cmd == NULL)
+		return (get_status(0));
 	validate_cmd(node->first_cmd);
 	node->path_array = split_path();
 	if (node->path_array == NULL)
@@ -87,11 +89,15 @@ int	execute_others(t_ast *node)
 	wise_status(status);
 	printf("status_wisestatus: %d", status);
 	//return (WEXITSTATUS(status));
-	return (get_status(WEXITSTATUS(status)));
+	//return (get_status(WEXITSTATUS(status)));
+	get_status(status);
+	return (WEXITSTATUS(status));
 }
 
 void	validate_cmd(char *cmd)
 {
+	if (cmd == NULL)
+		return ;
 	if ((ft_strncmp(cmd, "./", 2) == 0) || (ft_strncmp(cmd, "../", 3) == 0))
 		get_status(127);
 }

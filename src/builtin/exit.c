@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 15:54:09 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:26:01 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	if (cmd[0] && cmd[1] == NULL)
 	{
 		bye_bye(shellzito);
-		free_ptrptr(cmd);
+		//free_ptrptr(cmd);
 		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;
 	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
 	}

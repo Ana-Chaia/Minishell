@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/17 09:43:31 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:40:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	malloc_cmd_args(t_token *united)
 	int	i;
 	t_token	*temp;
 
-	i = 0;
+	i = 1;
 	temp = united;
 	while (temp && temp->type != PIPE)
 	{
@@ -50,7 +50,7 @@ void	change_type(t_token *united)
 		{
 			temp->type = CMD;
 			malloc_cmd_args(temp);
-			united->cmd_args[0] = ft_strdup(temp->content);
+			//united->cmd_args[0] = ft_strdup(temp->content);
 		}
 		if (temp->prev != NULL && (temp->prev->type == RED_IN
 				|| temp->prev->type == RED_OUT || temp->prev->type == APPEND))

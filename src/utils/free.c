@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:08 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/17 10:50:25 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:21:23 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_tokenlist(t_token *tokenlist)
 			curr->next = NULL;
 			curr->prev = NULL;
 		}
+		if (curr->cmd_args)
+			free_ptrptr(curr->cmd_args);
 		free(curr);
 		curr = next;
 	}
@@ -87,8 +89,8 @@ void	free_ast(t_ast *ast_node)
 		free(ast_node->first_cmd);
 	if (ast_node->exec_ready)
 		free(ast_node->exec_ready);
-	if (ast_node->cmd_args)
-		free_ptrptr(ast_node->cmd_args);
+	//if (ast_node->cmd_args)
+	//	free_ptrptr(ast_node->cmd_args);
 	if (ast_node->path_array)
 		free_ptrptr(ast_node->path_array);
 	free(ast_node);
@@ -160,9 +162,11 @@ void	free_ptrptr(char **cmd)
 	while (cmd[i])
 	{
 		free(cmd[i]);
+		cmd[i] = NULL;
 		i++;
 	}
 	free(cmd);
+	cmd = NULL;
 }
 
 // void	clear_and_free(t_minishell *mini)

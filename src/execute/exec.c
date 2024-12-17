@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 14:00:04 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:11:21 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int	is_builtin(char *cmd)
 {
 	size_t	len;
 
-	len = (ft_strchr(cmd, ' ') - cmd);   //vf com ana se td bem
-	if (len == 0)
+	if (cmd == NULL)
 		return (0);
+	len = (ft_strchr(cmd, ' ') - cmd);   //vf com ana se td bem
+	// if (len == 0)
+	// 	return (0);
 	if (strncmp(cmd, "echo", len) == 0
 		|| strncmp(cmd, "cd", len) == 0
 		|| strncmp(cmd, "pwd", len) == 0
