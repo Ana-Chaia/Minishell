@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/16 17:48:20 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:52:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	cd(char **cmd)
 	pwd = NULL;
 	if (cmd[2])
 	{
-		printf("cd: too many arguments\n");	//pode usar uma função de printar com fd
+		//printf("cd: too many arguments\n");	//pode usar uma função de printar com fd
+		ft_printf_fd(STDERR_FILENO, "cd: too many arguments\n");
 		get_status(1);
 		return (0);
 	}
@@ -31,7 +32,8 @@ int	cd(char **cmd)
 	{
 		path = getenv("HOME");
 		if (path == NULL)
-			printf("cd: Could not get the home directory.\n");
+			//printf("cd: Could not get the home directory.\n");
+			ft_printf_fd(STDERR_FILENO, "cd: could not get the home directory\n");
 	}
 	else
 	{
@@ -39,7 +41,8 @@ int	cd(char **cmd)
 	}
 	if (chdir(path) != 0)
 	{
-		printf("cd: %s: No such file or directory\n", path);
+		//printf("cd: %s: No such file or directory\n", path);
+		ft_printf_fd(STDERR_FILENO, "cd: no such file or directory\n");
 		get_status(1);
 		return (0);
 	}
@@ -76,7 +79,7 @@ char	*get_path(char *path)
 		new_path = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
 	else if (path[0] == '/')
 		new_path = ft_strdup(path);
-	printf("new_path: %s\n", new_path);		//apagar
+	//printf("new_path: %s\n", new_path);		//apagar
 	return (new_path);
 }
 

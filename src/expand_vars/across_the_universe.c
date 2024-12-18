@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   across_the_universe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/16 17:16:47 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:11:40 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*find_dollar(char *cmd)
         {
             temp = ft_substr(cmd, start, i - start);
             new = ft_strjoin(new, temp);
-			printf("NEW inicio =%s\n", new);
+			//printf("NEW inicio =%s\n", new);
 			free(temp);
         }
         if (cmd[i] == '$')
@@ -77,16 +77,18 @@ char	*find_dollar(char *cmd)
                 start = i - 1;
                 while (cmd[i] != '\0' && cmd[i] != ' ' && cmd[i] != '$')
                     i++;
-				printf("cmd[start] = %c\n", cmd[start]);	
-				printf("cmd[i] = %c\n", cmd[i]);	
+				//printf("cmd[start] = %c\n", cmd[start]);	
+			//	printf("cmd[i] = %c\n", cmd[i]);	
                 value = change_dollar(cmd, start, i - 1);
-				printf("VALUE = %s\n", value);
+				//printf("VALUE = %s\n", value);
             }
             if (value)
             {
-                new = ft_strjoin(new, value);
+              //  printf("new = %s\n", new);
+				//printf("VALUE = %s\n", value);
+				new = ft_strjoin(new, value);
 				free(value);
-				printf("NEWfinal= %s\n", new);
+				//printf("NEWfinal= %s\n", new);
             }
         }
 	}
@@ -198,11 +200,11 @@ char	*change_dollar(char *cmd, int start, int end)
 	char	*value;
 	char	**our_env;
 
-	printf("PASSOU EM CHANGE DOLLAR \n");
+	//printf("PASSOU EM CHANGE DOLLAR \n");
 	name = ft_substr(cmd, (start + 1), (end - start));
 	our_env = env_shellzito(NULL);
 	value = cut_value (name, our_env);
-	printf("VALUE $$$ = %s\n", value);
+	//printf("VALUE $$$ = %s\n", value);
 	free (name);
 	return (value);
 }

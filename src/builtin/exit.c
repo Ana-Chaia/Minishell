@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 18:26:01 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:46:29 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	{
 		while (cmd[count] != NULL)
 			count++;
-		printf("cmd[count - 1]: %s\n", cmd[count - 1]);
-		printf("count: %d\n", count);
+		//printf("cmd[count - 1]: %s\n", cmd[count - 1]);
+		//printf("count: %d\n", count);
 		if (count == 2)
 		{
 			if (verify_args(&cmd[1]) == 1)
@@ -34,7 +34,8 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 			else
 			{
 				status = ft_atoi(cmd[1]);
-				printf("exit deu certo, status = %d\n", status);   //acertar print   "exit"
+				//printf("exit deu certo, status = %d\n", status);   //acertar print   "exit"
+				status = mod_status(status);
 				exit(status);  // ajustar get status?? 
 			}
 		}
@@ -42,7 +43,8 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 		{
 			if (verify_args(&cmd[1]) == 1)
 				exit(2);
-			printf("shellzito: exit: %s: too many arguments \n", cmd[i]);
+			ft_printf_fd(STDERR_FILENO, "exit: too many arguments\n");
+			//printf("shellzito: exit: %s: too many arguments \n", cmd[i]);
 			exit(1);
 		}
 		i++;
@@ -50,11 +52,24 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	if (cmd[0] && cmd[1] == NULL)
 	{
 		bye_bye(shellzito);
+		status = mod_status(status);
 		//free_ptrptr(cmd);
 		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;
 	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
 	}
 	return (0);
+}
+
+int	mod_status(int status)
+{
+	int		result;
+
+	if (status >= 0 && status <= 255)
+		return (status);
+	result = status % 256;
+	if (status < 0)
+		result += 256;
+	return (result);
 }
 
 int	verify_args(char **cmd)
@@ -68,11 +83,12 @@ int	verify_args(char **cmd)
 	{
 		if (is_sign(cmd[i][j]) == 1)
 			j++;
-		printf("cmd[%d][%d]: %c\n", i, j, cmd[i][j]);
+		//printf("cmd[%d][%d]: %c\n", i, j, cmd[i][j]);
 		if (ft_isdigit(cmd[i][j]) == 0)
 		{
-			printf("shellzito: exit: %s: numeric argument required\n",
-				cmd[i]);
+			ft_printf_fd(STDERR_FILENO, "exit: numeric argument required\n");
+			//printf("shellzito: exit: %s: numeric argument required\n",
+				//cmd[i]);
 			return (1);
 		}
 		if (is_longer(cmd[i]) == 1)
@@ -95,7 +111,8 @@ int	is_longer(char *cmd)
 		|| ((ft_strlen(cmd) == 20 && ft_strncmp(cmd, "-9223372036854775808", 20)
 				> 0)))
 	{
-		printf("shellzito: exit: %s: numeric argument required\n", cmd);
+		ft_printf_fd(STDERR_FILENO, "exit: numeric argument required\n");
+		//printf("shellzito: exit: %s: numeric argument required\n", cmd);
 		return (1);
 	}
 	return (0);

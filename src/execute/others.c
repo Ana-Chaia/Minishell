@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 17:33:16 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:05:51 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	execute_others(t_ast *node)
 	node->path_array = split_path();
 	if (node->path_array == NULL)
 	{
-		printf("shellzito: %s: command not found\n", node->first_cmd);
+		ft_printf_fd(STDERR_FILENO, "shellzito: command not found\n");
+		//printf("shellzito: %s: command not found\n", node->first_cmd);
 		return (get_status(127));
 	}
 	i = 0;
@@ -41,7 +42,7 @@ int	execute_others(t_ast *node)
 		curr = ft_strjoin(node->path_array[i], "/");
 		path = ft_strjoin(curr, node->first_cmd);
 		free(curr);
-		printf("path = %s\n", path);
+		//printf("path = %s\n", path);
 		if (access(path, X_OK) == 0)
 		{
 			free(node->exec_ready);
@@ -54,11 +55,11 @@ int	execute_others(t_ast *node)
 		i++;
 	}
 	i = 0;
-	printf("exec_ready: %s\n", node->exec_ready);
-	printf("first_cmd: %s\n", node->first_cmd);
+	//printf("exec_ready: %s\n", node->exec_ready);
+	//printf("first_cmd: %s\n", node->first_cmd);
 	while (node->cmd_args[i])
 	{
-		printf("cmd_args[%d]: %s\n", i, node->cmd_args[i]);
+	//	printf("cmd_args[%d]: %s\n", i, node->cmd_args[i]);
 		i++;
 	}
 	i = 0;
@@ -66,31 +67,39 @@ int	execute_others(t_ast *node)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("Pipe error \n");
+		ft_printf_fd(STDERR_FILENO, "pipe error\n");
+		//perror("Pipe error \n");
 		return (get_status(-1));		
 	}
-	printf("pid: %d\n", pid);
+	//printf("pid: %d\n", pid);
 	signal_exec(pid);
 	if (pid == 0)
 	{
-		printf("pid dentro do if: %d\n", pid);
-		printf("exec_ready: %s\n", node->exec_ready);
-		printf("cmd_args: %s\n", node->cmd_args[1]);
+		//printf("pid dentro do if: %d\n", pid);
+		//printf("exec_ready: %s\n", node->exec_ready);
+		//printf("cmd_args: %s\n", node->cmd_args[1]);
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
-			printf("exec_ready: %s\n", node->exec_ready);
-			printf("cmd_args: %s\n", node->cmd_args[1]);
+			//printf("exec_ready: %s\n", node->exec_ready);
+			//printf("cmd_args: %s\n", node->cmd_args[1]);
 			status = gone_wrong(node);
-			printf("status_gonewrong: %d\n", status);
+			//printf("status_gonewrong: %d\n", status);
 				//free em MINI??
+			//get_status(status);
+			//status = mod_status(status);
+			//printf("status_mod %d\n", status);
+			exit (status);
 		}
 	}
 	waitpid(pid, &status, 0);
 	wise_status(status);
-	printf("status_wisestatus: %d", status);
+	//printf("status_wisestatus: %d", status);
+	status = WEXITSTATUS(status);
+	//printf("status_wisestatus2: %d", status);
 	//return (WEXITSTATUS(status));
 	//return (get_status(WEXITSTATUS(status)));
-	get_status(status);
+	//get_status(status);
+	//return (status);
 	return (WEXITSTATUS(status));
 }
 
@@ -137,7 +146,7 @@ char	**split_path(void)
 	path_array = ft_split(path, ':');
 	while( path_array[i])
 	{
-		printf("path[%d]: %s\n", i, path_array[i]);
+		//printf("path[%d]: %s\n", i, path_array[i]);
 		i++;
 	}	
 	return (path_array);
@@ -149,23 +158,27 @@ int gone_wrong(t_ast *node)
 
 	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 && is_directory(node->exec_ready) == -1)
 	{
-		printf("shellzito: %s: command not found\n", node->first_cmd);
+		ft_printf_fd(STDERR_FILENO, "command not found\n");
+		//printf("shellzito: %s: command not found\n", node->first_cmd);
 		return (get_status(127));
 	}
 	else if (access(node->exec_ready, F_OK) == -1)
 	{
-		printf("shellzito: %s: no such file or directory\n", node->first_cmd);
+		ft_printf_fd(STDERR_FILENO, "no such file or directory\n");
+		//printf("shellzito: %s: no such file or directory\n", node->first_cmd);
 		return (get_status(1));
 	}
 	else if (is_directory(node->exec_ready) == 1)
 	{
-		printf("shellzito: %s: is a directory\n", node->first_cmd);
+		ft_printf_fd(STDERR_FILENO, "is a directory\n");
+		//printf("shellzito: %s: is a directory\n", node->first_cmd);
 		return (get_status(126));
 	}
 	else if (access(node->exec_ready, X_OK) == -1
 		&& access(node->exec_ready, R_OK | W_OK) == -1)
 	{
-		printf("shellzito: %s: permission denied\n", node->first_cmd);
+		ft_printf_fd(STDERR_FILENO, "permission denied\n");
+		//printf("shellzito: %s: permission denied\n", node->first_cmd);
 		return (get_status(126));
 	}
 	status = get_status(-1);

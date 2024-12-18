@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:21:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/21 11:41:37 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:56:14 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	pwd(void)
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
-		perror("pwd: error retrieving current directory \n");
+		ft_printf_fd(STDERR_FILENO, "pwd: error retrieving current directory\n");
+		//perror("pwd: error retrieving current directory \n");
 		return (get_status(-1));
 	}
 	printf("%s\n", path);

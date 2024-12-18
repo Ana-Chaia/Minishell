@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/16 17:32:33 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:21:15 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	export(char **cmd, t_minishell *mini)
 		{
 			if (validate_name(curr[i]) != 1)
 			{
-				printf("export: %s: not a valid identifier\n", curr[i]);
+				ft_printf_fd(STDERR_FILENO, "export: not a valid identifier\n");
+				//printf("export: %s: not a valid identifier\n", curr[i]);
 				get_status(1);
 			}
 			else
@@ -59,7 +60,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	// 	k++;
 	// }
 	curr = export_list;
-	printf("export_list: %s", export_list->name);
+	//printf("export_list: %s", export_list->name);
 	while (curr)
 	{
 		if ((curr->on_env == 42 && curr->equal == 1) || curr->on_env == 0)
@@ -70,11 +71,11 @@ void	all_you_need_is_env(t_export *export_list, int i)
 				x = 0;
 				while (new_env[j][x] != '=' && new_env[j][x] != '\0')
 					x++;
-				printf("Comparando %s com %s\n", new_env[j], curr->name);
+				//printf("Comparando %s com %s\n", new_env[j], curr->name);
 				substr = ft_substr(new_env[j], 0, x);
 				if (ft_strcmp(substr, curr->name) == 0)
 				{
-					printf("Substituindo %s com %s\n", new_env[j], curr->name);
+					//printf("Substituindo %s com %s\n", new_env[j], curr->name);
 					// usar unset para eliminar a linha
 					free(new_env[j]);
 					new_env[j] = join_env(curr->name, curr->value);
@@ -96,7 +97,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	// k = 0;
 	while (new_env[k])
 	{
-		printf("new_env: %s\n", new_env[k]);
+		//printf("new_env: %s\n", new_env[k]);
 		k++;
 	}
 	env_shellzito (new_env);
@@ -104,7 +105,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	shell = env_shellzito(NULL);
 	while (shell[k])
 	{
-		printf("env_shellzito: %s\n", shell[k]);
+		//printf("env_shellzito: %s\n", shell[k]);
 		k++;
 	}
 }
@@ -121,7 +122,7 @@ char	**strawberry_fields_forenv(char **env, int i)
 	k = 0;
 	while (env[len])
 		len++;
-	printf("len_strawberry: %zu\n", len);
+	//printf("len_strawberry: %zu\n", len);
 	new_env = (char **)malloc((len + i + 1) * sizeof(char *));
 	if (!new_env)
 		return (NULL);
@@ -209,7 +210,7 @@ char	*join_env(char const *s1, char const *s2)
 	}
 	// new[i++] = '"';
 	new[i] = '\0';
-	printf("join_env_line: %s\n", new);
+	//printf("join_env_line: %s\n", new);
 	return (new);
 }
 
@@ -231,8 +232,8 @@ int	list_export(char *token, t_export **export_list)
 	name = substr_noquote(curr, 0, i);
 	if (curr[i] != '\0')
 		value = substr_noquote(curr, i + 1, ft_strlen(curr) - i);
-	printf("name: %s \n", name);
-	printf("value: %s \n", value);
+	//printf("name: %s \n", name);
+	//printf("value: %s \n", value);
 	on_env = compare_to_env(name);
 	node = create_node_exp(name, value, on_env, curr[i]);
 	make_lst_exp(export_list, node);
@@ -256,13 +257,13 @@ int	compare_to_env(char *name)
 		substr = ft_substr(env_shellzito_copy[i], 0, j);
 		if (ft_strcmp(substr, name) == 0)
 		{
-			printf("ja existe\n");
+			//printf("ja existe\n");
 			return (42);
 		}
 		free(substr);
 		i++;
 	}
-	printf("nao existe\n");
+	//printf("nao existe\n");
 	return (0);
 }
 
@@ -309,7 +310,7 @@ t_export	*create_node_exp(char *name, char *value, int on_env, char eq)
 		new->equal = 0;
 	new->next = NULL;
 	new->prev = NULL;
-	printf("create_node: %s", new->name);
+	//printf("create_node: %s", new->name);
 	free(name);
 	free(value);
 	return (new);
@@ -325,7 +326,7 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 	if (*export_list == NULL)
 	{
 		*export_list = export_node;
-		printf("colocou o nó inicial \n");
+		//printf("colocou o nó inicial \n");
 	}
 	else
 	{
@@ -334,7 +335,7 @@ void	make_lst_exp(t_export **export_list, t_export *export_node)
 			curr = curr->next;
 		curr->next = export_node;
 		export_node->prev = curr;
-		printf("colocou o nó: %s na lista \n", curr->next->name);
+		//printf("colocou o nó: %s na lista \n", curr->next->name);
 	}
 }
 
@@ -348,10 +349,10 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 		return (0);
 	if (start > ft_strlen(s) || len == 0)
 		return (ft_strdup(""));
-	printf("len b4: %zu\n", len);
+	//printf("len b4: %zu\n", len);
 	if (ft_strlen(s + start) < len)
 		len = ft_strlen(s + start);
-	printf("len after: %zu\n", len);
+	//printf("len after: %zu\n", len);
 	mem = (char *)malloc((len + 1) * sizeof(char));    //MUDEI
 	if (mem == NULL)
 		return (NULL);

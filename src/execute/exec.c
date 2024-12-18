@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 17:11:21 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:13:49 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	get_status(int exit_status)
 
 	if (exit_status != -1)
 		status = exit_status;
+	//status = mod_status(status);
 	return (status);
 }
 

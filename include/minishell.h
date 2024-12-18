@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 14:04:30 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:45:38 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 
-#include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
-#include <errno.h>   // Para errno
-#include <string.h>  // Para strerror
-#include <sys/types.h>  // Para open
-#include <termios.h>
-#include <signal.h>
+# include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
+# include <errno.h>   // Para errno
+# include <string.h>  // Para strerror
+# include <sys/types.h>  // Para open
+# include <termios.h>
+# include <signal.h>
+# include <stdarg.h>
 
 typedef struct termios	t_termios;
 
@@ -112,6 +113,7 @@ int		the_exit(char **cmd, t_minishell *mini);
 int		verify_args(char **cmd);
 int		is_sign(char c);
 int		is_longer(char *cmd);
+int	    mod_status(int status);
     //export
 int		export(char **token, t_minishell *mini);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
@@ -172,6 +174,9 @@ void	free_mini(t_minishell *mini);
 void	free_ptrptr(char **env);
 void	bye_bye(t_minishell *mini);
 void	close_fds(int fd_bckp);
+
+int	ft_printf_fd(int fd, const char *type_format, ...);
+int	ft_flags(int fd, char flag, va_list args);
 
 //printer
 void	print_tree(t_ast *root, int nivel);

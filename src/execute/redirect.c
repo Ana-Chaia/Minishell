@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:10:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/17 15:22:25 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:03:53 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	execute_redirect(t_ast *node, t_minishell *mini)
 		close(svd_stdout);
 		return (0);
 	}
-	printf("fd: %d\n", fd);
+	//printf("fd: %d\n", fd);
 	return (1);
 }
 
@@ -45,12 +45,13 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 	if (node && (node->type == RED_IN || node->type == HEREDOC))
 	{
 		fd = open(node->right->content, O_RDONLY);
-		printf("FD_OPEN_FILE: %d, node: %s, right: %s\n", fd, node->content, node->right->content);
+		//printf("FD_OPEN_FILE: %d, node: %s, right: %s\n", fd, node->content, node->right->content);
 		if (fd == -1)
 		{
 			close(STDIN_FILENO);
 			dup2(*svd_stdin, STDIN_FILENO);
-			ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
+			ft_printf_fd(STDERR_FILENO, "%s: %s\n", node->right->content, strerror(errno));
+			//ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
 			get_status(1);
 			return (fd);
 		}
@@ -65,7 +66,8 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 		dup2(*svd_stdin, STDIN_FILENO);
 		close(STDOUT_FILENO);
 		dup2(*svd_stdout, STDOUT_FILENO);
-		ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
+		ft_printf_fd(STDERR_FILENO, "%s: %s\n", node->right->content, strerror(errno));
+		//ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
 		get_status(1);
 		return (fd);
 	}

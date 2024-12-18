@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/04 14:04:00 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ void	signal_handler(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		rl_on_new_line();exit(127);   // 
+		rl_on_new_line(); 
 		rl_replace_line("", 0);
 		rl_redisplay();
 		get_status(130);
 	}
 	else if (signal == SIGQUIT)
 	{
-		printf("Quit (core dump)\n");
+		ft_printf_fd(STDERR_FILENO, "quit (core dump)\n");
+		//printf("Quit (core dump)\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -52,7 +53,7 @@ void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 	if (g_signal == SIGINT)
 	{
 		dup2(std_in, STDIN_FILENO);
-		printf("FECHOU ĉ");   //apagar
+		//printf("FECHOU ĉ");   //apagar
 		// if(hd_input)
 		// // {
 		// // 	free(hd_input);
@@ -62,7 +63,8 @@ void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 	}
 	else
 	{
-		printf("shellzito: warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
+		ft_printf_fd(STDERR_FILENO, "warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
+		//("shellzito: warning: here-document delimited by end-of-file (wanted `%s')\n", token_node->next->content);
 		close(fd_heredoc);
 		get_status(0);
 		return ;
@@ -112,7 +114,7 @@ void	signal_handler_heredoc(int signal)
 
 void	init_signal_exec(void)
 {
-	printf("SINAL NA EXECUCAO\n");   //apagar
+	//printf("SINAL NA EXECUCAO\n");   //apagar
 	signal(SIGINT, signal_handler_exec);
 	signal(SIGQUIT, signal_handler_exec);
 	signal(SIGPIPE, SIG_IGN);
@@ -131,7 +133,8 @@ void	signal_handler_exec(int signal)
 	}
 	else if (signal == SIGQUIT)
 	{
-		printf("Quit (core dump)\n");
+		ft_printf_fd(STDERR_FILENO, "quit (core dump)\n");
+		//printf("Quit (core dump)\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 	//	rl_redisplay();

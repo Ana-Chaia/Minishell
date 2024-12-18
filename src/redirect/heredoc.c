@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:48:29 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/07 14:04:01 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:04:57 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	is_heredoc(t_token *token_node)
 			// init_signal_heredoc(fd_heredoc);
 			if (fd_heredoc < 0)
 			{
-				ft_printf("Shellzito: %s: %s\n", file_name, strerror(errno));
+				ft_printf_fd(STDERR_FILENO, "%s: %s\n", file_name, strerror(errno));
+				//ft_printf("Shellzito: %s: %s\n", file_name, strerror(errno));
 				get_status(1);
 			}
 			filling_a_file(fd_heredoc, heredoc, std_in);
@@ -76,7 +77,7 @@ char	*create_file_name(void)
 	name = ft_strjoin(dir, nbr);
 	free (nbr);
 	nbr_cmd++;
-	printf("%s\n", name);
+	//printf("%s\n", name);
 	return (name);
 }
 

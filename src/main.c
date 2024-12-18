@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/12 10:47:45 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:08:27 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,17 @@ int	shellzito_on(t_minishell *mini)
 		//get_status( );      completar 0 ????
 	}
 	token_type(mini->input, &(mini)->tokenlist);
-	list_printer(mini->tokenlist); //apagar
+	//list_printer(mini->tokenlist); //apagar
 	if (check_syntax(&(mini->tokenlist)) == 1 || validate_input(mini) == 1)
 		return (get_status(2));
 	search_heredoc (&(mini->tokenlist));
 	across_the_universe(&(mini->tokenlist));
-	list_printer(mini->tokenlist); //apagar
+	//list_printer(mini->tokenlist); //apagar
 	all_together(&(mini->tokenlist));
 	clear_list(&(mini->tokenlist));
-	list_printer(mini->tokenlist); //apagar
+	//list_printer(mini->tokenlist); //apagar
 	mini->tree = ast_builder(NULL, mini->tokenlist, 0); //free tokenlis
-	print_tree(mini->tree, 1); //apagar
+	//print_tree(mini->tree, 1); //apagar
 	execution(mini->tree, mini);
 	//bye_bye(mini);
 	free_mini(mini);

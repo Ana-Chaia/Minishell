@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/17 18:40:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:43:38 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,34 +104,43 @@ t_token	*all_together(t_token **token_list)
 			i = 0;
 			curr = united;
 			//malloc_cmd_args(united);
+			// printf("curr->content: %s\n", curr->content);
+			if (curr->content == NULL)
+			{
+				// printf("curr->content: %s\n", curr->next->content);
+				// // united->cmd_args[i] = ft_strdup(curr->next->content);
+				// // i++;
+				// printf("curr->content: %s\n", united->cmd_args[i]);
+				curr = curr->next;
+			}
 			while (curr != NULL && curr->type != PIPE)
 			{
 				if (curr->next && curr->next->quote_issue_prev == 1 && is_redirect(curr->type) != 1 && curr->type != FILENAME)
 				{
 					united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
 					curr = curr->next;
-					printf("1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+					//printf("1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 				}
 				if (curr->next && curr->quote_issue_next == 1 && is_redirect(curr->type) != 1 && curr->type != FILENAME)
 				{
 					if (united->cmd_args[i])
 					{
-						printf("2.1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						//printf("2.1cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 						united->cmd_args[i] = ft_strjoin(united->cmd_args[i], curr->next->content);
-						printf("2.2cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						//printf("2.2cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 						curr = curr->next;
 					}
 					else
 					{
 						united->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
-						printf("3cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+						//printf("3cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 						curr = curr->next;
 					}
 				}
 				else if (is_redirect(curr->type) != 1 && curr->type != FILENAME && curr->quote_issue_prev == 0 && curr->quote_issue_next == 0)
 				{
 					united->cmd_args[i] = ft_strdup(curr->content);
-					printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
+					//printf("4cmd_arg[%d]: %s\n", i, united->cmd_args[i]);
 				}
 				else if (is_redirect(curr->type) == 1 || curr->type == FILENAME)
 					i--;
@@ -152,7 +161,7 @@ t_token	*all_together(t_token **token_list)
 		{
 			while (temp->cmd_args[i])
 			{
-				printf("cmd_args[%d]: %s\n", i, temp->cmd_args[i]);
+				//printf("cmd_args[%d]: %s\n", i, temp->cmd_args[i]);
 				i++;
 			}
 		}
