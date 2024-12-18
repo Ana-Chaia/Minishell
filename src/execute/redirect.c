@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:10:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 12:03:53 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:44:34 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,19 @@ int	execute_redirect(t_ast *node, t_minishell *mini)
 		close(svd_stdin);
 		dup2(svd_stdout, STDOUT_FILENO);
 		close(svd_stdout);
+		printf("fd1: %d\n", fd);
 		return (0);
 	}
-	//printf("fd: %d\n", fd);
+	printf("fd2: %d\n", fd);
 	return (1);
 }
 
 int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 {
 	int	fd;
+	int a;
 
+	a = 0;
 	fd = 0;
 	if (node && (node->type == RED_IN || node->type == HEREDOC))
 	{
@@ -68,7 +71,8 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 		dup2(*svd_stdout, STDOUT_FILENO);
 		ft_printf_fd(STDERR_FILENO, "%s: %s\n", node->right->content, strerror(errno));
 		//ft_printf("Shellzito: %s: %s\n", node->right->content, strerror(errno));
-		get_status(1);
+		a = get_status(1);
+		ft_printf("status: %d\n", a);
 		return (fd);
 	}
 	return (fd);

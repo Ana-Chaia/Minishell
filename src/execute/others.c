@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 15:05:51 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:23:31 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	execute_others(t_ast *node)
 	waitpid(pid, &status, 0);
 	wise_status(status);
 	//printf("status_wisestatus: %d", status);
-	status = WEXITSTATUS(status);
+	//status = WEXITSTATUS(status);
 	//printf("status_wisestatus2: %d", status);
 	//return (WEXITSTATUS(status));
 	//return (get_status(WEXITSTATUS(status)));
@@ -214,5 +214,5 @@ void	wise_status(int status)
 		get_status(status);
 	}
 	else
-		get_status(0);
+		get_status(-1);
 }
