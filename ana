@@ -1,3 +1,35 @@
 hello worldget_status: 0
 status: 1
 fd: -1
+status_exec:
+status: 1
+fd2: -1
+status_exec:
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1
+status: 1
+fd2: -1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 12:21:15 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:01:58 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	export(char **cmd, t_minishell *mini)
 			{
 				ft_printf_fd(STDERR_FILENO, "export: not a valid identifier\n");
 				//printf("export: %s: not a valid identifier\n", curr[i]);
-				get_status(1);
+				return (get_status(1));
 			}
 			else
 				list_export(curr[i], &(mini)->export_list);

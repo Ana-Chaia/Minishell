@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   across_the_universe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 15:11:40 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:48:48 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*find_dollar(char *cmd)
     while (cmd[i] != '\0')
     {
         start = i;
-        while (cmd[i] != '\0' && cmd[i] != '$') 
+        while (cmd[i] != '\0' && cmd[i] != '$')
             i++;
         if (i > start) 
         {
@@ -69,6 +69,11 @@ char	*find_dollar(char *cmd)
 			}
             else if (cmd[i] == '?')
             {
+				if (g_signal == SIGINT)
+				{
+					printf("passou\n");
+					get_status(142);
+				}
                 value = ft_itoa(get_status(-1));
                 i++;
             }

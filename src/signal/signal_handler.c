@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:37 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:53:40 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	signal_handler(int signal)
 		rl_on_new_line(); 
 		rl_replace_line("", 0);
 		rl_redisplay();
+		//printf("signal_handler\n");
 		get_status(130);
+		g_signal = 0;
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -43,6 +45,7 @@ void	signal_handler(int signal)
 
 void	signal_main(void)
 {
+	//printf("signal_main\n");
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 	//signal(SIGPIPE, SIG_IGN);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 17:48:02 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:53:52 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	execution(t_ast *node, t_minishell *mini)
 {
 	int	status;
 
+	//printf("status_exec:\n");
 	if (g_signal == SIGINT)
 	{
 		return (130);
@@ -30,7 +31,6 @@ int	execution(t_ast *node, t_minishell *mini)
 	else
 		status = execute_others (node);
 	get_status(status);
-	printf("status_exec: %d", status);
 	return (status);
 }
 
@@ -57,7 +57,7 @@ int	is_builtin(char *cmd)
 int	get_status(int exit_status)
 {
 	static int	status;
-	ft_printf("get_status: %d\n", status);
+	//ft_printf("get_status: %d\n", status);
 	if (exit_status != -1)
 		status = exit_status;
 	//status = mod_status(status);

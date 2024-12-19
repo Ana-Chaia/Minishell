@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 12:08:27 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:47:30 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(void)
 		if (mini == NULL)
 			mini = (t_minishell *)malloc(sizeof(t_minishell));
 		g_signal = 0;
-		signal_main();
+		//signal_main();
 		init_struct(mini);
 		dup2(fd_bckp, STDIN_FILENO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
@@ -70,6 +70,7 @@ int	shellzito_on(t_minishell *mini)
 		//clear_and_free(mini);
 		mini->input = ft_strdup("exit");
 		printf("exit\n");
+		exit(0);
 		//get_status( );      completar 0 ????
 	}
 	token_type(mini->input, &(mini)->tokenlist);
@@ -85,6 +86,7 @@ int	shellzito_on(t_minishell *mini)
 	mini->tree = ast_builder(NULL, mini->tokenlist, 0); //free tokenlis
 	//print_tree(mini->tree, 1); //apagar
 	execution(mini->tree, mini);
+	//printf("passou 2\n");
 	//bye_bye(mini);
 	free_mini(mini);
 	//free(mini->input);

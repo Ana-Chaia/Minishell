@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:11:40 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 17:53:25 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:59:02 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int execute_pipe(t_ast *node, t_minishell *mini)
 	//status = get_status(-1);
 	waitpid(pid1, &status[0], 0);
 	waitpid(pid2, &status[1], 0);
-	printf("StatusPipe[0]: %d\n", status[0]);
-	printf("StatusPipe[1]: %d\n", status[1]);
+	//printf("StatusPipe[0]: %d\n", status[0]);
+	//printf("StatusPipe[1]: %d\n", status[1]);
 	status[1] =  WEXITSTATUS(status[1]);
-	printf("StatusPipe[1]: %d\n", status[1]);
-	return (get_status(WEXITSTATUS(status[1])));
+	//printf("StatusPipe[2]: %d\n", status[1]);
+	return (get_status(status[1]));
 }
 
 void child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
