@@ -115,7 +115,7 @@ int		env(char **cmd);
     //exit
 int		the_exit(char **cmd, t_minishell *mini);
 int		verify_args(char **cmd);
-int		is_sign(char c);
+//int		is_sign(char c);
 int		is_longer(char *cmd);
 int		mod_status(int status);
 void	handle_exit_args(char **cmd, int nb_args);
@@ -132,6 +132,7 @@ void	all_you_need_is_env(t_export *export_list, int i);
 char	**come_together_env(char **new_env, t_export *curr);
 char	**strawberry_fields_forenv(char **env, int i);
 char	*join_env(char const *s1, char const *s2);
+void	sort_export(char **copy);
     //pwd
 int		pwd(void);
     //unset

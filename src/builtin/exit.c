@@ -87,8 +87,8 @@ void	handle_exit_args(char **cmd, int nb_args)
 			else
 			{
 				status = ft_atoi(cmd[1]);
-				status = mod_status(status);
-				exit(status);
+			//	status = mod_status(status);
+				exit(mod_status(status));
 			}
 		}
 		else

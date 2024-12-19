@@ -77,6 +77,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 		}
 		curr = curr->next;
 	}
+	env_shellzito (new_env);
 }
 	// while (env[k])
 	// {
@@ -89,7 +90,7 @@ void	all_you_need_is_env(t_export *export_list, int i)
 		//printf("new_env: %s\n", new_env[k]);
 //		k++;
 //	}
-//	env_shellzito (new_env);
+//	
 //	k = 0;
 //	shell = env_shellzito(NULL);
 //	while (shell[k])
@@ -354,7 +355,7 @@ char	*substr_noquote(char const *s, unsigned int start, size_t len)
 	mem[i] = '\0';
 	return (mem);
 }
-
+/*
 void	print_export(char **copy)
 {
 	int		i;
@@ -397,4 +398,57 @@ void	print_export(char **copy)
 		free(name);
 		i++;
 	}
+}
+*/
+
+void	print_export(char **copy)
+{
+	int		i;
+	int		k;
+	char	*value;
+	char	*name;
+
+	if (copy == NULL)
+		return ;
+	sort_export(copy);
+	i = 0;
+	while (copy[i])
+	{
+		k = 0;
+		while (copy[i][k] != '=' && copy[i][k] != '\0')
+			k++;
+		value = ft_strchr(copy[i], '=');
+		name = ft_substr(copy[i], 0, k);
+		if (value)
+			printf("declare -x %s=\"%s\"\n", name, value + 1);
+		else
+			printf("declare -x %s\n", name);
+		free(name);
+		i++;
+	}
+}
+
+void sort_export(char **copy)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	while (copy[i])
+	{
+		j = i + 1;
+		while (copy[j])
+		{
+			if (ft_strncmp(copy[i], copy[j], ft_strlen(copy[i])) > 0)
+			{
+				temp = copy[i];
+				copy[i] = copy[j];
+				copy[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+
 }

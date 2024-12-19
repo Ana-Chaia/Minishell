@@ -130,7 +130,7 @@ void	bye_bye(t_minishell *mini)
 
 	fd = STDIN_FILENO;
 	env_copy = env_shellzito(NULL);
-	//printf("ENTROU AQUI: %d\n", fd);   //apagar
+	printf("ENTROU AQUI: %d\n", fd);   //apagar
 	if (mini->input)
 		free(mini->input);
 	if (env_copy)
