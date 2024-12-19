@@ -6,77 +6,80 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 12:46:29 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:56:06 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-/*
-int	the_exit(char **cmd, t_minishell *shellzito)
-{
-	int		i;
-	int		count;
-	int		status;
 
-	status = get_status(-1);
-	count = 0;
-	i = 1;
-	while (cmd[i] != NULL)
-	{
-		while (cmd[count] != NULL)
-			count++;
-		if (count == 2)
-		{
-			if (verify_args(&cmd[1]) == 1)
-				exit(2);
-			else
-			{
-				status = ft_atoi(cmd[1]);
-				status = mod_status(status);
-				exit(status);
-			}
-		}
-		else
-		{
-			if (verify_args(&cmd[1]) == 1)
-				exit(2);
-			ft_printf_fd(STDERR_FILENO, "exit: too many arguments\n");
-			exit(1);
-		}
-		i++;
-	}
-	if (cmd[0] && cmd[1] == NULL)
-	{
-		bye_bye(shellzito);
-		status = mod_status(status);
-		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
-	}
-	return (0);
-}
-*/
+// int	the_exit(char **cmd, t_minishell *shellzito)
+// {
+// 	int		i;
+// 	int		count;
+// 	int		status;
+
+// 	status = get_status(-1);
+// 	count = 0;
+// 	i = 1;
+// 	while (cmd[i] != NULL)
+// 	{
+// 		while (cmd[count] != NULL)
+// 			count++;
+// 		if (count == 2)
+// 		{
+// 			if (verify_args(&cmd[1]) == 1)
+// 				exit(2);
+// 			else
+// 			{
+// 				status = ft_atoi(cmd[1]);
+// 				status = mod_status(status);
+// 				exit(status);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			if (verify_args(&cmd[1]) == 1)
+// 				exit(2);
+// 			ft_printf_fd(STDERR_FILENO, "exit: too many arguments\n");
+// 			exit(1);
+// 		}
+// 		i++;
+// 	}
+// 	if (cmd[0] && cmd[1] == NULL)
+// 	{
+// 		bye_bye(shellzito);
+// 		status = mod_status(status);
+// 		exit(status); //pegar o status de final do último cmd, 
+//salvar na struct e receber ela;	
+//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
+// 	}
+// 	return (0);
+// }
+
 int	the_exit(char **cmd, t_minishell *shellzito)
 {
 	int		status;
 	int		i;
-	
+
 	i = 0;
 	status = get_status(-1);
 	if (cmd[1] == NULL)
 	{
 		bye_bye(shellzito);
 		status = mod_status(status);
-		exit(status); //pegar o status de final do último cmd, salvar na struct e receber ela;	//obs: DAR FREE EM TUDO E FECHAR TODOS FDS antes de todos os exits;
+		exit(status);
 	}
 	while (cmd[i] != NULL)
 			i++;
 	handle_exit_args(cmd, i);
 	return (0);
-}	
+}
+
 void	handle_exit_args(char **cmd, int nb_args)
 {
 	int		status;
 	int		i;
-	
+
 	i = 0;
 	while (cmd[i] != NULL)
 	{
@@ -87,7 +90,6 @@ void	handle_exit_args(char **cmd, int nb_args)
 			else
 			{
 				status = ft_atoi(cmd[1]);
-			//	status = mod_status(status);
 				exit(mod_status(status));
 			}
 		}
@@ -123,15 +125,11 @@ int	verify_args(char **cmd)
 	j = 0;
 	while (cmd[i][j])
 	{
-		//if (is_sign(cmd[i][j]) == 1)
 		if ((cmd[i][j]) == '+' || (cmd[i][j]) == '-')
 			j++;
-		//printf("cmd[%d][%d]: %c\n", i, j, cmd[i][j]);
 		if (ft_isdigit(cmd[i][j]) == 0)
 		{
 			ft_printf_fd(STDERR_FILENO, "exit: numeric argument required\n");
-			//printf("shellzito: exit: %s: numeric argument required\n",
-				//cmd[i]);
 			return (1);
 		}
 		if (is_longer(cmd[i]) == 1)
@@ -140,7 +138,6 @@ int	verify_args(char **cmd)
 	}
 	return (0);
 }
-
 /*
 int	is_sign(char c)
 {
@@ -157,7 +154,6 @@ int	is_longer(char *cmd)
 				> 0)))
 	{
 		ft_printf_fd(STDERR_FILENO, "exit: numeric argument required\n");
-		//printf("shellzito: exit: %s: numeric argument required\n", cmd);
 		return (1);
 	}
 	return (0);

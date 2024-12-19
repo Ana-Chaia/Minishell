@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_builder.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/19 12:01:54 by jbolanho          #+#    #+#             */
+/*   Updated: 2024/12/19 12:08:42 by jbolanho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
+
+int	is_redirect(int curr)
+{
+	if (curr == RED_IN || curr == RED_OUT
+		|| curr == HEREDOC || curr == APPEND)
+		return (1);
+	return (0);
+}
 
 void	handle_pipe(t_ast *joint, t_token *curr, int level)
 {

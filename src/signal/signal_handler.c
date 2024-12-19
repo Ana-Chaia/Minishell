@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:37 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:31:32 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	signal_handler(int signal)
 	g_signal = signal;
 	if (signal == SIGINT)
 	{
-		write(1, "\n", 1);
+		//write(1, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line(); 
 		rl_replace_line("", 0);
 		rl_redisplay();

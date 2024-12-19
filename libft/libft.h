@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:06:32 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 11:12:10 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:00:31 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_list
 {
 	void				*content;
 	struct s_list		*next;
-} t_list;
+}	t_list;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000

@@ -18,6 +18,8 @@ SRC = 	./src/main.c \
 		./src/builtin/echo.c \
 		./src/builtin/envp_shellzito.c \
 		./src/builtin/export.c \
+		./src/builtin/export_utils.c \
+		./src/builtin/export_utils2.c \
 		./src/builtin/unset.c \
 		./src/builtin/pwd.c \
 		./src/builtin/exit.c \

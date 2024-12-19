@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:18:15 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 11:57:20 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:34:10 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	unset(char **cmd)
 		if (validate_name(cmd[i]) != 1)
 		{
 			ft_printf_fd(STDERR_FILENO, "unset: not a valid identifier\n");
-			//printf("unset: %s: not a valid identifier\n", cmd[i]);
 			get_status(1);
 		}
 		else
@@ -49,7 +48,6 @@ void	delete_variable(char *var)
 		if (var[x] == '=')
 		{
 			ft_printf_fd(STDERR_FILENO, "unset: not a valid identifier\n");
-			//printf("unset: %s: not a valid identifier\n", var);
 			get_status(1);
 			return ;
 		}

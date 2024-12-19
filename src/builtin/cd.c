@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 11:52:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:41:24 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	cd(char **cmd)
 	vars_to_env(old_pwd, pwd, our_env);
 	return (0);
 }
-char *cd_aux(char **cmd)
+
+char	*cd_aux(char **cmd)
 {
 	char	*path;
 
@@ -84,7 +85,8 @@ char *cd_aux(char **cmd)
 	{
 		path = getenv("HOME");
 		if (path == NULL)
-			ft_printf_fd(STDERR_FILENO, "cd: could not get the home directory\n");
+			ft_printf_fd(STDERR_FILENO,
+				"cd: could not get the home directory\n");
 	}
 	else
 		path = get_path(cmd[1]);
@@ -93,31 +95,31 @@ char *cd_aux(char **cmd)
 
 char	*get_path(char *path)
 {
-	char	*new_path;
+	char	*new;
 	char	*x;
 	size_t	len;
 
-	new_path = NULL;
+	new = NULL;
 	x = getcwd(NULL, 0);
 	if ((path[0] == '.') && (path[1] == '\0'))
-		new_path = x;
+		new = x;
 	else if ((path[0] == '.') && (path[1] && path[1] != '.'))
 	{
 		len = (ft_strrchr(x, '/')) - x;
-		new_path = ft_strjoin(x, (ft_substr(path, 1, strlen(x) - 1)));
+		new = ft_strjoin(x, (ft_substr(path, 1, strlen(x) - 1)));
 	}
 	else if ((path[0] == '.') && (path[1] == '.'))
 	{
 		len = (ft_strrchr(x, '/')) - x;
-		new_path = ft_strjoin((ft_substr(x, 0, len)), (ft_substr(path, 2, strlen(x) - 2)));
+		new = ft_strjoin((ft_substr(x, 0, len)), (ft_substr(path, 2, ft_strlen(x) - 2)));
 	}
 	else if ((path[0] == '~') && (path[1] == '\0'))
-		new_path = getenv("HOME");
+		new = getenv("HOME");
 	else if ((path[0] == '~') && (path[1] != '\0'))
-		new_path = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
+		new = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
 	else if (path[0] == '/')
-		new_path = ft_strdup(path);
-	return (new_path);
+		new = ft_strdup(path);
+	return (new);
 }
 /*
 void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
@@ -177,7 +179,8 @@ void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
 	}
 	search_in_env(our_env, "PWD", pwd);
 }
-int search_in_env(char **our_env, char *var, char *value)
+
+int	search_in_env(char **our_env, char *var, char *value)
 {
 	int		i;
 	char	*to_env;
@@ -198,6 +201,5 @@ int search_in_env(char **our_env, char *var, char *value)
 		}
 		i++;
 	}
-	return(i);
+	return (i);
 }
-

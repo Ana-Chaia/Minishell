@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:08 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 11:10:15 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:53:03 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	free_tokenlist(t_token *tokenlist)
 	//tokenlist = NULL;
 }
 
-void	free_export(t_export *export_list)
+void	free_export(t_exp *export_list)
 {
-	t_export	*curr;
-	t_export	*next;
+	t_exp	*curr;
+	t_exp	*next;
 
 	curr = export_list;
 	if (export_list == NULL)

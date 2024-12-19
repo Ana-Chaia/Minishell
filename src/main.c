@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 12:08:27 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:23:21 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 		printf("Malloc fail.\n");
 		return (0);
 	}
-	init_signal();
+	//init_signal();
 	copy_env();
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)

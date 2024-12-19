@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:21:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 11:56:14 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:35:11 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	pwd(void)
 	if (!path)
 	{
 		ft_printf_fd(STDERR_FILENO, "pwd: error retrieving current directory\n");
-		//perror("pwd: error retrieving current directory \n");
 		return (get_status(-1));
 	}
 	printf("%s\n", path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:33:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/16 10:06:14 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:57:45 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ typedef struct s_export
 	int				equal;
 	struct s_export	*next;
 	struct s_export	*prev;
-}	t_export;
+}	t_exp;
 
 typedef struct s_minishell
 {
 	char		*input;
 	t_token		*tokenlist;
 	t_ast		*tree;
-	t_export	*export_list;
+	t_exp		*export_list;
 }	t_minishell;
 
 enum e_type

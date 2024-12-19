@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 12:45:38 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:26:24 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include "../libft/libft.h"
 # include "struct.h"
-# include "tokenize.h"
-# include "redirect.h"
-# include "ast.h"
-# include "signal.h"
+//# include "tokenize.h"
+//# include "redirect.h"
+//# include "ast.h"
+//# include "signal.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -28,17 +28,17 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 
-# include <fcntl.h>   // Para O_CREAT, O_RDWR, O_TRUNC
-# include <errno.h>   // Para errno
-# include <string.h>  // Para strerror
-# include <sys/types.h>  // Para open
+# include <fcntl.h>
+# include <errno.h> 
+# include <string.h>
+# include <sys/types.h>
 # include <termios.h>
 # include <signal.h>
 # include <stdarg.h>
 
 typedef struct termios	t_termios;
 
-extern volatile int g_signal;
+extern volatile int		g_signal;
 
 //main
 int		shellzito_on(t_minishell *mini);
@@ -80,6 +80,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 t_token	*pipe_to_ast(t_token *tokenlist);
 t_token	*redir_to_ast(t_token *tokenlist);
 t_token	*find_last_one(t_token *tokenlist);
+int		check_last_one(t_token	*tokenlist, t_token	**curr_ptr);
 t_ast	*ast_new_node(t_token *token_node);
 int		is_redirect(int curr);
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level);
@@ -92,8 +93,6 @@ void	across_the_universe(t_token **token_list);
 char	*find_dollar(char *cmd);
 char	*change_dollar(char *cmd, int start, int end);
 char	*cut_value(char *name, char **env);
-//char	*ft_strxcpy(char *dest, char *src, size_t destsize);
-//char 	*not_expanded(char *cmd, int i, char *temp);
 
 //env
 void	copy_env(void);
@@ -101,41 +100,42 @@ void	free_env(char **array);
 char	**env_shellzito(char **our_env);
 
 //builtin
-    //cd
+	//cd
 int		cd(char **cmd);
 char	*get_path(char *path);
 void	vars_to_env(char *old_pwd, char *pwd, char **our_env);
 char	*cd_aux(char **cmd);
 int		search_in_env(char **our_env, char *var, char *value);
-    //echo
+	//echo
 int		echo(char **cmd);
 int		check_minus_nnnns(char *cmd);
-    //env
+	//env
 int		env(char **cmd);
-    //exit
+	//exit
 int		the_exit(char **cmd, t_minishell *mini);
 int		verify_args(char **cmd);
-//int		is_sign(char c);
 int		is_longer(char *cmd);
 int		mod_status(int status);
 void	handle_exit_args(char **cmd, int nb_args);
-    //export
+	//export
 int		export(char **token, t_minishell *mini);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
 void	print_export(char **copy);
-int		list_export(char *token, t_export **export_list);
+int		list_export(char *token, t_exp **export_list, int i);
 int		validate_name(char *token);
 int		compare_to_env(char *name);
-t_export*create_node_exp(char *name, char *value, int on_env, char equal);
-void	make_lst_exp(t_export **export_list, t_export *export_node);
-void	all_you_need_is_env(t_export *export_list, int i);
-char	**come_together_env(char **new_env, t_export *curr);
+t_exp	*create_node_exp(char *name, char *value, int on_env, char equal);
+void	make_lst_exp(t_exp **export_list, t_exp *export_node);
+void	all_you_need_is_env(t_exp *export_list, int i);
+char	**update_env_var(char **new_env, t_exp *curr);
+char	**come_together_env(char **new_env, t_exp *curr);
 char	**strawberry_fields_forenv(char **env, int i);
 char	*join_env(char const *s1, char const *s2);
 void	sort_export(char **copy);
-    //pwd
+void	free_partial_env(char **new_env, int k);
+	//pwd
 int		pwd(void);
-    //unset
+	//unset
 int		unset(char **cmd);
 void	delete_variable(char *var);
 
@@ -148,25 +148,23 @@ void	signal_handler_heredoc(int signal);
 void	init_signal_exec(void);
 void	signal_handler_exec(int signal);
 void	signal_exec(int pid);
-//void	init_signal_heredoc(int fd_heredoc);
 
 //exec
 int		execution(t_ast *node, t_minishell *mini);
 int		is_builtin(char *cmd);
 int		get_status(int exit_status);
-    //pipe
+	//pipe
 int		execute_pipe(t_ast *node, t_minishell *mini);
 void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
-    //builtin
+	//builtin
 int		execute_builtin(t_ast *node, t_minishell *mini);
-    //redirect
+	//redirect
 int		execute_redirect(t_ast *node, t_minishell *mini);
 int		open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
 int		dup_dup(t_ast *node, int *fd);
-    //others
+	//others
 int		execute_others(t_ast *node);
 void	validate_cmd(char *cmd);
-//void	get_cmd(t_ast *node);
 char	**split_path(void);
 int		gone_wrong(t_ast *node);
 int		is_directory(const char *path);
@@ -174,7 +172,7 @@ void	wise_status(int status);
 
 //free and close
 void	free_tokenlist(t_token *tokenlist);
-void	free_export(t_export *export_list);
+void	free_export(t_exp *export_list);
 void	free_ast(t_ast *ast_node);
 void	free_mini(t_minishell *mini);
 void	free_ptrptr(char **env);
