@@ -15,9 +15,8 @@
 t_token	*pipe_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
-//	t_ast	*joint;
+
 	curr = tokenlist;
-//	joint = NULL;
 	while (curr->next)
 		curr = curr->next;
 	while (curr != NULL)
@@ -34,9 +33,8 @@ t_token	*pipe_to_ast(t_token *tokenlist)
 t_token	*redir_to_ast(t_token *tokenlist)
 {
 	t_token	*curr;
-//	t_ast	*joint;
+
 	curr = tokenlist;
-//	joint = NULL;
 	while (curr->next != NULL)
 	{
 		if (curr->next->type == PIPE)
@@ -54,9 +52,7 @@ t_token	*redir_to_ast(t_token *tokenlist)
 			return (tokenlist);
 		}
 		if (is_redirect(curr->type) == 1 && curr->blob == 0)
-		{
 			return (curr);
-		}
 		curr = curr->next;
 	}
 	curr = find_last_one (tokenlist);
@@ -89,7 +85,7 @@ t_token	*find_last_one(t_token *tokenlist)
 	}
 	if (last_one == 1)
 	{
-		while (curr->next != NULL 
+		while (curr->next != NULL
 			|| (curr->next != NULL && curr->next->type != PIPE))
 		{
 			if (curr->blob == 0)
@@ -103,41 +99,17 @@ t_token	*find_last_one(t_token *tokenlist)
 t_ast	*ast_new_node(t_token *token_node)
 {
 	t_ast	*ast_node;
-	int 	i;
-
-	i = 0;
+	
 	ast_node = (t_ast *) malloc(sizeof(t_ast));
 	if (!ast_node)
 		return (NULL);
 	ast_node->type = token_node->type;
-	//ast_node->quote = token_node->quote;
 	ast_node->content = ft_strdup(token_node->content);
 	ast_node->left = NULL;
 	ast_node->right = NULL;
 	ast_node->first_cmd = NULL;
     ast_node->exec_ready = NULL;
     ast_node->path_array = NULL;
-	// if (token_node->cmd_args != NULL)
-	// {
-		// while (cmd_array[size] != NULL)
-// 		size++;
-// 	node->cmd_args = malloc((size + 1) * sizeof(char *));
-// 	while (cmd_array[i] != NULL)
-// 	{
-// 		node->cmd_args[i] = ft_strdup(cmd_array[i]);
-// 		i++;
-// 	}
-// 	node->cmd_args[i] = NULL;
-		
-		
-		// while (token_node->cmd_args[i])
-		// {
-		// 	ast_node->cmd_args[i] = ft_strdup(token_node->cmd_args[i]);
-		// 	i++;
-		// }
-	// }
-	// else
-	// 	ast_node->cmd_args = NULL;
 	ast_node->cmd_args = token_node->cmd_args;
 	return (ast_node);
 }
@@ -149,7 +121,7 @@ int	is_redirect(int curr)
 		return (1);
 	return (0);
 }
-
+/*
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 {
 	t_ast	*joint;
@@ -159,16 +131,15 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 	joint = NULL;
 	if (tokenlist == NULL)
 		return (ast_node);
-	curr = pipe_to_ast(tokenlist);  // pega o último(primeiro) pipe E o primeiro CMD
+	curr = pipe_to_ast(tokenlist); 
 	if (curr->type != PIPE)
-		curr = redir_to_ast(curr); // se curr não é PIPE, pega o primeiro redir
+		curr = redir_to_ast(curr); 
 	if (curr == NULL)
 		return (ast_node);
 	if (ast_node == NULL && curr->blob != 42)
 	{
 		curr->blob = 42;
 		joint = ast_new_node(curr);
-	//	printf("----------level %d\tnovo joint: %s\n",level, joint->content);
 	}
 	else
 		joint = ast_node;
@@ -187,13 +158,12 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 	}
 	else if (is_redirect(curr->type) == 1)
 	{
-		if (curr->next && curr->next->type == FILENAME && curr->next->blob != 42)  //faz o filename na direita
+		if (curr->next && curr->next->type == FILENAME && curr->next->blob != 42)
 		{
 			joint->right = ast_new_node(curr->next);
 			curr->next->blob = 42;
-		//printf("----------level %d\tnovo joint_filename: %s\n",level, joint->right->content);
 		}
-		if (curr->prev && curr->prev->type != PIPE)     //faz o cmd na esquerda 
+		if (curr->prev && curr->prev->type != PIPE)
 			joint->left = ast_builder(joint->left, curr->prev, level + 1);
 		if (curr->next->next && curr->next->next->type != PIPE)
 			joint->left = ast_builder(joint->left, curr->next->next, level + 1);
@@ -201,10 +171,11 @@ t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
 	else if (curr->prev == NULL && curr->blob == 0)
 	{
 		curr->blob = 42;
-		redir = redir_to_ast(curr);                  // faz o primeiro redir na esquerda
+		redir = redir_to_ast(curr);
 		if (redir != curr)
 			joint->left = ast_builder(joint->left, redir, level + 1);
 		joint->left = ast_builder(joint->left, curr, level + 1);
 	}
 	return (joint);
 }
+*/

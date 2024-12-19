@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+/*
 int	cd(char **cmd)
 {
 	char	*old_pwd;
@@ -23,7 +23,6 @@ int	cd(char **cmd)
 	pwd = NULL;
 	if (cmd[2])
 	{
-		//printf("cd: too many arguments\n");	//pode usar uma função de printar com fd
 		ft_printf_fd(STDERR_FILENO, "cd: too many arguments\n");
 		get_status(1);
 		return (0);
@@ -32,25 +31,64 @@ int	cd(char **cmd)
 	{
 		path = getenv("HOME");
 		if (path == NULL)
-			//printf("cd: Could not get the home directory.\n");
 			ft_printf_fd(STDERR_FILENO, "cd: could not get the home directory\n");
 	}
 	else
-	{
 		path = get_path(cmd[1]);
-	}
+	
 	if (chdir(path) != 0)
 	{
-		//printf("cd: %s: No such file or directory\n", path);
 		ft_printf_fd(STDERR_FILENO, "cd: no such file or directory\n");
 		get_status(1);
 		return (0);
 	}
 	pwd = getcwd(NULL, 0);
-	//printf("old_pwd: %s\n", old_pwd); 	//apagar
-	//printf("pwd: %s\n", pwd);			//apagar
 	vars_to_env(old_pwd, pwd);
 	return (0);
+}
+*/
+
+int	cd(char **cmd)
+{
+	char	*old_pwd;
+	char	*pwd;
+	char	*path;
+	char	**our_env;
+
+	our_env = env_shellzito(NULL);
+	old_pwd = getcwd(NULL, 0);
+	path = NULL;
+	pwd = NULL;
+	if (cmd[2])
+	{
+		ft_printf_fd(STDERR_FILENO, "cd: too many arguments\n");
+		get_status(1);
+		return (0);
+	}
+	path = cd_aux(cmd);
+	if (chdir(path) != 0)
+	{
+		ft_printf_fd(STDERR_FILENO, "cd: no such file or directory\n");
+		get_status(1);
+		return (0);
+	}
+	pwd = getcwd(NULL, 0);
+	vars_to_env(old_pwd, pwd, our_env);
+	return (0);
+}
+char *cd_aux(char **cmd)
+{
+	char	*path;
+
+	if (!cmd[1])
+	{
+		path = getenv("HOME");
+		if (path == NULL)
+			ft_printf_fd(STDERR_FILENO, "cd: could not get the home directory\n");
+	}
+	else
+		path = get_path(cmd[1]);
+	return (path);
 }
 
 char	*get_path(char *path)
@@ -79,18 +117,15 @@ char	*get_path(char *path)
 		new_path = ft_strjoin(getenv("HOME"), ft_substr(path, 1, (ft_strlen(path) - 1)));
 	else if (path[0] == '/')
 		new_path = ft_strdup(path);
-	//printf("new_path: %s\n", new_path);		//apagar
 	return (new_path);
 }
-
-void	vars_to_env(char *old_pwd, char *pwd)
+/*
+void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
 {
-	char	**our_env;
 	int		i;
 	int		j;
 	char	*to_env;
 
-	our_env = env_shellzito(NULL);
 	to_env = NULL;
 	i = 0;
 	j = 0;
@@ -124,3 +159,45 @@ void	vars_to_env(char *old_pwd, char *pwd)
 		our_env[i + 1] = NULL;
 	}
 }
+*/
+
+void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
+{
+	char	*to_env;
+	int		i;
+
+	i = search_in_env(our_env, "OLDPWD", old_pwd);
+	if (i == 0)
+	{
+		while (our_env[i])
+			i++;
+		to_env = join_env("OLDPWD", old_pwd);
+		our_env[i] = to_env;
+		our_env[i + 1] = NULL;
+	}
+	search_in_env(our_env, "PWD", pwd);
+}
+int search_in_env(char **our_env, char *var, char *value)
+{
+	int		i;
+	char	*to_env;
+
+	to_env = NULL;
+	i = 0;
+	while (our_env[i])
+	{
+		if (ft_strncmp(our_env[i], var, ft_strlen(var)) == 0
+			&& our_env[i][ft_strlen(var)] == '=')
+		{
+			to_env = join_env(var, value);
+			if (!to_env)
+				return (0);
+			free(our_env[i]);
+			our_env[i] = to_env;
+			return (1);
+		}
+		i++;
+	}
+	return(i);
+}
+

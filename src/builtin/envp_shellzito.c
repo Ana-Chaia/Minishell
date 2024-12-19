@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-//na main tem que ter envp como variavel
-
 void	copy_env(void)
 {
 	char	**our_env;
@@ -37,7 +35,6 @@ void	copy_env(void)
 		}
 		i++;
 	}
-	// print_env_copy(our_env);
 	env_shellzito(our_env);
 }
 
@@ -64,6 +61,5 @@ char	**env_shellzito(char **our_env)
 		free_env(env_shellzito);
 	if (our_env)
 		env_shellzito = our_env;
-	// print_env_copy(env_shellzito);
 	return (env_shellzito);
 }

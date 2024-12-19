@@ -14,6 +14,7 @@ SRC = 	./src/main.c \
 		./src/expand_vars/across_the_universe.c \
 		./src/utils/printer.c \
 		./src/ast/ast.c \
+		./src/ast/ast_builder.c \
 		./src/builtin/echo.c \
 		./src/builtin/envp_shellzito.c \
 		./src/builtin/export.c \

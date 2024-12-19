@@ -53,14 +53,14 @@ int		chevron_syntax(t_token *token_node);
 void	malloc_cmd_args(t_token *united);
 void	change_type(t_token *united);
 t_token	*all_together(t_token **token_list);
-t_token *clear_list(t_token **token_list);
+t_token	*clear_list(t_token **token_list);
 	//token
 void	token_type(char *input, t_token **list);
 t_token	*create_node(char *input, int type, int idx, int flag);
 int		make_lst(t_token **token_list, t_token *token_node, int idx, int flag);
 int		token_d_quotes(t_token **token_list, int idx, char *input);
 int		token_s_quotes(t_token **token_list, int idx, char *input);
-void 	validate_quote_issue(t_token **token_list, size_t start,
+void	validate_quote_issue(t_token **token_list, size_t start,
 			size_t end,	char *input);
 int		token_word(t_token **token_list, int idx, char *input);
 int		is_space(char c);
@@ -83,7 +83,9 @@ t_token	*find_last_one(t_token *tokenlist);
 t_ast	*ast_new_node(t_token *token_node);
 int		is_redirect(int curr);
 t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level);
-
+void	handle_pipe(t_ast *joint, t_token *curr, int level);
+void	handle_redirect(t_ast *joint, t_token *curr, int level);
+void	handle_special_case(t_ast *joint, t_token *curr, int level);
 
 //expand_variable
 void	across_the_universe(t_token **token_list);
@@ -102,7 +104,9 @@ char	**env_shellzito(char **our_env);
     //cd
 int		cd(char **cmd);
 char	*get_path(char *path);
-void	vars_to_env(char *old_pwd, char *pwd);
+void	vars_to_env(char *old_pwd, char *pwd, char **our_env);
+char	*cd_aux(char **cmd);
+int		search_in_env(char **our_env, char *var, char *value);
     //echo
 int		echo(char **cmd);
 int		check_minus_nnnns(char *cmd);
@@ -113,7 +117,8 @@ int		the_exit(char **cmd, t_minishell *mini);
 int		verify_args(char **cmd);
 int		is_sign(char c);
 int		is_longer(char *cmd);
-int	    mod_status(int status);
+int		mod_status(int status);
+void	handle_exit_args(char **cmd, int nb_args);
     //export
 int		export(char **token, t_minishell *mini);
 char	*substr_noquote(char const *s, unsigned int start, size_t len);
@@ -121,7 +126,7 @@ void	print_export(char **copy);
 int		list_export(char *token, t_export **export_list);
 int		validate_name(char *token);
 int		compare_to_env(char *name);
-t_export	*create_node_exp(char *name, char *value, int on_env, char equal);
+t_export*create_node_exp(char *name, char *value, int on_env, char equal);
 void	make_lst_exp(t_export **export_list, t_export *export_node);
 void	all_you_need_is_env(t_export *export_list, int i);
 char	**come_together_env(char **new_env, t_export *curr);
@@ -145,7 +150,7 @@ void	signal_exec(int pid);
 //void	init_signal_heredoc(int fd_heredoc);
 
 //exec
-int	execution(t_ast *node, t_minishell *mini);
+int		execution(t_ast *node, t_minishell *mini);
 int		is_builtin(char *cmd);
 int		get_status(int exit_status);
     //pipe
@@ -175,8 +180,9 @@ void	free_ptrptr(char **env);
 void	bye_bye(t_minishell *mini);
 void	close_fds(int fd_bckp);
 
-int	ft_printf_fd(int fd, const char *type_format, ...);
-int	ft_flags(int fd, char flag, va_list args);
+//utils
+int		ft_printf_fd(int fd, const char *type_format, ...);
+int		ft_flags(int fd, char flag, va_list args);
 
 //printer
 void	print_tree(t_ast *root, int nivel);

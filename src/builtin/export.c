@@ -46,21 +46,12 @@ void	all_you_need_is_env(t_export *export_list, int i)
 	char		**env;
 	t_export	*curr;
 	int			j;
-	int			k;
-	char		**shell;
 	int			x;
 	char		*substr;
 
-	k = 0;
 	env = env_shellzito(NULL);
 	new_env = strawberry_fields_forenv(env, i);
-	// while (env[k])
-	// {
-	// 	new_env[k] = ft_strdup(env[k]);
-	// 	k++;
-	// }
 	curr = export_list;
-	//printf("export_list: %s", export_list->name);
 	while (curr)
 	{
 		if ((curr->on_env == 42 && curr->equal == 1) || curr->on_env == 0)
@@ -71,12 +62,9 @@ void	all_you_need_is_env(t_export *export_list, int i)
 				x = 0;
 				while (new_env[j][x] != '=' && new_env[j][x] != '\0')
 					x++;
-				//printf("Comparando %s com %s\n", new_env[j], curr->name);
 				substr = ft_substr(new_env[j], 0, x);
 				if (ft_strcmp(substr, curr->name) == 0)
 				{
-					//printf("Substituindo %s com %s\n", new_env[j], curr->name);
-					// usar unset para eliminar a linha
 					free(new_env[j]);
 					new_env[j] = join_env(curr->name, curr->value);
 					curr->on_env = 42;
@@ -89,26 +77,27 @@ void	all_you_need_is_env(t_export *export_list, int i)
 		}
 		curr = curr->next;
 	}
+}
 	// while (env[k])
 	// {
 	// 	printf("env: %s\n", env[k]);
 	//  	k++;
 	// }
 	// k = 0;
-	while (new_env[k])
-	{
+//while (new_env[k])
+//	{
 		//printf("new_env: %s\n", new_env[k]);
-		k++;
-	}
-	env_shellzito (new_env);
-	k = 0;
-	shell = env_shellzito(NULL);
-	while (shell[k])
-	{
+//		k++;
+//	}
+//	env_shellzito (new_env);
+//	k = 0;
+//	shell = env_shellzito(NULL);
+//	while (shell[k])
+	//{
 		//printf("env_shellzito: %s\n", shell[k]);
-		k++;
-	}
-}
+	//	k++;
+//	}
+//}
 
 char	**strawberry_fields_forenv(char **env, int i)
 {
@@ -122,7 +111,6 @@ char	**strawberry_fields_forenv(char **env, int i)
 	k = 0;
 	while (env[len])
 		len++;
-	//printf("len_strawberry: %zu\n", len);
 	new_env = (char **)malloc((len + i + 1) * sizeof(char *));
 	if (!new_env)
 		return (NULL);

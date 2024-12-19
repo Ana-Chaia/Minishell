@@ -22,7 +22,6 @@ typedef struct s_token
 	char			**cmd_args;
 	int				quote_issue_prev;
 	int				quote_issue_next;
-	//int				quote;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -35,7 +34,6 @@ typedef struct s_ast
 	char			*exec_ready;
 	char			**cmd_args;
 	char			**path_array;
-	//int				quote;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }				t_ast;
