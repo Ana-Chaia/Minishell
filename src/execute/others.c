@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/18 17:23:31 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:02:28 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int gone_wrong(t_ast *node)
 {
 	int		status;
 
-	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 && is_directory(node->exec_ready) == -1)
+	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 && access(node->exec_ready, F_OK) == 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "command not found\n");
 		//printf("shellzito: %s: command not found\n", node->first_cmd);
@@ -166,8 +166,22 @@ int gone_wrong(t_ast *node)
 	{
 		ft_printf_fd(STDERR_FILENO, "no such file or directory\n");
 		//printf("shellzito: %s: no such file or directory\n", node->first_cmd);
-		return (get_status(1));
+		return (get_status(127));
 	}
+	// if (access(node->exec_ready, F_OK) == -1)
+	// {
+	// 	ft_printf_fd(STDERR_FILENO, "no such file or directory\n");
+	// 	//printf("shellzito: %s: no such file or directory\n", node->first_cmd);
+	// 	return (get_status(1));
+	// }
+	// else if(ft_strcmp(node->exec_ready, node->first_cmd) == 0) //&& is_directory(node->exec_ready) == -1)
+	// {
+	// 	ft_printf_fd(STDERR_FILENO, "command not found\n");
+	// 	ft_printf_fd(STDERR_FILENO, "TESTE\n");
+	// 	//printf("shellzito: %s: command not found\n", node->first_cmd);
+	// 	get_status (127);
+	// 	return (127);
+	// }
 	else if (is_directory(node->exec_ready) == 1)
 	{
 		ft_printf_fd(STDERR_FILENO, "is a directory\n");
@@ -192,7 +206,6 @@ int	is_directory(const char *path)
 	if (stat(path, &statbuf) != 0)
 		return (-1);
 	return (S_ISDIR(statbuf.st_mode));
-
 }
 
 void	wise_status(int status)
