@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/19 14:23:21 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:06:18 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 		printf("Malloc fail.\n");
 		return (0);
 	}
-	//init_signal();
+	init_signal();
 	copy_env();
 	tcgetattr(STDIN_FILENO, &terminal);
 	while (1)
@@ -37,7 +37,7 @@ int	main(void)
 		if (mini == NULL)
 			mini = (t_minishell *)malloc(sizeof(t_minishell));
 		g_signal = 0;
-		signal_main();
+		//signal_main();
 		init_struct(mini);
 		dup2(fd_bckp, STDIN_FILENO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
@@ -70,6 +70,7 @@ int	shellzito_on(t_minishell *mini)
 		//clear_and_free(mini);
 		mini->input = ft_strdup("exit");
 		printf("exit\n");
+		//VERIFICAR SE PRECISA INCLUIR exit(0);
 		//get_status( );      completar 0 ????
 	}
 	token_type(mini->input, &(mini)->tokenlist);

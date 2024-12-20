@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 12:41:24 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:01:59 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	cd(char **cmd)
 	{
 		ft_printf_fd(STDERR_FILENO, "cd: too many arguments\n");
 		get_status(1);
-		return (0);
+		return (1);
 	}
 	path = cd_aux(cmd);
 	if (chdir(path) != 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "cd: no such file or directory\n");
 		get_status(1);
-		return (0);
+		return (1);
 	}
 	pwd = getcwd(NULL, 0);
 	vars_to_env(old_pwd, pwd, our_env);

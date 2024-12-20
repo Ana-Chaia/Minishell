@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 16:30:51 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:29:00 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	export(char **cmd, t_minishell *mini)
 			if (validate_name(curr[i]) != 1)
 			{
 				ft_printf_fd(STDERR_FILENO, "export: not a valid identifier\n");
-				get_status(1);
+				return (get_status(1));
 			}
 			else
 				list_export(curr[i], &(mini)->export_list, 0);

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 11:39:11 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/20 11:39:16 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:22:36 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	gone_wrong(t_ast *node)
 {
-	int		status;
-
-	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 && is_directory(node->exec_ready) == -1)
+	//int		status;
+	if (ft_strcmp(node->exec_ready, node->first_cmd) == 0 
+		&& is_directory(node->exec_ready) == -1)
 	{
 		ft_printf_fd(STDERR_FILENO, "command not found\n");
 		return (get_status(127));
@@ -24,7 +24,7 @@ int	gone_wrong(t_ast *node)
 	else if (access(node->exec_ready, F_OK) == -1)
 	{
 		ft_printf_fd(STDERR_FILENO, "no such file or directory\n");
-		return (get_status(1));
+		return (get_status(127));
 	}
 	else if (is_directory(node->exec_ready) == 1)
 	{
@@ -37,8 +37,8 @@ int	gone_wrong(t_ast *node)
 		ft_printf_fd(STDERR_FILENO, "permission denied\n");
 		return (get_status(126));
 	}
-	status = get_status(-1);
-	return (status);
+	//status = get_status(-1);
+	return (get_status(-1));
 }
 
 int	is_directory(const char *path)

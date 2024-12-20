@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 15:11:40 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:03:09 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*find_dollar(char *cmd)
     while (cmd[i] != '\0')
     {
         start = i;
-        while (cmd[i] != '\0' && cmd[i] != '$') 
+        while (cmd[i] != '\0' && cmd[i] != '$')
             i++;
         if (i > start) 
         {
@@ -69,7 +69,7 @@ char	*find_dollar(char *cmd)
 			}
             else if (cmd[i] == '?')
             {
-                value = ft_itoa(get_status(-1));
+              	value = ft_itoa(get_status(-1));
                 i++;
             }
             else

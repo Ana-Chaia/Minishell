@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 15:31:32 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:07:54 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	signal_handler(int signal)
 		rl_replace_line("", 0);
 		rl_redisplay();
 		get_status(130);
+		g_signal = 0;
 	}
 	else if (signal == SIGQUIT)
 	{
