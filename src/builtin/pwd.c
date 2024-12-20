@@ -19,7 +19,8 @@ int	pwd(void)
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
-		ft_printf_fd(STDERR_FILENO, "pwd: error retrieving current directory\n");
+		ft_printf_fd(STDERR_FILENO,
+			"pwd: error retrieving current directory\n");
 		return (get_status(-1));
 	}
 	printf("%s\n", path);

@@ -18,7 +18,6 @@ int	execute_builtin(t_ast *node, t_minishell *mini)
 	char	**cmd;
 
 	builtin = -1;
-	//cmd = ft_split(token_tree, ' ');
 	cmd = node->cmd_args;
 	if (!cmd || !cmd[0])
 		return (builtin);
@@ -36,6 +35,5 @@ int	execute_builtin(t_ast *node, t_minishell *mini)
 	 	builtin = env(cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		builtin = the_exit(cmd, mini);
-	//free_ptrptr(cmd);
 	return (builtin);
 }

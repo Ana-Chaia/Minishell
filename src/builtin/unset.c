@@ -38,6 +38,63 @@ void	delete_variable(char *var)
 	char	**env;
 	int		x;
 	int		i;
+
+	env = env_shellzito(NULL);
+	i = 0;
+	x = 0;
+	if (!valid_identifier(var))
+		return ;
+	while (env[i])
+	{
+		x = 0;
+		while (env[i][x] != '=' && env[i][x] != '\0')
+			x++;
+		if (ft_strcmp(ft_substr(env[i], 0, x), var) == 0)
+		{
+			remove_var(env, i);
+			break ;
+		}
+		i++;
+	}
+}
+
+int	valid_identifier(char *var)
+{
+	int	x;
+
+	x = 0;
+	while (var[x])
+	{
+		if (var[x] == '=')
+		{
+			ft_printf_fd(STDERR_FILENO, "unset: not a valid identifier\n");
+			get_status(1);
+			return (0);
+		}
+		x++;
+	}
+	return (1);
+}
+
+void	remove_var(char **env, int i)
+{
+	char	*to_free;
+
+	to_free = env[i];
+	while (env[i])
+	{
+		env[i] = env[i + 1];
+		i++;
+	}
+	free(to_free);
+}
+
+/*
+void	delete_variable(char *var)
+{
+	char	**env;
+	int		x;
+	int		i;
 	int		j;
 
 	env = env_shellzito(NULL);
@@ -72,3 +129,4 @@ void	delete_variable(char *var)
 		i++;
 	}
 }
+*/

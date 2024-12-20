@@ -70,7 +70,7 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 		exit(status);
 	}
 	while (cmd[i] != NULL)
-			i++;
+		i++;
 	handle_exit_args(cmd, i);
 	return (0);
 }

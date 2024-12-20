@@ -102,7 +102,7 @@ char	**env_shellzito(char **our_env);
 //builtin
 	//cd
 int		cd(char **cmd);
-char	*get_path(char *path);
+char	*get_path(char *path, char *new);
 void	vars_to_env(char *old_pwd, char *pwd, char **our_env);
 char	*cd_aux(char **cmd);
 int		search_in_env(char **our_env, char *var, char *value);
@@ -138,6 +138,8 @@ int		pwd(void);
 	//unset
 int		unset(char **cmd);
 void	delete_variable(char *var);
+void	remove_var(char **env, int i);
+int		valid_identifier(char *var);
 
 //signal
 void	init_signal(void);
@@ -169,6 +171,9 @@ char	**split_path(void);
 int		gone_wrong(t_ast *node);
 int		is_directory(const char *path);
 void	wise_status(int status);
+void	validate_cmd(char *cmd);
+int		execute_cmd(t_ast *node);
+int		find_executable(t_ast *node);
 
 //free and close
 void	free_tokenlist(t_token *tokenlist);

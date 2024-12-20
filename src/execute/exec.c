@@ -30,7 +30,6 @@ int	execution(t_ast *node, t_minishell *mini)
 	else
 		status = execute_others (node);
 	get_status(status);
-	//printf("status_exec: %d", status);
 	return (status);
 }
 
@@ -40,9 +39,7 @@ int	is_builtin(char *cmd)
 
 	if (cmd == NULL)
 		return (0);
-	len = (ft_strchr(cmd, ' ') - cmd);   //vf com ana se td bem
-	// if (len == 0)
-	// 	return (0);
+	len = (ft_strchr(cmd, ' ') - cmd);
 	if (strncmp(cmd, "echo", len) == 0
 		|| strncmp(cmd, "cd", len) == 0
 		|| strncmp(cmd, "pwd", len) == 0
@@ -57,12 +54,7 @@ int	is_builtin(char *cmd)
 int	get_status(int exit_status)
 {
 	static int	status;
-//	ft_printf("get_status: %d\n", status);
 	if (exit_status != -1)
 		status = exit_status;
-	//status = mod_status(status);
 	return (status);
 }
-
-
-
