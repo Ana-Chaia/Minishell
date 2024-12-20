@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:11:28 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/12 11:35:14 by anacaro5         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:30:38 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	execute_builtin(t_ast *node, t_minishell *mini)
 	if (!ft_strcmp(cmd[0], "echo"))
 		builtin = echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
-	 	builtin = cd(cmd);
+		builtin = cd(cmd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		builtin = pwd();
 	else if (!ft_strcmp(cmd[0], "export"))
 		builtin = export(cmd, mini);
 	else if (!ft_strcmp(cmd[0], "unset"))
-	 	builtin = unset(cmd);
+		builtin = unset(cmd);
 	else if (!ft_strcmp(cmd[0], "env"))
-	 	builtin = env(cmd);
+		builtin = env(cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		builtin = the_exit(cmd, mini);
 	return (builtin);

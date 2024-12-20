@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 16:26:24 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:03:29 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ int		get_status(int exit_status);
 	//pipe
 int		execute_pipe(t_ast *node, t_minishell *mini);
 void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini);
+pid_t	fork_and_exec(int *task, t_ast *node, int nb_pid, t_minishell *mini);
+int		handle_fork_error(int *task);
 	//builtin
 int		execute_builtin(t_ast *node, t_minishell *mini);
 	//redirect

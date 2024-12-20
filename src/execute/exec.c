@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 16:05:07 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:31:33 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	is_builtin(char *cmd)
 int	get_status(int exit_status)
 {
 	static int	status;
+
 	if (exit_status != -1)
 		status = exit_status;
 	return (status);
