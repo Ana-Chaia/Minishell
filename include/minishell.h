@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/19 16:26:24 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:55:24 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		chevron_syntax(t_token *token_node);
 void	malloc_cmd_args(t_token *united);
 void	change_type(t_token *united);
 t_token	*all_together(t_token **token_list);
-t_token	*clear_list(t_token **token_list);
+t_token		*clear_list(t_token **token_list);
 	//token
 void	token_type(char *input, t_token **list);
 t_token	*create_node(char *input, int type, int idx, int flag);

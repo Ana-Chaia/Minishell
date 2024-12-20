@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:50:04 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/11/28 17:18:02 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 14:40:24 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	check_syntax(t_token **token_list)
 	return (0);
 }
 
-
 int	pipe_syntax(t_token *token_node)
 {
 	if (token_node->type == PIPE)
@@ -53,7 +52,7 @@ int	pipe_syntax(t_token *token_node)
 			get_status(2);
 			return (1);
 		}	
-		if (!token_node->next) //|| token_node->prev->type != WORD)
+		if (!token_node->next)
 		{
 			ft_putstr_fd("shellzito: syntax error near unexpected token `|'\n",
 				2);

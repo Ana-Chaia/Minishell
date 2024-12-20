@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 14:43:38 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:57:38 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	malloc_cmd_args(t_token *united)
 {
-	int	i;
+	int		i;
 	t_token	*temp;
 
 	i = 1;
@@ -30,7 +30,6 @@ void	malloc_cmd_args(t_token *united)
 void	change_type(t_token *united)
 {
 	t_token	*temp;
-	//t_token	**cmd_args;
 	int		i;
 
 	i = 0;
@@ -40,7 +39,6 @@ void	change_type(t_token *united)
 		i++;
 		temp = temp->next;
 	}
-	//united->cmd_args = (char **)malloc(sizeof(char *) *  i + 1);
 	i = 0;
 	temp = united;
 	while (temp)
@@ -50,7 +48,6 @@ void	change_type(t_token *united)
 		{
 			temp->type = CMD;
 			malloc_cmd_args(temp);
-			//united->cmd_args[0] = ft_strdup(temp->content);
 		}
 		if (temp->prev != NULL && (temp->prev->type == RED_IN
 				|| temp->prev->type == RED_OUT || temp->prev->type == APPEND))
@@ -80,13 +77,33 @@ void	change_type(t_token *united)
 	}
 }
 
-//void	del(void *content)
-//{
-//	free(content);
-//}
+t_token	*clear_list(t_token **token_list)
+{
+	t_token	*united;
+	t_token	*temp;
 
+	united = *token_list;
+	while (united)
+	{
+		temp = united->next;
+		if (united->type == WORD || united->type == S_QUOTES
+			|| united->type == D_QUOTES)
+		{
+			if (united->prev != NULL)
+				united->prev->next = united->next;
+			if (united->next != NULL)
+				united->next->prev = united->prev;
+			free(united->content);
+			free(united);
+			united = NULL;
+		}
+		united = temp;
+	}
+	return (united);
+}
 
 t_token	*all_together(t_token **token_list)
+
 {
 	t_token	*united;
 	t_token	*curr;
@@ -166,32 +183,6 @@ t_token	*all_together(t_token **token_list)
 			}
 		}
 		temp = temp->next;
-	}
-	return (united);
-}
-
-
-t_token	*clear_list(t_token **token_list)
-{
-	t_token	*united;
-	t_token	*temp;
-
-	united = *token_list;
-	while (united)
-	{
-		temp = united->next;
-		if (united->type == WORD || united->type == S_QUOTES
-			|| united->type == D_QUOTES)
-		{
-			if (united->prev != NULL)
-				united->prev->next = united->next;
-			if (united->next != NULL)
-				united->next->prev = united->prev;
-			free(united->content);
-			free(united);
-			united = NULL;
-		}
-		united = temp;
 	}
 	return (united);
 }

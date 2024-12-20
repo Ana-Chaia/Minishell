@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:08 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/19 11:53:03 by jbolanho         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:21:29 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	bye_bye(t_minishell *mini)
 
 	fd = STDIN_FILENO;
 	env_copy = env_shellzito(NULL);
-	printf("ENTROU AQUI: %d\n", fd);   //apagar
+	//printf("ENTROU AQUI: %d\n", fd);   //apagar
 	if (mini->input)
 		free(mini->input);
 	if (env_copy)
