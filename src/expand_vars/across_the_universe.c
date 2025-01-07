@@ -26,7 +26,7 @@ void	across_the_universe(t_token **token_list)
 			curr = ft_substr(temp->content, 1, (ft_strlen(temp->content) - 2));
 			free (temp->content);
 			temp->content = curr;
-		}                             //USAR PARA RETIRAR ASPAS
+		}
 		if (temp->type == D_QUOTES || temp->type == WORD)
 		{
 			new_content = find_dollar(temp->content);
@@ -36,67 +36,111 @@ void	across_the_universe(t_token **token_list)
 		temp = temp->next;
 	}
 }
-
+/*
 char	*find_dollar(char *cmd)
 {
-    int i;
-    int start;
-    char *new;
-    char *temp;
-    char *value;
+	int		i;
+	int		start;
+	char	*new;
+	char	*temp;
+	char	*value;
 
 	i = 0;
 	new = NULL;
-    while (cmd[i] != '\0')
-    {
-        start = i;
-        while (cmd[i] != '\0' && cmd[i] != '$')
-            i++;
-        if (i > start) 
-        {
-            temp = ft_substr(cmd, start, i - start);
-            new = ft_strjoin(new, temp);
-			//printf("NEW inicio =%s\n", new);
+	while (cmd[i] != '\0')
+	{
+		start = i;
+		while (cmd[i] != '\0' && cmd[i] != '$')
+			i++;
+		if (i > start)
+		{
+			temp = ft_substr(cmd, start, i - start);
+			new = ft_strjoin(new, temp);
 			free(temp);
-        }
-        if (cmd[i] == '$')
-        {
-            start = i;
-            i++;
+		}
+		if (cmd[i] == '$')
+		{
+			start = i;
+			i++;
 			if (validate_name (&cmd[i]) != 1 && cmd[i] != '?')
-			{
 				value = ft_strdup("$");
+			else if (cmd[i] == '?')
+			{
+				value = ft_itoa(get_status(-1));
+				i++;
 			}
-            else if (cmd[i] == '?')
-            {
-              	value = ft_itoa(get_status(-1));
-                i++;
-            }
-            else
-            {
-                start = i - 1;
-                while (cmd[i] != '\0' && cmd[i] != ' ' && cmd[i] != '$')
-                    i++;
-				//printf("cmd[start] = %c\n", cmd[start]);	
-			//	printf("cmd[i] = %c\n", cmd[i]);	
-                value = change_dollar(cmd, start, i - 1);
-				//printf("VALUE = %s\n", value);
-            }
-            if (value)
-            {
-              //  printf("new = %s\n", new);
-				//printf("VALUE = %s\n", value);
+			else
+			{
+				start = i - 1;
+				while (cmd[i] != '\0' && cmd[i] != ' ' && cmd[i] != '$')
+					i++;
+				value = change_dollar(cmd, start, i - 1);
+			}
+			if (value)
+			{
 				new = ft_strjoin(new, value);
 				free(value);
-				//printf("NEWfinal= %s\n", new);
-            }
-        }
+			}
+		}
 	}
-    return (new);
+	return (new);
+}
+*/
+
+char	*find_dollar(char *cmd)
+{
+	int		i;
+	int		start;
+	char	*new;
+	char	*temp;
+
+	i = 0;
+	new = NULL;
+	while (cmd[i] != '\0')
+	{
+		start = i;
+		while (cmd[i] != '\0' && cmd[i] != '$')
+			i++;
+		if (i > start)
+		{
+			temp = ft_substr(cmd, start, i - start);
+			new = ft_strjoin(new, temp);
+			free(temp);
+		}
+		if (cmd[i] == '$')
+			new = handle_dollar (cmd, &i, new);
+	}
+	return (new);
 }
 
+char	*handle_dollar(char *cmd, int *i, char *new)
+{
+	char	*value;
+	int		start;
 
-
+	value = NULL;
+	(*i)++;
+	if (validate_name (&cmd[*i]) != 1 && cmd[*i] != '?')
+		value = ft_strdup("$");
+	else if (cmd[*i] == '?')
+	{
+		value = ft_itoa(get_status(-1));
+		(*i)++;
+	}
+	else
+	{
+		start = *i - 1;
+		while (cmd[*i] != '\0' && cmd[*i] != ' ' && cmd[*i] != '$')
+			(*i)++;
+		value = change_dollar(cmd, start, *i - 1);
+	}
+	if (value)
+	{
+		new = ft_strjoin(new, value);
+		free(value);
+	}
+	return (new);
+}
 /*
 char	*find_dollar(char *cmd)
 {
@@ -146,7 +190,6 @@ char	*find_dollar(char *cmd)
 	free(new);
 	return (temp);
 }
-
 char *not_expanded(char *cmd, int i, char *temp)
 {
 	char *str;
@@ -175,7 +218,6 @@ char *not_expanded(char *cmd, int i, char *temp)
 	return (result);
 }
 */
-
 /*
 char	*ft_strxcpy(char *dest, char *src, size_t destsize)
 {
@@ -200,11 +242,9 @@ char	*change_dollar(char *cmd, int start, int end)
 	char	*value;
 	char	**our_env;
 
-	//printf("PASSOU EM CHANGE DOLLAR \n");
 	name = ft_substr(cmd, (start + 1), (end - start));
 	our_env = env_shellzito(NULL);
 	value = cut_value (name, our_env);
-	//printf("VALUE $$$ = %s\n", value);
 	free (name);
 	return (value);
 }
@@ -215,10 +255,37 @@ char	*cut_value(char *name, char **env)
 	int		j;
 	char	*value;
 	char	*temp;
+
+	i = 0;
+	value = NULL;
+	while (env[i])
+	{
+		j = 0;
+		while (env[i][j] != '=' && env[i][j] != '\0')
+			j++;
+		temp = ft_substr(env[i], 0, j);
+		if (ft_strcmp(temp, name) == 0)
+		{
+			if (env[i][j + 1] && env[i][j + 2])
+				value = ft_substr(env[i], (j + 1), (ft_strlen(env[i] - j)));
+			free (temp);
+			return (value);
+		}
+		free (temp);
+		i++;
+	}
+	return (value);
+}
+/*
+char	*cut_value(char *name, char **env)
+{
+	int		i;
+	int		j;
+	char	*value;
+	char	*temp;
 	char	*temp2;
 
 	i = 0;
-	j = 0;
 	value = NULL;
 	while (env[i])
 	{
@@ -230,18 +297,15 @@ char	*cut_value(char *name, char **env)
 		{
 			if (env[i][j + 1] && env[i][j + 2])
 			{
-				temp2 = ft_substr(env[i], (j + 1), (ft_strlen(env[i])
-							- j));
+				temp2 = ft_substr(env[i], (j + 1), (ft_strlen(env[i])- j));
 				value = temp2;
 				free (temp);
-				//free (temp2);
 			}
 			return (value);
 		}
 		free (temp);
-		// else
-		// 	return (NULL);
 		i++;
 	}
 	return (value);
 }
+*/

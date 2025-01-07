@@ -75,6 +75,8 @@ void	is_heredoc(t_token *token_node);
 char	*create_file_name(void);
 void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in);
 int		ft_strcmp(const char *s1, const char *s2);
+void	handle_heredoc(t_token *heredoc, int std_in);
+void	handle_input(int fd_heredoc, char *hd_input, int input_size);
 
 //ast
 t_token	*pipe_to_ast(t_token *tokenlist);
@@ -91,6 +93,7 @@ void	handle_special_case(t_ast *joint, t_token *curr, int level);
 //expand_variable
 void	across_the_universe(t_token **token_list);
 char	*find_dollar(char *cmd);
+char	*handle_dollar(char *cmd, int *i, char *new);
 char	*change_dollar(char *cmd, int start, int end);
 char	*cut_value(char *name, char **env);
 

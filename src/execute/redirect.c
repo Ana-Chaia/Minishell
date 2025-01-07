@@ -103,7 +103,7 @@ int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
 	else if (node && node->type == APPEND)
 		fd = open(node->right->content, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-		return (handle_file_error(node->right->content, svd_stdin, svd_stdout));
+		return (handle_error(node->right->content, svd_stdin, svd_stdout));
 	return (fd);
 }
 
