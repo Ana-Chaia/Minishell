@@ -111,7 +111,7 @@ void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
 		close(task[0]);
 		dup2(task[1], STDOUT_FILENO);
 		close(task[1]);
-	}	
+	}
 	else if (nb_pid == 1)
 	{
 		close(task[1]);

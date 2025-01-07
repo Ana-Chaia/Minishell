@@ -165,6 +165,7 @@ int		execute_builtin(t_ast *node, t_minishell *mini);
 	//redirect
 int		execute_redirect(t_ast *node, t_minishell *mini);
 int		open_file(t_ast *node, int *svd_stdin, int *svd_stdout);
+int		handle_error(const char *file_content, int *svd_stdin, int *svd_stdout);
 int		dup_dup(t_ast *node, int *fd);
 	//others
 int		execute_others(t_ast *node);
