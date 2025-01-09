@@ -52,15 +52,19 @@ int		chevron_syntax(t_token *token_node);
 	//parsing
 void	malloc_cmd_args(t_token *united);
 void	change_type(t_token *united);
-t_token	*all_together(t_token **token_list);
 t_token	*clear_list(t_token **token_list);
+t_token	*all_together(t_token **token_list);
+void	process_token_list(t_token *united);
+void	handle_cmd_args(t_token *uni, t_token *cur);
+t_token	*handle_lines(t_token *uni, t_token *cur, int i);
+void	assign_initial_types(t_token *united);
 	//token
 void	token_type(char *input, t_token **list);
 t_token	*create_node(char *input, int type, int idx, int flag);
 int		make_lst(t_token **token_list, t_token *token_node, int idx, int flag);
 int		token_d_quotes(t_token **token_list, int idx, char *input);
 int		token_s_quotes(t_token **token_list, int idx, char *input);
-void	validate_quote_issue(t_token **token_list, size_t start,
+void	valid_quote(t_token **token_list, size_t start,
 			size_t end,	char *input);
 int		token_word(t_token **token_list, int idx, char *input);
 int		is_space(char c);
@@ -68,6 +72,7 @@ int		is_space(char c);
 int		validate_input(t_minishell *mini);
 int		quotes_closed(char *str);
 void	invalid_input(char c);
+int		count_quote(char *str, int *i, char quote_type);
 
 //heredoc
 void	search_heredoc(t_token **token_list);
@@ -147,7 +152,7 @@ int		valid_identifier(char *var);
 //signal
 void	init_signal(void);
 void	signal_handler(int signal);
-void	signal_main(void);
+//void	signal_main(void);
 void	ctrld(int fd_heredoc, t_token *token_node, int std_in);
 void	signal_handler_heredoc(int signal);
 void	init_signal_exec(void);

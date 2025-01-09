@@ -23,6 +23,58 @@ int	validate_input(t_minishell *mini)
 	return (0);
 }
 
+void	invalid_input(char c)
+{
+	if ((c == '(') || (c == ')') || (c == '\\') || (c == ';'))
+	{
+		ft_putstr_fd("Shellzito: error invalid character\n", 2);
+		exit(2);
+	}
+}
+
+int	quotes_closed(char *str)
+{
+	int	i;
+	int	s_quote;
+	int	d_quote;
+
+	i = 0;
+	s_quote = 0;
+	d_quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			d_quote += count_quote(str, &i, '"');
+		else if (str[i] == '\'')
+			s_quote += count_quote(str, &i, '\'');
+		else
+		{
+			invalid_input(str[i]);
+			i++;
+		}
+	}
+	if ((s_quote % 2 == 0) && (d_quote % 2 == 0))
+		return (42);
+	return (0);
+}
+
+int	count_quote(char *str, int *i, char quote_type)
+{
+	int	count;
+
+	count = 0;
+	(*i)++;
+	while (str[*i] && str[*i] != quote_type)
+		(*i)++;
+	if (str[*i] == quote_type)
+	{
+		count++;
+		i++;
+	}
+	return (count);
+}
+
+/*
 int	quotes_closed(char *str)
 {
 	int	i;
@@ -44,36 +96,28 @@ int	quotes_closed(char *str)
 			{
 				d_quote++;
 				i++;
-			}		
+			}
 		}
 		else if (str[i] == '\'')
 		{
 			s_quote++;
-				i++;
+			i++;
 			while (str[i] && str[i] != '\'')
 				i++;
 			if (str[i] == '\'')
 			{
 				s_quote++;
 				i++;
-			}	
+			}
 		}
 		else
 		{
 			invalid_input(str[i]);
 			i++;
-		}	
+		}
 	}
 	if ((s_quote % 2 == 0) && (d_quote % 2 == 0))
 		return (42);
 	return (0);
 }
-
-void	invalid_input(char c)
-{
-	if ((c == '(') || (c == ')') || (c == '\\') || (c == ';'))
-	{
-		ft_putstr_fd("Shellzito: error invalid character\n", 2);
-		exit(2);
-	}
-}
+*/

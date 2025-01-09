@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
 
 void	token_type(char *input, t_token **list)
@@ -37,7 +36,6 @@ void	token_type(char *input, t_token **list)
 		else
 			i = token_word(list, i, input);
 	}
-
 }
 
 t_token	*create_node(char *input, int type, int idx, int flag)
@@ -60,10 +58,6 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	new->quote_issue_next = 0;
 	new->next = NULL;
 	new->prev = NULL;
-	//if (type == S_QUOTES || type == D_QUOTES)
-	//	new->quote = 42;
-	//else
-	//	new->quote = 0;
 	return (new);
 }
 
@@ -89,53 +83,6 @@ int	make_lst(t_token **token_list, t_token *token_node, int idx, int flag)
 	return (idx + flag);
 }
 
-int	token_d_quotes(t_token **token_list, int idx, char *input)
-{
-	size_t	start;
-	size_t	end;
-
-	start = (size_t)idx;
-	idx++;
-	while (input[idx] && input[idx] != '"')
-		idx++;
-	end = (size_t)idx + 1;
-	make_lst(token_list, (create_node (input, D_QUOTES, start, end - start)),
-		start, (end - start));
-	validate_quote_issue (token_list, start, end, input);
-	return (end);
-}
-
-int	token_s_quotes(t_token **token_list, int idx, char *input)
-{
-	size_t	start;
-	size_t	end;
-
-	start = (size_t)idx;
-	idx++;
-	while (input[idx] && input[idx] != '\'')
-		idx++;
-	end = (size_t)idx + 1;
-	make_lst(token_list, (create_node (input, S_QUOTES, start, end - start)),
-		start, (end - start));
-	validate_quote_issue (token_list, start, end, input);
-	return (end);
-}
-
-void validate_quote_issue (t_token **token_list, size_t start,
-	size_t end,	char *input)
-{
-	t_token	*curr;
-
-	curr = *token_list;
-	while (curr->next != NULL)
-		curr = curr->next;
-	if (input[start - 1] && (is_space (input[start - 1]) == 0))
-		curr->quote_issue_prev = 1;
-	if (input[end] && (is_space (input[end]) == 0))
-		curr->quote_issue_next = 1;
-}
-
-
 int	token_word(t_token **token_list, int idx, char *input)
 {
 	size_t	start;
@@ -154,7 +101,6 @@ int	token_word(t_token **token_list, int idx, char *input)
 		start, (end - start));
 	return (end);
 }
-
 
 int	is_space(char c)
 {

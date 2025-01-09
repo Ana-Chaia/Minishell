@@ -6,11 +6,14 @@ FLAGS = -Wall -Wextra -Werror -g
 
 SRC = 	./src/main.c \
 		./src/tokenize/token.c \
+		./src/tokenize/token_quote.c \
 		./src/tokenize/validate.c \
 		./src/tokenize/syntax.c \
 		./src/tokenize/together.c\
+		./src/tokenize/together_utils.c\
 		./src/redirect/heredoc.c\
 		./src/redirect/heredoc_utils.c\
+		./src/signal/signal_exec.c\
 		./src/signal/signal_handler.c \
 		./src/expand_vars/across_the_universe.c \
 		./src/utils/printer.c \

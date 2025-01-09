@@ -34,7 +34,6 @@ int	check_syntax(t_token **token_list)
 	return (0);
 }
 
-
 int	pipe_syntax(t_token *token_node)
 {
 	if (token_node->type == PIPE)
@@ -52,8 +51,8 @@ int	pipe_syntax(t_token *token_node)
 				2);
 			get_status(2);
 			return (1);
-		}	
-		if (!token_node->next) //|| token_node->prev->type != WORD)
+		}
+		if (!token_node->next)
 		{
 			ft_putstr_fd("shellzito: syntax error near unexpected token `|'\n",
 				2);
@@ -76,7 +75,7 @@ int	chevron_syntax(t_token *token_node)
 			return (1);
 		}
 		if (token_node->type == APPEND && token_node->next->type == RED_OUT)
-		{	
+		{
 			ft_putstr_fd("shellzito: syntax error near unexpected token `>'\n",
 				2);
 			get_status(2);
