@@ -36,6 +36,7 @@ SRC = 	./src/main.c \
 		./src/execute/others.c \
 		./src/execute/others_utils.c \
 		./src/utils/free.c    \
+		./src/utils/free_struct.c    \
 
 OBJ_DIR = obj
 
