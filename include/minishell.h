@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 17:11:44 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:32:39 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int			the_exit(char **cmd, t_minishell *mini);
 int			verify_args(char **cmd);
 int			is_longer(char *cmd);
 int			mod_status(int status);
-void		handle_exit_args(char **cmd, int nb_args);
+void		handle_exit_args(char **cmd, int nb_args, t_minishell *shellzito);
 	//export
 int			export(char **token, t_minishell *mini);
 char		*substr_noquote(char const *s, unsigned int start, size_t len);
@@ -195,6 +195,9 @@ void		free_mini(t_minishell *mini);
 void		free_ptrptr(char **env);
 void		bye_bye(t_minishell *mini);
 void		close_fds(int fd_bckp);
+int			invalid_space(char *input);
+void		close_fds_sys(void);
+void		bye_bye_shell(int status);
 
 //utils
 int			ft_printf_fd(int fd, const char *type_format, ...);

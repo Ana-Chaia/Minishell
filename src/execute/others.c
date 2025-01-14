@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 17:02:10 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:33:18 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	execute_cmd(t_ast *node)
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
 			status = gone_wrong(node);
-			exit (status);
+			bye_bye_shell(status);
+			//exit (status);
 		}
 	}
 	waitpid(pid, &status, 0);

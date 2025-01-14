@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 17:00:24 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:20:34 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ int	the_exit(char **cmd, t_minishell *shellzito)
 	{
 		bye_bye(shellzito);
 		status = mod_status(status);
+		close_fds_sys();
 		exit(status);
 	}
 	while (cmd[i] != NULL)
 		i++;
-	handle_exit_args(cmd, i);
+	handle_exit_args(cmd, i, shellzito);
 	return (0);
 }
 
-void	handle_exit_args(char **cmd, int nb_args)
+void	handle_exit_args(char **cmd, int nb_args, t_minishell *shellzito)
 {
 	int		status;
 	int		i;
@@ -42,18 +43,30 @@ void	handle_exit_args(char **cmd, int nb_args)
 		if (nb_args == 2)
 		{
 			if (verify_args(&cmd[1]) == 1)
+			{
+				close_fds_sys();
+				bye_bye(shellzito);
 				exit(2);
+			}
 			else
 			{
 				status = ft_atoi(cmd[1]);
+				close_fds_sys();
+				bye_bye(shellzito);
 				exit(mod_status(status));
 			}
 		}
 		else
 		{
 			if (verify_args(&cmd[1]) == 1)
+			{
+				close_fds_sys();
+				bye_bye(shellzito);
 				exit(2);
+			}
 			ft_printf_fd(STDERR_FILENO, "exit: too many arguments\n");
+			close_fds_sys();
+			bye_bye(shellzito);
 			exit(1);
 		}
 		i++;

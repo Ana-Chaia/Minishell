@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 17:06:34 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:14:34 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(void)
 		dup2(fd_bckp, STDIN_FILENO);
 		tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
 		the_end = shellzito_on(mini);
+		free_mini(mini);
+		close_fds_sys();
 	}
 	bye_bye(mini);
 	close_fds(fd_bckp);
@@ -68,6 +70,8 @@ int	shellzito_on(t_minishell *mini)
 		mini->input = ft_strdup("exit");
 		printf("exit\n");
 	}
+	if (invalid_space(mini->input) == 1)
+		return (get_status(0));
 	token_type(mini->input, &(mini)->tokenlist);
 	if (check_syntax(&(mini->tokenlist)) == 1 || validate_input(mini) == 1)
 		return (get_status(2));
@@ -77,7 +81,7 @@ int	shellzito_on(t_minishell *mini)
 	clear_list(&(mini->tokenlist));
 	mini->tree = ast_builder(NULL, mini->tokenlist, 0);
 	execution(mini->tree, mini);
-	free_mini(mini);
+	//free_mini(mini);
 	return (get_status(-1));
 }
 
