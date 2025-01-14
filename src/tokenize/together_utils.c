@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   together_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/13 14:08:04 by jbolanho          #+#    #+#             */
+/*   Updated: 2025/01/14 16:01:45 by jbolanho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 t_token	*all_together(t_token **token_list)
@@ -73,12 +85,12 @@ t_token	*handle_lines(t_token *uni, t_token *cur, int i)
 	if (uni->cmd_args[i])
 	{
 		uni->cmd_args[i] = ft_strjoin(uni->cmd_args[i], cur->next->content);
-		cur = cur->next;
+		curr = curr->next;
 	}
 	else
 	{
 		uni->cmd_args[i] = ft_strjoin(cur->content, cur->next->content);
-		cur = cur->next;
+		curr = curr->next;
 	}
 	return (curr);
 }

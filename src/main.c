@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/20 13:06:18 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:36:45 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	init_struct(t_minishell *mini)
 	mini->tree = NULL;
 	mini->export_list = NULL;
 }
-
 /*
 int	main(void)
 {
