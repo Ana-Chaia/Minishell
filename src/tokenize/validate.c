@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 10:28:44 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 15:43:09 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:05:54 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,51 +76,3 @@ int	count_quote(char *str, int *i, char quote_type)
 	}
 	return (count);
 }
-
-/*
-int	quotes_closed(char *str)
-{
-	int	i;
-	int	s_quote;
-	int	d_quote;
-
-	i = 0;
-	s_quote = 0;
-	d_quote = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-		{
-			d_quote++;
-			i++;
-			while (str[i] && str[i] != '"')
-				i++;
-			if (str[i] == '"')
-			{
-				d_quote++;
-				i++;
-			}
-		}
-		else if (str[i] == '\'')
-		{
-			s_quote++;
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
-			if (str[i] == '\'')
-			{
-				s_quote++;
-				i++;
-			}
-		}
-		else
-		{
-			invalid_input(str[i]);
-			i++;
-		}
-	}
-	if ((s_quote % 2 == 0) && (d_quote % 2 == 0))
-		return (42);
-	return (0);
-}
-*/

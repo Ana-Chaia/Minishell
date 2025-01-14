@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:10:38 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 18:36:39 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:02:42 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,43 +38,6 @@ int	execute_redirect(t_ast *node, t_minishell *mini)
 	a = get_status(1);
 	return (a);
 }
-/*
-int	open_file(t_ast *node, int *svd_stdin, int *svd_stdout)
-{
-	int	fd;
-
-	fd = 0;
-	if (node && (node->type == RED_IN || node->type == HEREDOC))
-	{
-		fd = open(node->right->content, O_RDONLY);
-		if (fd == -1)
-		{
-			close(STDIN_FILENO);
-			dup2(*svd_stdin, STDIN_FILENO);
-			ft_printf_fd(STDERR_FILENO, "%s: %s\n",
-				node->right->content, strerror(errno));
-			get_status(1);
-			return (fd);
-		}
-	}
-	else if (node && (node->type == RED_OUT))
-		fd = open(node->right->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (node && (node->type == APPEND))
-		fd = open(node->right->content, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (fd == -1)
-	{
-		close(STDIN_FILENO);
-		dup2(*svd_stdin, STDIN_FILENO);
-		close(STDOUT_FILENO);
-		dup2(*svd_stdout, STDOUT_FILENO);
-		ft_printf_fd(STDERR_FILENO, "%s: %s\n",
-			node->right->content, strerror(errno));
-		get_status(1);
-		return (fd);
-	}
-	return (fd);
-}
-*/
 
 int	handle_error(const char *file_content, int *svd_stdin, int *svd_stdout)
 {

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 12:01:59 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:59:45 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,82 +126,3 @@ int	search_in_env(char **our_env, char *var, char *value)
 	}
 	return (i);
 }
-
-/*
-int	cd(char **cmd)
-{
-	char	*old_pwd;
-	char	*pwd;
-	char	*path;
-
-	old_pwd = getcwd(NULL, 0);
-	path = NULL;
-	pwd = NULL;
-	if (cmd[2])
-	{
-		ft_printf_fd(STDERR_FILENO, "cd: too many arguments\n");
-		get_status(1);
-		return (0);
-	}
-	if (!cmd[1])
-	{
-		path = getenv("HOME");
-		if (path == NULL)
-			ft_printf_fd(STDERR_FILENO, 
-				"cd: could not get the home directory\n");
-	}
-	else
-		path = get_path(cmd[1]);
-	
-	if (chdir(path) != 0)
-	{
-		ft_printf_fd(STDERR_FILENO, "cd: no such file or directory\n");
-		get_status(1);
-		return (0);
-	}
-	pwd = getcwd(NULL, 0);
-	vars_to_env(old_pwd, pwd);
-	return (0);
-}
-*/
-/*
-void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
-{
-	int		i;
-	int		j;
-	char	*to_env;
-
-	to_env = NULL;
-	i = 0;
-	j = 0;
-	while (our_env[i])
-	{
-		if (ft_strncmp(our_env[i], "OLDPWD", 5) == 0
-			&& our_env[i][6] == '=')
-		{
-			to_env = join_env("OLDPWD", old_pwd);
-			if (!to_env)
-				return ;
-			free(our_env[i]);
-			our_env[i] = to_env;
-			j++;
-		}
-		if (ft_strncmp(our_env[i], "PWD", 2) == 0
-			&& our_env[i][3] == '=')
-		{
-			to_env = join_env("PWD", pwd);
-			if (!to_env)
-				return ;
-			free(our_env[i]);
-			our_env[i] = to_env;
-		}
-		i++;
-	}
-	if (j == 0)
-	{
-		to_env = join_env("OLDPWD", old_pwd);
-		our_env[i] = to_env;
-		our_env[i + 1] = NULL;
-	}
-}
-*/

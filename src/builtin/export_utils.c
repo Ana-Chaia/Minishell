@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:53:17 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/19 16:33:04 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:00:39 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,16 +131,3 @@ void	make_lst_exp(t_exp **export_list, t_exp *export_node)
 		export_node->prev = curr;
 	}
 }
-
-// size_t	ft_strlen_env(const char *str)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	if (str == NULL)
-// 		return (0);
-// 	while (str[i] != '\0')
-// 		i++;
-// 	return (i);
-// }
-//troquei pela ft_strlen

@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 16:15:50 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:26:20 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include "../libft/libft.h"
 # include "struct.h"
-//# include "tokenize.h"
-//# include "redirect.h"
-//# include "ast.h"
-//# include "signal.h"
 
 # include <readline/readline.h>
 # include <readline/history.h>

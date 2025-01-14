@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:18:15 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 14:28:43 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:01:37 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,45 +89,3 @@ void	remove_var(char **env, int i)
 	}
 	free(to_free);
 }
-
-/*
-void	delete_variable(char *var)
-{
-	char	**env;
-	int		x;
-	int		i;
-	int		j;
-
-	env = env_shellzito(NULL);
-	i = 0;
-	x = 0;
-	while (var[x])
-	{
-		if (var[x] == '=')
-		{
-			ft_printf_fd(STDERR_FILENO, "unset: not a valid identifier\n");
-			get_status(1);
-			return ;
-		}
-		x++;
-	}
-	while (env[i])
-	{
-		x = 0;
-		while (env[i][x] != '=' && env[i][x] != '\0')
-			x++;
-		if (ft_strcmp(ft_substr(env[i], 0, x), var) == 0)
-		{
-			free(env[i]);
-			j = i;
-			while (env[j])
-			{
-				env[j] = env[j + 1];
-				j++;
-			}
-			break ;
-		}
-		i++;
-	}
-}
-*/

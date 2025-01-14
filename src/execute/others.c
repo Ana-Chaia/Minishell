@@ -6,74 +6,11 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 14:43:38 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:02:10 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// int	execute_others(t_ast *node)
-// {
-// 	int		i;
-// 	char	*curr;
-// 	pid_t	pid;
-// 	char	*path;
-// 	int		status;
-
-// 	status = 0;
-// 	node->first_cmd = ft_strdup(node->cmd_args[0]);
-// 	if (node->first_cmd == NULL)
-// 		return (get_status(0));
-// 	validate_cmd(node->first_cmd);
-// 	node->path_array = split_path();
-// 	if (node->path_array == NULL)
-// 	{
-// 		ft_printf_fd(STDERR_FILENO, "shellzito: command not found\n");
-// 		return (get_status(127));
-// 	}
-// 	i = 0;
-// 	node->exec_ready = ft_strdup(node->first_cmd);
-// 	while (node->path_array[i])
-// 	{
-// 		curr = ft_strjoin(node->path_array[i], "/");
-// 		path = ft_strjoin(curr, node->first_cmd);
-// 		free(curr);
-// 		if (access(path, X_OK) == 0)
-// 		{
-// 			free(node->exec_ready);
-// 			node->exec_ready = NULL;
-// 			node->exec_ready = ft_strdup(path);
-// 			free(path);
-// 			break ;
-// 		}
-// 		free(path);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (node->cmd_args[i])
-// 	{
-// 		i++;
-// 	}
-// 	i = 0;
-// 	pid = fork();
-// 	if (pid == -1)
-// 	{
-// 		ft_printf_fd(STDERR_FILENO, "pipe error\n");
-// 		return (get_status(-1));
-// 	}
-// 	signal_exec(pid);
-// 	if (pid == 0)
-// 	{
-// 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
-// 		{
-// 			status = gone_wrong(node);
-// 			exit (status);
-// 		}
-// 	}
-// 	waitpid(pid, &status, 0);
-// 	wise_status(status);
-// 	return (WEXITSTATUS(status));
-// }
 
 int	execute_others(t_ast *node)
 {

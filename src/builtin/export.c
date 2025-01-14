@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:17:54 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 12:29:00 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:01:10 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,81 +122,3 @@ void	free_partial_env(char **new_env, int k)
 	}
 	free(new_env);
 }
-// char	**strawberry_fields_forenv(char **env, int i)
-// {
-// 	char	**new_env;
-// 	int		k;
-// 	size_t	len;
-
-// 	if (!env)
-// 		return (NULL);
-// 	len = 0;
-// 	k = 0;
-// 	while (env[len])
-// 		len++;
-// 	new_env = (char **)malloc((len + i + 1) * sizeof(char *));
-// 	if (!new_env)
-// 		return (NULL);
-// 	while (env[k])
-// 	{
-// 		new_env[k] = ft_strdup(env[k]);
-// 		if (!new_env[k])
-// 		{
-// 			while (k > 0)
-// 			{
-// 				free(new_env[k]);
-// 				k--;
-// 			}
-// 			free(new_env);
-// 			return (NULL);
-// 		}
-// 		k++;
-// 	}
-// 	new_env[k] = NULL;
-// 	return (new_env);
-// }
-/*
-void	print_export(char **copy)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*temp;
-	char	*value;
-	char	*name;
-
-	i = 0;
-	if (copy == NULL)
-		return ;
-	while (copy[i])
-	{
-		j = i + 1;
-		while (copy[j])
-		{
-			if (ft_strncmp(copy[i], copy[j], ft_strlen(copy[i])) > 0)
-			{
-				temp = copy[i];
-				copy[i] = copy[j];
-				copy[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (copy[i])
-	{
-		k = 0;
-		while (copy[i][k] != '=' && copy[i][k] != '\0')
-			k++;
-		value = ft_strchr(copy[i], '=');
-		name = ft_substr(copy[i], 0, k);
-		if (value)
-			printf("declare -x %s=\"%s\"\n", name, value + 1);
-		else
-			printf("declare -x %s\n", name);
-		free(name);
-		i++;
-	}
-}
-*/

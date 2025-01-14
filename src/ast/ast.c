@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:49:07 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 15:02:58 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:58:57 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,42 +59,6 @@ t_token	*redir_to_ast(t_token *tokenlist)
 	return (curr);
 }
 
-// t_token	*find_last_one(t_token *tokenlist)
-// {
-// 	int		last_one;
-// 	t_token	*curr;
-
-// 	last_one = 0;
-// 	curr = tokenlist;
-// 	if (curr->next != NULL && curr->next->type != PIPE)
-// 	{
-// 		while (curr->next != NULL)
-// 		{
-// 			curr = curr->next;
-// 			if (curr != NULL && curr->type != PIPE)
-// 				break ;
-// 		}
-// 	}
-// 	while (curr->prev != NULL)
-// 	{
-// 		if (curr->blob == 0)
-// 			last_one++;
-// 		curr = curr->prev;
-// 		if (curr != NULL && curr->type == PIPE)
-// 			break ;
-// 	}
-// 	if (last_one == 1)
-// 	{
-// 		while (curr->next != NULL
-// 			|| (curr->next != NULL && curr->next->type != PIPE))
-// 		{
-// 			if (curr->blob == 0)
-// 				return (curr);
-// 			curr = curr->next;
-// 		}
-// 	}
-// 	return (tokenlist);
-// }
 t_token	*find_last_one(t_token *tokenlist)
 {
 	int		last_one;
@@ -159,62 +123,3 @@ t_ast	*ast_new_node(t_token *token_node)
 	ast_node->cmd_args = token_node->cmd_args;
 	return (ast_node);
 }
-
-/*
-t_ast	*ast_builder(t_ast *ast_node, t_token *tokenlist, int level)
-{
-	t_ast	*joint;
-	t_token	*curr;
-	t_token	*redir;
-
-	joint = NULL;
-	if (tokenlist == NULL)
-		return (ast_node);
-	curr = pipe_to_ast(tokenlist); 
-	if (curr->type != PIPE)
-		curr = redir_to_ast(curr); 
-	if (curr == NULL)
-		return (ast_node);
-	if (ast_node == NULL && curr->blob != 42)
-	{
-		curr->blob = 42;
-		joint = ast_new_node(curr);
-	}
-	else
-		joint = ast_node;
-	if (curr->type == PIPE)
-	{
-		if (joint->left == NULL)
-			joint->left = ast_builder(joint->left, curr, level + 1);
-		if (curr->next)
-		{
-			redir = redir_to_ast(curr->next);
-			if (redir != curr->next)
-				joint->right = ast_builder(joint->right, redir, level + 1);
-			if (curr->next && curr->next->type == CMD)
-				joint->right = ast_builder(joint->right, curr->next, level + 1);
-		}
-	}
-	else if (is_redirect(curr->type) == 1)
-	{
-		if (curr->next && curr->next->type == FILENAME && curr->next->blob != 42)
-		{
-			joint->right = ast_new_node(curr->next);
-			curr->next->blob = 42;
-		}
-		if (curr->prev && curr->prev->type != PIPE)
-			joint->left = ast_builder(joint->left, curr->prev, level + 1);
-		if (curr->next->next && curr->next->next->type != PIPE)
-			joint->left = ast_builder(joint->left, curr->next->next, level + 1);
-	}
-	else if (curr->prev == NULL && curr->blob == 0)
-	{
-		curr->blob = 42;
-		redir = redir_to_ast(curr);
-		if (redir != curr)
-			joint->left = ast_builder(joint->left, redir, level + 1);
-		joint->left = ast_builder(joint->left, curr, level + 1);
-	}
-	return (joint);
-}
-*/

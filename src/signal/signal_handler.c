@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 13:07:54 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:04:52 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	signal_handler(int signal)
 		get_status(131);
 	}
 }
-/*
-void	signal_main(void)
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-*/
 
 void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 {
