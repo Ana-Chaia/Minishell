@@ -6,7 +6,7 @@
 /*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 16:26:20 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:11:44 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,11 +199,5 @@ void		close_fds(int fd_bckp);
 //utils
 int			ft_printf_fd(int fd, const char *type_format, ...);
 int			ft_flags(int fd, char flag, va_list args);
-
-//printer
-//void	print_tree(t_ast *root, int nivel);
-//void	print_env_copy(char **copy);
-//int		list_size(t_token *list);
-//void	list_printer(t_token *list);
 
 #endif
