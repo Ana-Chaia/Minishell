@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:58:23 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 18:33:45 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:04:58 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	close_fds_sys(void)
 	close(37);
 }
 
-void	bye_bye_shell(int status)
+void	bye_bye_shell(t_minishell *mini, int status)
 {
-	t_minishell	*mini;
-
-	
 	bye_bye(mini);
 	close_fds_sys();
 	exit(status);

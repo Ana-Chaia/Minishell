@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:08:04 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 17:05:16 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:31:39 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,20 @@ void	handle_cmd_args(t_token *uni, t_token *cur)
 t_token	*handle_lines(t_token *uni, t_token *cur, int i)
 {
 	t_token	*curr;
+	char	*temp;
 
 	curr = cur;
+	temp = NULL;
 	if (uni->cmd_args[i])
 	{
-		uni->cmd_args[i] = ft_strjoin(uni->cmd_args[i], cur->next->content);
+		temp = uni->cmd_args[i];
+		uni->cmd_args[i] = ft_strjoin(temp, curr->next->content);
+		free(temp);
 		curr = curr->next;
 	}
 	else
 	{
-		uni->cmd_args[i] = ft_strjoin(cur->content, cur->next->content);
+		uni->cmd_args[i] = ft_strjoin(curr->content, curr->next->content);
 		curr = curr->next;
 	}
 	return (curr);

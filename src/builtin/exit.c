@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:15:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 18:20:34 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:37:26 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,19 @@ void	handle_exit_args(char **cmd, int nb_args, t_minishell *shellzito)
 		if (nb_args == 2)
 		{
 			if (verify_args(&cmd[1]) == 1)
-			{
-				close_fds_sys();
-				bye_bye(shellzito);
-				exit(2);
-			}
+				bye_bye_shell(shellzito, 2);
 			else
 			{
 				status = ft_atoi(cmd[1]);
-				close_fds_sys();
-				bye_bye(shellzito);
-				exit(mod_status(status));
+				bye_bye_shell(shellzito, mod_status(status));
 			}
 		}
 		else
 		{
 			if (verify_args(&cmd[1]) == 1)
-			{
-				close_fds_sys();
-				bye_bye(shellzito);
-				exit(2);
-			}
+				bye_bye_shell(shellzito, 2);
 			ft_printf_fd(STDERR_FILENO, "exit: too many arguments\n");
-			close_fds_sys();
-			bye_bye(shellzito);
-			exit(1);
+			bye_bye_shell(shellzito, 1);
 		}
 		i++;
 	}

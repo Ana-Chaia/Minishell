@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 18:32:39 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:09:55 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,14 +177,14 @@ int			handle_error(const char *file_content, int *svd_stdin,
 				int *svd_stdout);
 int			dup_dup(t_ast *node, int *fd);
 	//others
-int			execute_others(t_ast *node);
+int			execute_others(t_ast *node, t_minishell *mini);
 void		validate_cmd(char *cmd);
 char		**split_path(void);
 int			gone_wrong(t_ast *node);
 int			is_directory(const char *path);
 void		wise_status(int status);
 void		validate_cmd(char *cmd);
-int			execute_cmd(t_ast *node);
+int			execute_cmd(t_minishell *mini, t_ast *node);
 int			find_executable(t_ast *node);
 
 //free and close
@@ -197,7 +197,7 @@ void		bye_bye(t_minishell *mini);
 void		close_fds(int fd_bckp);
 int			invalid_space(char *input);
 void		close_fds_sys(void);
-void		bye_bye_shell(int status);
+void		bye_bye_shell(t_minishell *mini, int status);
 
 //utils
 int			ft_printf_fd(int fd, const char *type_format, ...);

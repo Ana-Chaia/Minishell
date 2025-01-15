@@ -6,13 +6,13 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 18:33:18 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:42:51 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	execute_others(t_ast *node)
+int	execute_others(t_ast *node, t_minishell *mini)
 {
 	int		status;
 
@@ -29,7 +29,7 @@ int	execute_others(t_ast *node)
 	}
 	node->exec_ready = ft_strdup(node->first_cmd);
 	find_executable(node);
-	status = execute_cmd(node);
+	status = execute_cmd(mini, node);
 	return (status);
 }
 
@@ -58,7 +58,7 @@ int	find_executable(t_ast *node)
 	return (-1);
 }
 
-int	execute_cmd(t_ast *node)
+int	execute_cmd(t_minishell *mini, t_ast *node)
 {
 	pid_t	pid;
 	int		status;
@@ -76,8 +76,7 @@ int	execute_cmd(t_ast *node)
 		if (execve(node->exec_ready, node->cmd_args, env_shellzito(NULL)))
 		{
 			status = gone_wrong(node);
-			bye_bye_shell(status);
-			//exit (status);
+			bye_bye_shell(mini, status);
 		}
 	}
 	waitpid(pid, &status, 0);

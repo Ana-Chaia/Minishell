@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:09:18 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/20 14:31:33 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:07:55 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	execution(t_ast *node, t_minishell *mini)
 	else if (is_builtin(node->content) == 1)
 		status = execute_builtin (node, mini);
 	else
-		status = execute_others (node);
+		status = execute_others (node, mini);
 	get_status(status);
 	return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:09:19 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/19 16:32:29 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:38:44 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	compare_to_env(char *name)
 		substr = ft_substr(env_shellzito_copy[i], 0, j);
 		if (ft_strcmp(substr, name) == 0)
 		{
+			free(substr);
 			return (42);
 		}
 		free(substr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:18:15 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/14 17:01:37 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:00:18 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	delete_variable(char *var)
 	char	**env;
 	int		x;
 	int		i;
+	char	*temp;
 
 	env = env_shellzito(NULL);
 	i = 0;
@@ -50,12 +51,15 @@ void	delete_variable(char *var)
 		x = 0;
 		while (env[i][x] != '=' && env[i][x] != '\0')
 			x++;
-		if (ft_strcmp(ft_substr(env[i], 0, x), var) == 0)
+		temp = ft_substr(env[i], 0, x);
+		if (ft_strcmp(temp, var) == 0)
 		{
 			remove_var(env, i);
+			free(temp);
 			break ;
 		}
 		i++;
+		free(temp);
 	}
 }
 

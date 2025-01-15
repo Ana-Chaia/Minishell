@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:11:02 by jbolanho          #+#    #+#             */
-/*   Updated: 2024/12/18 11:27:44 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:50:07 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	env(char **cmd)
 	if (cmd[1])
 	{
 		printf("no options or arguments");
-		return (0);
+		return (1);
 	}
 	our_env = env_shellzito(NULL);
 	while (our_env[i])
@@ -30,5 +30,5 @@ int	env(char **cmd)
 			printf("%s\n", our_env[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }
