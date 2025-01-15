@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 12:27:46 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:34:42 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	cd(char **cmd)
 {
 	char	*old_pwd;
-	char	*pwd;
+	//char	*pwd;
 	char	*path;
-	char	**our_env;
+	//char	**our_env;
 
-	our_env = env_shellzito(NULL);
+	//our_env = env_shellzito(NULL);
 	path = NULL;
-	pwd = NULL;
+	//pwd = NULL;
 	if (!cmd[1])
 		return (get_status(0));
 	if (cmd[2])
@@ -41,10 +41,11 @@ int	cd(char **cmd)
 		return (1);
 	}
 	free(path);
-	pwd = getcwd(NULL, 0);
-	vars_to_env(old_pwd, pwd, our_env);
+	//pwd = getcwd(NULL, 0);
+	//vars_to_env(old_pwd, pwd, our_env);
+	vars_to_env(old_pwd);
 	free (old_pwd);
-	free (pwd);
+	//free (pwd);
 	return (0);
 }
 
@@ -106,11 +107,15 @@ char	*get_path(char *path, char	*new)
 	return (new);
 }
 
-void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
+void	vars_to_env(char *old_pwd)
 {
 	char	*to_env;
 	int		i;
+	char	*pwd;
+	char	**our_env;
 
+	our_env = env_shellzito(NULL);
+	pwd = getcwd(NULL, 0);
 	i = search_in_env(our_env, "OLDPWD", old_pwd);
 	if (i == 0)
 	{
@@ -121,6 +126,7 @@ void	vars_to_env(char *old_pwd, char *pwd, char **our_env)
 		our_env[i + 1] = NULL;
 	}
 	search_in_env(our_env, "PWD", pwd);
+	free (pwd);
 }
 
 int	search_in_env(char **our_env, char *var, char *value)

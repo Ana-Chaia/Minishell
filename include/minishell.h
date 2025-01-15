@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 10:09:55 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:36:25 by jbolanho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char		**env_shellzito(char **our_env);
 	//cd
 int			cd(char **cmd);
 char		*get_path(char *path, char *new);
-void		vars_to_env(char *old_pwd, char *pwd, char **our_env);
+void		vars_to_env(char *old_pwd);
 char		*cd_aux(char **cmd);
 int			search_in_env(char **our_env, char *var, char *value);
 	//echo
