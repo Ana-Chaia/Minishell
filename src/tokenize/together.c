@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   together.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:51:46 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 17:05:32 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:38:01 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	malloc_cmd_args(t_token *united)
 		i++;
 		temp = temp->next;
 	}
-	united->cmd_args = (char **)malloc(sizeof(char *) * i + 1);
+	united->cmd_args = (char **)ft_calloc(sizeof(char *), i + 1);
 }
 
 void	change_type(t_token *united)

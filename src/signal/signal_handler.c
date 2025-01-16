@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:17:05 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 11:04:21 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:57:04 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 	{
 		dup2(std_in, STDIN_FILENO);
 		close(fd_heredoc);
+		close(std_in);
 	}
 	else
 	{
@@ -53,6 +54,7 @@ void	ctrld(int fd_heredoc, t_token *token_node, int std_in)
 			"warning: here-document delimited by end-of-file (wanted `%s')\n",
 			token_node->next->content);
 		close(fd_heredoc);
+		close(std_in);
 		get_status(0);
 		return ;
 	}

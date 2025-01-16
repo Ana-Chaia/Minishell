@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 12:58:21 by anacaro5          #+#    #+#             */
-/*   Updated: 2024/12/16 10:07:42 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:52:32 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_token	*create_node(char *input, int type, int idx, int flag)
 	int		x;
 
 	x = 0;
-	new = malloc(sizeof(t_token));
+	new = ft_calloc(sizeof(t_token), 1);
 	if (!new)
 		return (NULL);
 	substr = ft_substr(input, idx, flag);

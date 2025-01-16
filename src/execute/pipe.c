@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:11:40 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 17:02:26 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:47:01 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	child_process(int *task, t_ast *node, int nb_pid, t_minishell *mini)
 	}
 	status = execution(node, mini);
 	bye_bye(mini);
+	close_fds_sys();
 	rl_clear_history();
 	exit(status);
 }

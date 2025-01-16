@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:12:22 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/15 11:10:16 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:18:31 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_minishell	*init_minishell(t_minishell *mini)
 
 int	shellzito_on(t_minishell *mini)
 {
+	init_signal();
 	if (mini->input != NULL)
 	{
 		free(mini->input);
@@ -81,7 +82,6 @@ int	shellzito_on(t_minishell *mini)
 	clear_list(&(mini->tokenlist));
 	mini->tree = ast_builder(NULL, mini->tokenlist, 0);
 	execution(mini->tree, mini);
-	//free_mini(mini);
 	return (get_status(-1));
 }
 

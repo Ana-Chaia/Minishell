@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:07:47 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/13 14:07:50 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:52:02 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	token_d_quotes(t_token **token_list, int idx, char *input)
 	idx++;
 	while (input[idx] && input[idx] != '"')
 		idx++;
+	if (input[idx] == '\0')
+		return (idx);
 	end = (size_t)idx + 1;
 	make_lst(token_list, (create_node (input, D_QUOTES, start, end - start)),
 		start, (end - start));
@@ -37,6 +39,8 @@ int	token_s_quotes(t_token **token_list, int idx, char *input)
 	idx++;
 	while (input[idx] && input[idx] != '\'')
 		idx++;
+	if (input[idx] == '\0')
+		return (idx);
 	end = (size_t)idx + 1;
 	make_lst(token_list, (create_node (input, S_QUOTES, start, end - start)),
 		start, (end - start));
@@ -51,7 +55,7 @@ void	valid_quote(t_token **token_list, size_t start, size_t end, char *input)
 	curr = *token_list;
 	while (curr->next != NULL)
 		curr = curr->next;
-	if (input[start - 1] && (is_space (input[start - 1]) == 0))
+	if (start > 0 && input[start - 1] && (is_space (input[start - 1]) == 0))
 		curr->quote_issue_prev = 1;
 	if (input[end] && (is_space (input[end]) == 0))
 		curr->quote_issue_next = 1;

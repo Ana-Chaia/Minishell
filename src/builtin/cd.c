@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:19:34 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 13:34:42 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:05:21 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 int	cd(char **cmd)
 {
 	char	*old_pwd;
-	//char	*pwd;
 	char	*path;
-	//char	**our_env;
 
-	//our_env = env_shellzito(NULL);
-	path = NULL;
-	//pwd = NULL;
 	if (!cmd[1])
 		return (get_status(0));
 	if (cmd[2])
@@ -41,11 +36,8 @@ int	cd(char **cmd)
 		return (1);
 	}
 	free(path);
-	//pwd = getcwd(NULL, 0);
-	//vars_to_env(old_pwd, pwd, our_env);
 	vars_to_env(old_pwd);
 	free (old_pwd);
-	//free (pwd);
 	return (0);
 }
 
@@ -61,40 +53,27 @@ char	*cd_aux(char **cmd)
 				"cd: could not get the home directory\n");
 	}
 	else
-		path = get_path(cmd[1], NULL);
+		path = get_path(cmd[1], NULL, NULL);
 	return (path);
 }
 
-char	*get_path(char *path, char	*new)
+char	*get_path(char *path, char *new, char *temp)
 {
 	char	*x;
-	size_t	len;
-	char	*temp;
-	char	*temp2;
 
-	temp = NULL;
-	temp2 = NULL;
 	x = getcwd(NULL, 0);
 	if ((path[0] == '.') && (path[1] == '\0'))
 		new = ft_strdup(x);
 	else if ((path[0] == '.') && (path[1] && path[1] != '.'))
 	{
-		//len = (ft_strrchr(x, '/')) - x;
 		temp = ft_substr(path, 1, strlen(x) - 1);
 		new = ft_strjoin(x, temp);
 		free(temp);
 	}
 	else if ((path[0] == '.') && (path[1] == '.'))
-	{
-		len = (ft_strrchr(x, '/')) - x;
-		temp = ft_substr(x, 0, len);
-		temp2 = ft_substr(path, 2, ft_strlen(x) - 2);
-		new = ft_strjoin(temp, temp2);
-		free(temp);
-		free(temp2);
-	}
+		new = return_dir(x, path);
 	else if ((path[0] == '~') && (path[1] == '\0'))
-		new = getenv("HOME");
+		new = ft_strdup(getenv("HOME"));
 	else if ((path[0] == '~') && (path[1] != '\0'))
 	{
 		temp = ft_substr(path, 1, (ft_strlen(path) - 1));
@@ -104,6 +83,24 @@ char	*get_path(char *path, char	*new)
 	else
 		new = ft_strdup(path);
 	free(x);
+	return (new);
+}
+
+char	*return_dir(char *x, char *path)
+{
+	char	*temp;
+	char	*temp2;
+	size_t	len;
+	char	*new;
+
+	temp = NULL;
+	temp2 = NULL;
+	len = (ft_strrchr(x, '/')) - x;
+	temp = ft_substr(x, 0, len);
+	temp2 = ft_substr(path, 2, ft_strlen(x) - 2);
+	new = ft_strjoin(temp, temp2);
+	free(temp);
+	free(temp2);
 	return (new);
 }
 
@@ -127,28 +124,4 @@ void	vars_to_env(char *old_pwd)
 	}
 	search_in_env(our_env, "PWD", pwd);
 	free (pwd);
-}
-
-int	search_in_env(char **our_env, char *var, char *value)
-{
-	int		i;
-	char	*to_env;
-
-	to_env = NULL;
-	i = 0;
-	while (our_env[i])
-	{
-		if (ft_strncmp(our_env[i], var, ft_strlen(var)) == 0
-			&& our_env[i][ft_strlen(var)] == '=')
-		{
-			to_env = join_env(var, value);
-			if (!to_env)
-				return (0);
-			free(our_env[i]);
-			our_env[i] = to_env;
-			return (1);
-		}
-		i++;
-	}
-	return (i);
 }

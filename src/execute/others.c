@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 11:57:22 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 10:42:51 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:52:51 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	execute_cmd(t_minishell *mini, t_ast *node)
 	}
 	waitpid(pid, &status, 0);
 	wise_status(status);
-	return (WEXITSTATUS(status));
+	return (get_status(-1));
 }
 
 void	validate_cmd(char *cmd)
@@ -99,11 +99,11 @@ char	**split_path(void)
 	int		i;
 
 	i = 0;
-	path = getenv("PATH");
+	path_array = NULL;
+	path = get_path_env("PATH");
+	if (path == NULL)
+		return (path_array);
 	path_array = ft_split(path, ':');
-	while (path_array[i])
-	{
-		i++;
-	}
+	free(path);
 	return (path_array);
 }

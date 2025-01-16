@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 13:36:25 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:42:29 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,11 @@ char		**env_shellzito(char **our_env);
 //builtin
 	//cd
 int			cd(char **cmd);
-char		*get_path(char *path, char *new);
+char		*get_path(char *path, char *new, char *temp);
 void		vars_to_env(char *old_pwd);
 char		*cd_aux(char **cmd);
 int			search_in_env(char **our_env, char *var, char *value);
+char		*return_dir(char *x, char *path);
 	//echo
 int			echo(char **cmd);
 int			check_minus_nnnns(char *cmd);
@@ -186,6 +187,7 @@ void		wise_status(int status);
 void		validate_cmd(char *cmd);
 int			execute_cmd(t_minishell *mini, t_ast *node);
 int			find_executable(t_ast *node);
+char		*get_path_env(char *name);
 
 //free and close
 void		free_tokenlist(t_token *tokenlist);

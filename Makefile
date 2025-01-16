@@ -27,6 +27,7 @@ SRC = 	./src/main.c \
 		./src/builtin/pwd.c \
 		./src/builtin/exit.c \
 		./src/builtin/cd.c \
+		./src/builtin/cd_utils.c \
 		./src/builtin/env.c \
 		./src/execute/exec.c \
 		./src/execute/pipe.c \

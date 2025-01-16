@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:08:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/13 14:08:41 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:28:42 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	filling_a_file(int fd_heredoc, t_token *token_node, int std_in)
 	{
 		free(hd_input);
 		close(fd_heredoc);
+		close(std_in);
 	}
 }
 
