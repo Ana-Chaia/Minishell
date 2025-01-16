@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 17:58:23 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 10:04:58 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:35:37 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	invalid_space(char *input)
 
 void	close_fds_sys(void)
 {
+	close(2);
 	close(3);
+	close(4);
+	close(5);
 	close(103);
 	close(39);
 	close(38);

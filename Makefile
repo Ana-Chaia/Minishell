@@ -87,3 +87,5 @@ val: $(NAME)
 re: fclean all
 
 .PHONY: all clean fclean re
+
+#--track-fds=yes --trace-children-skip='*/bin/*,*/sbin/*' 
