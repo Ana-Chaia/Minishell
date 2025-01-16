@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 11:39:11 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/15 21:33:39 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:22:22 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	wise_status(int status)
 {
 	if (WIFSIGNALED(status))
 	{
-		printf("status wise status: %d\n", status);
 		status = WTERMSIG(status);
 		if (status == SIGINT)
 			get_status(130);

@@ -6,7 +6,7 @@
 /*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:06:03 by anacaro5          #+#    #+#             */
-/*   Updated: 2025/01/15 19:42:29 by anacaro5         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:04:29 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ char		*find_dollar(char *cmd);
 char		*handle_dollar(char *cmd, int *i, char *new);
 char		*change_dollar(char *cmd, int start, int end);
 char		*cut_value(char *name, char **env, int i, int j);
+char		*append_to_new(char *new, char *name);
+char		*handle_variable(char *cmd, int *i, char **temp);
 
 //env
 void		copy_env(void);

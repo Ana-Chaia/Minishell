@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   across_the_universe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbolanho <jbolanho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anacaro5 <anacaro5@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:59:39 by jbolanho          #+#    #+#             */
-/*   Updated: 2025/01/14 17:04:03 by jbolanho         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:06:58 by anacaro5         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ char	*find_dollar(char *cmd)
 char	*handle_dollar(char *cmd, int *i, char *new)
 {
 	char	*value;
-	int		start;
+	char	*temp;
 
 	value = NULL;
+	temp = NULL;
 	(*i)++;
 	if (validate_name (&cmd[*i]) != 1 && cmd[*i] != '?')
 		value = ft_strdup("$");
@@ -78,58 +79,42 @@ char	*handle_dollar(char *cmd, int *i, char *new)
 		(*i)++;
 	}
 	else
-	{
-		start = *i - 1;
-		while (cmd[*i] != '\0' && cmd[*i] != ' ' && cmd[*i] != '$')
-			(*i)++;
-		value = change_dollar(cmd, start, *i - 1);
-	}
+		value = handle_variable(cmd, i, &temp);
 	if (value)
-	{
-		new = ft_strjoin(new, value);
-		free(value);
-	}
+		new = append_to_new(new, value);
+	if (temp)
+		new = append_to_new(new, temp);
 	return (new);
 }
 
-char	*change_dollar(char *cmd, int start, int end)
+char	*append_to_new(char *new, char *name)
 {
-	char	*name;
-	char	*value;
-	char	**our_env;
+	char	*new1;
 
-	name = ft_substr(cmd, (start + 1), (end - start));
-	our_env = env_shellzito(NULL);
-	value = cut_value (name, our_env, 0, 0);
-	free (name);
-	return (value);
+	new1 = new;
+	new = ft_strjoin(new1, name);
+	free(new1);
+	free(name);
+	return (new);
 }
 
-char	*cut_value(char *name, char **env, int i, int j)
+char	*handle_variable(char *cmd, int *i, char **temp)
 {
 	char	*value;
-	char	*temp;
-	char	*temp2;
+	int		start;
+	int		j;
 
-	value = NULL;
-	while (env[i])
+	start = *i - 1;
+	while (cmd[*i] != '\0' && cmd[*i] != ' ' && cmd[*i] != '$'
+		&& cmd[*i] != '\'' && cmd[*i] != '"')
+		(*i)++;
+	value = change_dollar(cmd, start, *i - 1);
+	if (cmd[*i] == '\'' || cmd[*i] == '"')
 	{
-		j = 0;
-		while (env[i][j] != '=' && env[i][j] != '\0')
-			j++;
-		temp = ft_substr(env[i], 0, j);
-		if (ft_strcmp(temp, name) == 0)
-		{
-			if (env[i][j + 1] && env[i][j + 2])
-			{
-				temp2 = ft_substr(env[i], (j + 1), (ft_strlen(env[i]) - j));
-				value = temp2;
-				free (temp);
-			}
-			return (value);
-		}
-		free (temp);
-		i++;
+		j = *i;
+		while (cmd[*i] != '\0' && cmd[*i] != ' ' && cmd[*i] != '$')
+			(*i)++;
+		*temp = ft_substr(cmd, j, *i);
 	}
 	return (value);
 }

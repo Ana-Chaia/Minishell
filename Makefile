@@ -16,6 +16,7 @@ SRC = 	./src/main.c \
 		./src/signal/signal_exec.c\
 		./src/signal/signal_handler.c \
 		./src/expand_vars/across_the_universe.c \
+		./src/expand_vars/expand_utils.c \
 		./src/ast/ast.c \
 		./src/ast/ast_builder.c \
 		./src/builtin/echo.c \
